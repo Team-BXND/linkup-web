@@ -9,12 +9,23 @@ interface INavTab {
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
   padding: 36px 40px;
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 32px
+  }
 `
 
 export const Logo = styled(Logo_Row)`
   width: auto;
   height: 40px;
+  cursor: pointer;
 `
 
 export const NavContainer = styled.div`
@@ -33,4 +44,9 @@ export const NavTab = styled(Link)<INavTab>`
   padding: 8px 30px;
   border-radius: 1000px;
   color: #fff;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 4px 0px;
+  }
 `
