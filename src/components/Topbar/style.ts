@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo_Row from "@/assets/Logo/Logo_Row.svg?react"
+import Logo_Row from "@/assets/Logo/LogoRow.svg?react"
 import { Link } from "react-router-dom";
 
 interface INavTab {
