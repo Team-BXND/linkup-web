@@ -1,37 +1,24 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import App from "./App";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
 import Ranking from "@/pages/ranking";
 import QnA from "@/pages/qna";
+import Layout from "@/layout/Layout/index";
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to='home' />
-      },
-      {
-        path: 'home',
-        element: <Home />
-      },
-      {
-        path: 'qna',
-        element: <QnA />
-      },
-      {
-        path: 'ranking',
-        element: <Ranking />
-      },
-      {
-        path: 'profile',
-        element: <Profile />
-      },
-    ]
-  },
-])
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Navigate replace to="home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/qna" element={<QnA />} />
+          <Route path="/ranking" element={<Ranking />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
-export default router;
+export default Router;

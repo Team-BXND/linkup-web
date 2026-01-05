@@ -1,13 +1,13 @@
 import { ThemeProvider } from "styled-components"
 import { lightTheme } from "@/styles/theme"
 import GlobalStyle from "@/styles/GlobalStyle"
-import Layout from "@/layout/Layout"
+import Router from "./router"
 
 function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
-      <Layout />
+      <Router />
     </ThemeProvider>
   )
 }
