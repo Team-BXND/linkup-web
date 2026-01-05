@@ -33,14 +33,14 @@ export const NavContainer = styled.div`
   gap: -10px;
   padding: 4px;
   border-radius: 1000px;
-  background-color: rgba(2, 81, 255, 0.3);
+  background-color: #0251FF4D;
 `
 
 export const NavTab = styled(Link)<INavTab>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.active ? `rgba(60, 121, 255, 0.4)` : `rgba(0, 0, 0, 0)`};
+  background-color: ${(props) => props.active ? `#3C79FF66` : `#00000000`};
   padding: 8px 30px;
   border-radius: 1000px;
   color: #fff;
