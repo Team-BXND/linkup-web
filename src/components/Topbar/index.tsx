@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./style"
 import { Tabs } from "@/constants/navigation.constants";
+import { Caption } from "@/components/Text";
 
 function Topbar() {
   const location = useLocation();
@@ -12,7 +13,9 @@ function Topbar() {
       <S.NavContainer>
         {Tabs.map((elem) => {
           return (
-            <S.NavTab to={elem.path} active={location.pathname.includes(elem.path)}>{elem.text}</S.NavTab>
+            <S.NavTab to={elem.path} active={location.pathname.includes(elem.path)}>
+              <Caption size="lg" weight="medium">{elem.text}</Caption>
+            </S.NavTab>
           )
         })}
         
