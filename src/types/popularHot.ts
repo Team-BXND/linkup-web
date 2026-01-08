@@ -1,6 +1,6 @@
 type PopularHotCategory = 'all' | 'code' | 'school' | 'project';
 
-interface PopularHotItem {
+export interface PopularHotItem {
   id: number;
   title: string;
   author: string;
@@ -12,7 +12,7 @@ interface PopularHotItem {
   createdAt: string; //(YYYY-MM-DD)
 }
 
-interface PopularHotMeta {
+export interface PopularHotMeta {
   total: number;
   page: number;
   pageSize: number;
