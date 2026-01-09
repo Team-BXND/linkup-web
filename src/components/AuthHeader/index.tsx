@@ -1,4 +1,3 @@
-import { Display } from "@/components/Text";
 import * as S from "./style"
 
 interface AuthHeaderProps {
