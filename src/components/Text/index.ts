@@ -27,7 +27,7 @@ const createText = (variant: 'display' | 'title' | 'body' | 'caption') => styled
     return fontSizeGroup[props.size] || fontSizeGroup['md'] || fontSizeGroup['default'];
   }};
   
-  font-weight: ${({ weight }) => weight || 'medium'};
+  font-weight: ${(props) => props.theme.typography.fontWeight[props.weight] || 'medium'};
 `;
 
 /* 텍스트 컴포넌트 생성 */
