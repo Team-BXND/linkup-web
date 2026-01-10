@@ -1,6 +1,7 @@
 import type { Theme } from '@/types/theme';
 
 
+/* 디자인 시스템의 텍스트 스타일을 정리한 Object입니다. */
 const Typography = {
   fontSize: {
     display: {
@@ -29,38 +30,65 @@ const Typography = {
   },
 }
 
+/* lightTheme과 darkTheme에서 공통으로 사용되는 컬러를 정리한 Object입니다. */
+const Color = {
+  main: {
+    mainColor: '#3C79FF',
+    subColor: '#5587F6',
+  },
+  button: {
+    text: {
+      primary: '#FAFAFA',
+    },
+  },
+  line: {
+    light: '#ADADAD40',
+  },
+  status: {
+    info: '#59A9FF',
+    success: '#14C14E',
+    error: '#FF5959',
+    warn: '#FFAA00',
+    disabled: '#E6E6E6',
+  }
+}
+
+/* lightTheme입니다. Typography와 Color의 내용을 상속받습니다. */
 export const lightTheme: Theme = {
-  mainColor: '#3C79FF',
-  subColor: '#5587F6',
-  bgPrimary: '#fff',
-  bgSecondary: '#FBFBFB',
-  textPrimary: '#1B1B1B',
-  textSecondary: '#ADADAD',
-  btnTextPrimary: '#FAFAFA',
-  lineLight: '#ADADAD40',
-  statusInfo: '#59A9FF',
-  statusSuccess: '#14C14E',
-  statusError: '#FF5959',
-  statusWarn: '#FFAA00',
-  statusDisabled: '#E6E6E6',
+  color: {
+    main: Color.main,
+    background: {
+      primary: '#fff',
+      secondary: '#FBFBFB',
+    },
+    text: {
+      primary: '#1B1B1B',
+      secondary: '#ADADAD',
+    },
+    button: Color.button,
+    line: Color.line,
+    status: Color.status,
+  },
   
   typography: Typography,
 };
 
+/* darkTheme입니다.. Typography와 Color의 내용을 상속받습니다. */
 export const darkTheme: Theme = {
-  mainColor: '#5587F6',
-  subColor: '#3C79FF',
-  bgPrimary: '#222222',
-  bgSecondary: '#1B1B1B',
-  textPrimary: '#FAFAFA',
-  textSecondary: '#C8C7C7',
-  btnTextPrimary: '#FAFAFA',
-  lineLight: '#ADADAD40',
-  statusInfo: '#59A9FF',
-  statusSuccess: '#14C14E',
-  statusError: '#FF5959',
-  statusWarn: '#FFAA00',
-  statusDisabled: '#E6E6E6',
+  color: {
+    main: Color.main,
+    background: {
+      primary: '#222222',
+      secondary: '#1B1B1B',
+    },
+    text: {
+      primary: '#FAFAFA',
+      secondary:  '#C8C7C7',
+    },
+    button: Color.button,
+    line: Color.line,
+    status: Color.status,
+  },
 
   typography: Typography,
 };
