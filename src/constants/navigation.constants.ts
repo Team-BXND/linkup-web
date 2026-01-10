@@ -1,6 +1,6 @@
 export const Tabs = [
   {
-    path: 'home',
+    path: '/',
     text: "Home"
   },
   {

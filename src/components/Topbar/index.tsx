@@ -13,7 +13,7 @@ function Topbar() {
       <S.NavContainer>
         {Tabs.map((elem) => {
           return (
-            <S.NavTab to={elem.path} active={location.pathname.includes(elem.path)}>
+            <S.NavTab to={elem.path} active={elem.path === "/" ? location.pathname === "/" : location.pathname.slice(1).startsWith(elem.path)}>
               <Caption size="lg" weight="medium">{elem.text}</Caption>
             </S.NavTab>
           )
