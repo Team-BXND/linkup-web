@@ -12,8 +12,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Navigate replace to="home" />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/qna" element={<QnA />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/profile" element={<Profile />} />
