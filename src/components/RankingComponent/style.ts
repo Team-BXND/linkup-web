@@ -14,6 +14,7 @@ export const TopRankSection = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    box-shadow: 0px 2px 4px -1px #0c0c0d1a, 0px 2px 4px -1px #0c0c0d0d;
 `
 
 export const TopRankContainer = styled.div`
@@ -33,4 +34,5 @@ export const BottomRankSection = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
+    box-shadow: 0px 2px 4px -1px #0c0c0d1a, 0px 2px 4px -1px #0c0c0d0d;
 `

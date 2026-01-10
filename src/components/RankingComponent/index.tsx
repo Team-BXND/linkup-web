@@ -4,7 +4,7 @@ import { rankingData } from '@/constants/ranking.constants';
 import TopRankItem from '../TopRankItem';
 import BottomRankItem from '../BottomRankItem';
 
-function Ranking() {
+function RankingComponent() {
   return (
     <S.Container>
       <S.TopRankContainer>
@@ -23,4 +23,4 @@ function Ranking() {
   );
 }
 
-export default Ranking;
+export default RankingComponent;
