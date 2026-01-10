@@ -12,7 +12,7 @@ function TopRankItem({item}:{item:Ranking}) {
         <S.RankItemDetail>
 
             <S.Rank rank={item.rank}>
-            <Body size="md" weight="semibold">{item.username}</Body>
+            <Body size="md" weight="semibold">{item.rank}st</Body>
             </S.Rank>
 
             <S.Username rank={item.rank}>

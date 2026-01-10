@@ -3,3 +3,7 @@ export interface Ranking {
     username: string;
     point: number;
 }
+
+export interface RankingResponse {
+    data: Ranking[];
+}
