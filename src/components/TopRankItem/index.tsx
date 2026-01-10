@@ -1,5 +1,5 @@
 import * as S from './style';
-import type {Ranking} from '@/types/Ranking';
+import type {Ranking} from '@/types/ranking';
 import {Body,Title} from '../Text';
 import RankIcon from '../RankIcon';
 
@@ -18,7 +18,7 @@ function TopRankItem({item}:{item:Ranking}) {
             <S.Username rank={item.rank}>
             <Title size="lg" weight="bold">{item.username}</Title>
             </S.Username>
-            
+
             <Body size="md" weight="medium">{item.point}</Body>
         </S.RankItemDetail>
     </S.RankItemContainer>
