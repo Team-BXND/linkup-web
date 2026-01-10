@@ -26,20 +26,43 @@ interface Typography {
   },
 }
 
+export interface Color {
+  main: {
+    mainColor: string;
+    subColor: string;
+  };
+  button: {
+    text: {
+      primary: string;
+    };
+  };
+  line: {
+    light: string;
+  };
+  status: {
+    info: string;
+    success: string;
+    error: string;
+    warn: string;
+    disabled: string;
+  };
+}
+
 export interface Theme {
-  mainColor: string,
-  subColor: string,
-  bgPrimary: string,
-  bgSecondary: string,
-  textPrimary: string,
-  textSecondary: string,
-  btnTextPrimary: string,
-  lineLight: string,
-  statusInfo: string,
-  statusSuccess: string,
-  statusError: string,
-  statusWarn: string,
-  statusDisabled: string,
+  color: {
+    main: Color["main"];
+    background: {
+      primary: string;
+      secondary: string;
+    };
+    text: {
+      primary: string;
+      secondary: string;
+    };
+    button: Color["button"];
+    line: Color["line"];
+    status: Color["status"];
+  };
 
   typography: Typography,
 }

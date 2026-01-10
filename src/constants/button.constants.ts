@@ -7,14 +7,14 @@ const ButtonToken = (theme: Theme) => ({
   },
   color: {
     default: {
-      background: theme.subColor,
+      background: theme.color.main.subColor,
       stroke: 'none',
-      text: theme.btnTextPrimary
+      text: theme.color.button.text.primary
     },
     negative: {
-      background: theme.bgPrimary,
-      stroke: `1px solid ${theme.subColor}`,
-      text: theme.subColor
+      background: theme.color.background.primary,
+      stroke: `1px solid ${theme.color.main.subColor}`,
+      text: theme.color.main.subColor
     }
   }
 })

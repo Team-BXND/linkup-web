@@ -13,7 +13,7 @@ export const Input = styled.input<InputProps>`
   font-size: ${(props) => props.size === 'lg' ? '1.25rem' : '0.625rem'};
   font-weight: 500;
   color: ${(props) => {
-    return props.theme.textPrimary
+    return props.theme.color.text.primary
   }};
   border: ${(props) => {
     if (props.status === 'default') {
@@ -23,7 +23,7 @@ export const Input = styled.input<InputProps>`
   }};
   &::placeholder {
     color: ${(props) => {
-      return props.theme.textSecondary
+      return props.theme.color.text.secondary
     }};
   }
 `

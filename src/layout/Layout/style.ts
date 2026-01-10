@@ -6,6 +6,6 @@ export const Container = styled.div`
   gap: 24px;
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => props.theme.bgSecondary};
+  background-color: ${(props) => props.theme.color.background.secondary};
   padding: 136px 48px 48px 48px;
 `

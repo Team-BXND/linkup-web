@@ -41,5 +41,5 @@ export const AuthInput = styled(Input)`
 `
 
 export const ErrorMsg = styled(Caption)`
-  color: ${(props) => props.theme.statusError};
+  color: ${(props) => props.theme.color.status.error};
 `
