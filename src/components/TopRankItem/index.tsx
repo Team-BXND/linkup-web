@@ -16,10 +16,10 @@ function TopRankItem({item}:{item:Ranking}) {
             </S.Rank>
 
             <S.Username rank={item.rank}>
-            <Title size="lg" weight="bold">{item.username}</Title>
+            <Title size={item.rank === 1 ? "lg" : "md"} weight="bold">{item.username}</Title>
             </S.Username>
 
-            <Body size="md" weight="medium">{item.point}</Body>
+            <Body size="md" weight="medium">포인트{item.point}점</Body>
         </S.RankItemDetail>
     </S.RankItemContainer>
     )

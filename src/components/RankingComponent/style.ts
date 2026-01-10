@@ -21,9 +21,9 @@ export const TopRankContainer = styled.div`
     width:100%;
     max-width:1352px;
     display:flex;
-    align-items:flex-start;
+    align-items:flex-end;
     justify-content:center;
-    gap:120p;
+    gap:120px;
 `
 
 export const BottomRankSection = styled.div`
