@@ -7,7 +7,7 @@ export const Question = styled.div`
   width: 100%;
   max-width: 1352px;
 
-  border: 1px solid ${({ theme }) => theme.lineLight};
+  border: 1px solid ${({ theme }) => theme.color.line.light};
   border-radius: 12px;
 
   display: flex;
@@ -16,7 +16,7 @@ export const Question = styled.div`
   gap: 20px;
 
   &:hover {
-    outline: 3px solid ${({ theme }) => theme.mainColor};
+    outline: 3px solid ${({ theme }) => theme.color.main.mainColor};
   }
 `;
 
@@ -32,7 +32,7 @@ export const RankBadge = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0px;
-  color: ${({ theme }) => theme.bgPrimary};
+  color: ${({ theme }) => theme.color.background.primary};
 `;
 
 export const QuestionContent = styled.div`
@@ -52,7 +52,7 @@ export const ContentTitle = styled.div`
   max-width: 1236px;
   min-height: 29px;
 
-  color: ${({ theme }) => theme.textPrimary};
+  color: ${({ theme }) => theme.color.text.primary};
 `;
 
 export const ContentPreview = styled.div`
@@ -61,7 +61,7 @@ export const ContentPreview = styled.div`
   min-height: 21px;
 
   & > span {
-    color: ${({ theme }) => theme.textSecondary};
+    color: ${({ theme }) => theme.color.text.secondary};
   }
 `;
 
@@ -85,7 +85,7 @@ export const AnswerWrapper = styled.div`
   gap: 6px;
 
   & > span {
-    color: ${({ theme }) => theme.textSecondary};
+    color: ${({ theme }) => theme.color.text.secondary};
   }
 `;
 
