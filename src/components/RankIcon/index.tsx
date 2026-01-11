@@ -6,13 +6,19 @@ import thirdrank from '../../assets/Ranking/thirdrank.png';
 function RankIcon({ rank }: { rank: number }) {
     let iconSrc = '';
     
-    if (rank === 1) {
-        iconSrc = firstrank;
-    } else if (rank === 2) {
-        iconSrc = secondrank;;
-    } else if (rank === 3) {
-        iconSrc = thirdrank
-    } 
+    switch (rank) {
+        case 1:
+            iconSrc = firstrank;
+            break;
+        case 2:
+            iconSrc = secondrank;
+            break;
+        case 3:
+            iconSrc = thirdrank;
+            break;
+        default:
+            iconSrc = '';
+    }
     return <S.RankIcon src={iconSrc} rank={rank} />;
 }
 
