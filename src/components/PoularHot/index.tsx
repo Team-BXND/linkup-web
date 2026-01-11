@@ -11,7 +11,7 @@ function PopularHot() {
       </Title>
       <S.QuestionsList>
         {popularHot.data.map((item, key) => (
-          <QuestionItem item={item} index={key}></QuestionItem>
+          <QuestionItem item={item} index={key} showRank={true}></QuestionItem>
         ))}
       </S.QuestionsList>
     </S.Container>

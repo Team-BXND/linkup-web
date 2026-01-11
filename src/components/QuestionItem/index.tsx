@@ -5,17 +5,21 @@ import { Body, Caption, Title } from '../Text';
 function QuestionItem({
   item,
   index,
+  showRank,
 }: {
   item: PopularHotItem;
   index: number;
+  showRank: boolean;
 }) {
   return (
     <S.Question key={item.id}>
-      <S.RankBadge>
-        <Body size="md" weight="semibold">
-          {index + 1}
-        </Body>
-      </S.RankBadge>
+      {showRank && (
+        <S.RankBadge>
+          <Body size="md" weight="semibold">
+            {index + 1}
+          </Body>
+        </S.RankBadge>
+      )}
       <S.QuestionContent>
         <S.ContentTitle>
           <Title size="xsm" weight="bold">
