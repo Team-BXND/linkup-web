@@ -6,6 +6,7 @@ import QnA from "@/pages/qna";
 import Layout from "@/layout/Layout";
 import Auth from "@/layout/Auth";
 import Signup from "@/pages/signup";
+import Login from "@/pages/login";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         </Route>
         <Route element={<Auth />}>
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
