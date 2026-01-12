@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
 
-const COOKIE_DUETIME = 12;
+const COOKIE_DUETIME = 7;
 
 export const cookie = {
   set(name: string, value: string) {
-    const expires = new Date(Date.now() + COOKIE_DUETIME * 60 * 60 * 1000);
+    const expires = new Date(Date.now() + COOKIE_DUETIME * 24 * 60 * 60 * 1000);
     Cookies.set(name, value, { expires });
   },
 
