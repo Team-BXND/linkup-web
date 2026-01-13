@@ -17,9 +17,9 @@ export const RankItemDetail=styled.div`
 `
 
 export const Rank=styled.div<{rank:number}>`
-    color: ${({rank, theme})=> rank === 1 ? theme.mainColor : theme.textPrimary};
+    color: ${({rank, theme})=> rank === 1 ? theme.color.main.mainColor : theme.color.text.primary};
 `
 
 export const Username=styled.div<{rank:number}>`
-    color: ${({rank, theme})=> rank === 1 ? theme.mainColor : theme.textPrimary};
+    color: ${({rank, theme})=> rank === 1 ? theme.color.main.mainColor : theme.color.text.primary};
 `

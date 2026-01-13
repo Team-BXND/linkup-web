@@ -11,5 +11,5 @@ export const RankItemContainer=styled.div`
 `
 
 export const Rank=styled.div`
-    color: ${({ theme }) => theme.mainColor};
+    color: ${({ theme }) => theme.color.main.mainColor};
 `
