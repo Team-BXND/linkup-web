@@ -50,7 +50,7 @@ export const ContentTitle = styled.div`
 `;
 
 export const ContentPreview = styled.div`
-  width: 100vw;
+  width: 100%;
 
   & > span {
     color: ${({ theme }) => theme.color.text.secondary};
@@ -58,7 +58,7 @@ export const ContentPreview = styled.div`
 `;
 
 export const ContentMetaInfo = styled.div`
-  width: 100vw;
+  width: 100%;
 
   display: flex;
   flex-direction: row;
