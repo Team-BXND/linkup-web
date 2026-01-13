@@ -7,16 +7,19 @@ import Layout from "@/layout/Layout";
 import Auth from "@/layout/Auth";
 import Signup from "@/pages/signup";
 import Login from "@/pages/login";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/qna" element={<QnA />} />
-          <Route path="/ranking" element={<Ranking />} />
-          <Route path="/profile" element={<Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/qna" element={<QnA />} />
+            <Route path="/ranking" element={<Ranking />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Route>
         <Route element={<Auth />}>
           <Route path="/signup" element={<Signup />} />
