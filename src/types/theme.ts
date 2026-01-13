@@ -48,6 +48,12 @@ export interface Color {
   };
 }
 
+interface Shadow {
+  hard: string,
+  medium: string,
+  soft: string
+}
+
 export interface Theme {
   color: {
     main: Color["main"];
@@ -63,6 +69,8 @@ export interface Theme {
     line: Color["line"];
     status: Color["status"];
   };
+
+  shadow: Shadow,
 
   typography: Typography,
 }

@@ -53,6 +53,12 @@ const Color = {
   }
 }
 
+const Shadow = {
+  hard: '0px 2px 4px 0px #0C0C0D26, 0px 2px 4px 0px #0C0C0D1A',
+  medium: '0px 2px 4px -1px #0C0C0D0D, 0px 2px 4px -1px #0C0C0D1A',
+  soft: 'box-shadow: 0px 2px 4px -1px #0C0C0D1A;'
+}
+
 /* lightTheme입니다. Typography와 Color의 내용을 상속받습니다. */
 export const lightTheme: Theme = {
   color: {
@@ -69,6 +75,8 @@ export const lightTheme: Theme = {
     line: Color.line,
     status: Color.status,
   },
+
+  shadow: Shadow,
   
   typography: Typography,
 };
@@ -89,6 +97,8 @@ export const darkTheme: Theme = {
     line: Color.line,
     status: Color.status,
   },
+
+  shadow: Shadow,
 
   typography: Typography,
 };
