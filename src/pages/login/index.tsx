@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import * as S from "./style"
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useLogin } from "@/hooks/Auth/useLogin";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/constants/token.constants";
+import { publicAxios } from "@/libs/customAxios";
 const SERVER_URL = import.meta.env.SERVER_URL;
 
 type FormValues = {
@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    axios.post(`${SERVER_URL}/auth/signin`, {
+    publicAxios.post(`${SERVER_URL}/auth/signin`, {
       email: data.email,
       password: data.password
     })
