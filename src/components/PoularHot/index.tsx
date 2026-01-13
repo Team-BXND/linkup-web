@@ -1,5 +1,4 @@
 import * as S from './style';
-import { popularHot } from '@/constants/popularHot.constants';
 import { Title } from '../Text';
 import QuestionItem from '../QuestionItem';
 import { publicAxios } from '@/libs/customAxios';
