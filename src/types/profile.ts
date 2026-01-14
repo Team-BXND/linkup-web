@@ -1,4 +1,4 @@
-type ProfileCategory = 'all' | 'code' | 'school' | 'project';
+export type ProfileCategory = 'all' | 'code' | 'school' | 'project';
 
 export interface ProfileMyinfo {
     username:string;
