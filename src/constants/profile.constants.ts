@@ -1,5 +1,13 @@
 import type { ProfileMyAnswerResponse } from "@/types/profile";
 import type { ProfileMyQuestionResponse } from "@/types/profile";
+import type { ProfileMyInfo } from "@/types/profile";
+
+export const myProfile:ProfileMyInfo = {
+    username:"Hwang Kyung Min",
+    email:"123456789@gmail.com",
+    point:1200,
+    rank:15
+}
 
 export const myAnswer:ProfileMyAnswerResponse = {
     data:[

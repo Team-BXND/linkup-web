@@ -1,13 +1,13 @@
 import * as S from './style';
 import { Title } from '../Text';
 import { Button } from '../Button';
-import ProfileItem from '../ProfileItem';
-import type { ProfileMyinfo } from '@/types/profile';
+import ProfileItem from '../MyProfileItem';
+import type { ProfileMyInfo } from '@/types/profile';
 
-function Profile(item:ProfileMyinfo) {
+function MyProfile({item}:{item:ProfileMyInfo}) {
     return(
         <S.ProfileContainer>
-            <Title size="md" weight="bold">Profile</Title>
+            <Title size="md" weight="bold">프로필</Title>
 
             <S.DetailCover>
             <ProfileItem subtitle="닉네임" content={item.username}/>
@@ -16,7 +16,7 @@ function Profile(item:ProfileMyinfo) {
             <ProfileItem subtitle="포인트" content={item.point}/>
 
             <S.ButtonCover>
-            <Button size="lg" color="default">로그아웃</Button>
+            <Button size="md" color="default">로그아웃</Button>
             </S.ButtonCover>
 
 
@@ -26,4 +26,4 @@ function Profile(item:ProfileMyinfo) {
     )
 }
 
-export default Profile;
+export default MyProfile;

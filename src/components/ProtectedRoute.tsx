@@ -4,15 +4,16 @@ import { Navigate, Outlet } from "react-router-dom";
 
 function ProtectedRoute() {
   const accessToken = cookie.get(ACCESS_TOKEN_KEY);
-  if (!accessToken) {
-    return (
-      <Navigate to="/login" replace />
-    )
+
+  if (import.meta.env.DEV) {
+    return <Outlet />;
   }
 
-  return (
-    <Outlet />
-  )
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 }
 
 export default ProtectedRoute;

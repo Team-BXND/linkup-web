@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const MyAnswer=styled.div`
-    width:100%;
-    max-width:692px;
-    height:100%;
-    max-height:387px;
+    width:100vw;
+    max-width:628px;
+    height:387px;
+
     padding:32px;
     gap:24px;
 
@@ -18,8 +18,8 @@ export const TitleCover=styled.div`
     max-width:628px;
 
     display:flex;
-    align-items:flex-start;
     justify-content:space-between;
+    align-items:flex-end;
 `
 
 export const More=styled.div`
@@ -28,12 +28,12 @@ export const More=styled.div`
 
 
 export const DetailCover=styled.div`
-    width:100%;
-    max-width:628px;
-    height:100%;
-    max-height:261px;
-
     display:flex;
     flex-direction:column;
     gap:12px;
+`
+
+export const ScrollArea=styled.div`
+    flex:1;
+    overflow-y:auto;
 `

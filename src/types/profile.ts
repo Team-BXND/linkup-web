@@ -1,6 +1,6 @@
 export type ProfileCategory = 'all' | 'code' | 'school' | 'project';
 
-export interface ProfileMyinfo {
+export interface ProfileMyInfo {
     username:string;
     email:string;
     point:number;

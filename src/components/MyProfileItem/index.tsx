@@ -1,19 +1,18 @@
 import * as S from "./style"
 import { Body } from "../Text"
 
-function ProfileItem({ subtitle, content }: { subtitle: string; content: string | number }) {
+function MyProfileItem({ subtitle, content }: { subtitle: string; content: string | number }) {
     return (
         <S.ProfileItem>
-            <S.ProfileSubtitle>
+                <S.ProfileSubtitle>
                 <Body size="sm" weight="medium">{subtitle}</Body>
+                </S.ProfileSubtitle>
 
                 <S.ProfileContent subtitle={subtitle}>
                 <Body size="md" weight="semibold">{content}</Body>
                 </S.ProfileContent>
-
-            </S.ProfileSubtitle>
         </S.ProfileItem>
     );
 }
 
-export default ProfileItem;
+export default MyProfileItem;

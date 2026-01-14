@@ -9,6 +9,7 @@ export const QuestionMeta=styled.div`
 
 export const MetaItem=styled.div`
     display:flex;
+    align-items:center;
     gap:6px;
 `
 

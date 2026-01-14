@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const MyQuestion=styled.div`
-    width:100%;
-    max-width:692px;
-    height:100%;
-    max-height:798px;
+    width:100vw;
+    max-width:628px;
+
     padding:32px;
     gap:24px;
 
@@ -18,7 +17,7 @@ export const TitleCover=styled.div`
     max-width:628px;
 
     display:flex;
-    align-items:flex-start;
+    align-items:flex-end;
     justify-content:space-between;
 `
 
@@ -30,4 +29,6 @@ export const DetailCover=styled.div`
     display:flex;
     flex-direction:column;
     gap:16px;
+
+    width:100%;
 `

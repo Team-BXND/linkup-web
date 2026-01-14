@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const MyAnswerItem=styled.div`
-    width:100%;
     max-width:628px;
+
     padding:12px;
     gap:12px;
 
@@ -18,9 +18,10 @@ export const MyAnswerItem=styled.div`
 `
 
 export const QuestionCover=styled.div`
-    padding:8px;
+    padding:6px 8px;
     gap:8px;
     display:flex;
+    align-items:center;
     border-radius:12px;
     border:1px solid ${({ theme })=>theme.color.line.light};
 `

@@ -8,7 +8,7 @@ export const ProfileItem=styled.div`
 `
 
 export const ProfileSubtitle=styled.div`
-    Color:theme.color.text.secondary;
+    color:${({ theme })=>theme.color.text.secondary };
 `
 
 export const ProfileContent=styled.div<{subtitle:string}>`

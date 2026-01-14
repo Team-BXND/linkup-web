@@ -1,7 +1,7 @@
 import * as S from './style';
 import { Caption } from '../Text';
 import answer from '@/assets/Profile/answer.png';
-import like from '@/assets/Profile/answer.png';
+import like from '@/assets/Profile/like.png';
 
 function QuestionMeta({likeCount, answerCount}: {likeCount: number, answerCount: number}) {
     return (
