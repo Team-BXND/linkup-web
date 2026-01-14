@@ -13,3 +13,5 @@ function MyQuestionItem({item}:{item: ProfileMyQuestion}){
         </S.MyQuestionItem>
     )
 }
+
+export default MyQuestionItem;
