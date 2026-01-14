@@ -34,3 +34,13 @@ export interface ProfileMeta {
     hasNext:boolean;
     hasPrevious:boolean;
 }
+
+export interface ProfileMyAnswerResponse {
+    data:ProfileMyAnswer[];
+    meta:ProfileMeta;
+}
+
+export interface ProfileMyQuestionResponse {
+    data:ProfileMyQuestion[];
+    meta:ProfileMeta;
+}
