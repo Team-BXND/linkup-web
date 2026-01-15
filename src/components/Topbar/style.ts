@@ -15,6 +15,8 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
+  background-color: ${(props) => props.theme.color.background.secondary};
 
   @media (max-width: 768px) {
     flex-direction: column;
