@@ -1,5 +1,5 @@
 import { Button } from "@/components/common/Button";
-import { Input } from "@/components/Input";
+import { Input } from "@/components/common/Input";
 import { Caption } from "@/components/common/Text";
 import styled from "styled-components";
 
