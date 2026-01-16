@@ -6,7 +6,7 @@ const InputToken = (theme: Theme) => ({
   info: theme.color.status.info,
   error: theme.color.status.error,
   warn: theme.color.status.warn,
-  disabled: 'none'
-})
+  disabled: "none",
+});
 
 export default InputToken;

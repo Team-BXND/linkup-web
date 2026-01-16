@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Answer from '@/assets/Popular/MessageCircle.svg?react';
+import styled from "styled-components";
+import Answer from "@/assets/Popular/MessageCircle.svg?react";
 
 export const Question = styled.div`
   box-sizing: border-box;

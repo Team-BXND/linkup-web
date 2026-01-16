@@ -1,5 +1,5 @@
-import Banner from '@/components/common/Banner';
-import PopularHot from '@/components/PopularHot';
+import Banner from "@/components/common/Banner";
+import PopularHot from "@/components/PopularHot";
 
 function Home() {
   return (

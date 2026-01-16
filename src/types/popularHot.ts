@@ -1,4 +1,4 @@
-type PopularHotCategory = 'all' | 'code' | 'school' | 'project';
+type PopularHotCategory = "all" | "code" | "school" | "project";
 
 export interface PopularHotItem {
   id: number;

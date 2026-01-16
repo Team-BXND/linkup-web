@@ -1,11 +1,11 @@
-import * as S from './style';
-import { Title } from '../Text';
-import QuestionItem from '../QuestionItem';
-import { publicAxios } from '@/libs/customAxios';
-import { useState, useEffect } from 'react';
-import type { PopularHotResponse } from '@/types/popularHot';
+import * as S from "./style";
+import { Title } from "../common/Text";
+import QuestionItem from "../QuestionItem";
+import { publicAxios } from "@/libs/customAxios";
+import { useState, useEffect } from "react";
+import type { PopularHotResponse } from "@/types/popularHot";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 function PopularHot() {
   const [popularHotData, setPopularHotData] = useState<PopularHotResponse>({

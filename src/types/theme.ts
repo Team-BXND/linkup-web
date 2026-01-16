@@ -1,29 +1,29 @@
 interface Typography {
   fontSize: {
     display: {
-      default: string,
-    },
+      default: string;
+    };
     title: {
-      lg: string,
-      md: string,
-      sm: string,
-      xsm: string,
-    },
+      lg: string;
+      md: string;
+      sm: string;
+      xsm: string;
+    };
     body: {
-      lg: string,
-      md: string,
-      sm: string,
-    },
+      lg: string;
+      md: string;
+      sm: string;
+    };
     caption: {
-      lg: string,
-      md: string,
-    },
-  },
+      lg: string;
+      md: string;
+    };
+  };
   fontWeight: {
-    bold: number,
-    semibold: number,
-    medium: number,
-  },
+    bold: number;
+    semibold: number;
+    medium: number;
+  };
 }
 
 export interface Color {
@@ -49,9 +49,9 @@ export interface Color {
 }
 
 interface Shadow {
-  hard: string,
-  medium: string,
-  soft: string
+  hard: string;
+  medium: string;
+  soft: string;
 }
 
 export interface Theme {
@@ -70,9 +70,9 @@ export interface Theme {
     status: Color["status"];
   };
 
-  shadow: Shadow,
+  shadow: Shadow;
 
-  typography: Typography,
+  typography: Typography;
 }
 
 export type ThemeType = Theme;

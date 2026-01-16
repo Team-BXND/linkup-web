@@ -9,6 +9,6 @@ const TileContainer = styled.div`
   border-radius: 1rem;
   background-color: ${(props) => props.theme.color.background.primary};
   box-shadow: ${(props) => props.theme.shadow.medium};
-`
+`;
 
 export default TileContainer;
