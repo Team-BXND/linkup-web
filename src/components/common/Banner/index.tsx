@@ -1,4 +1,4 @@
-import { Title } from "@/components/Text";
+import { Title } from "@/components/common/Text";
 import TileContainer from "@/components/common/TileContainer";
 import * as S from "./style";
 import BannerList from "@/constants/banner.constants";

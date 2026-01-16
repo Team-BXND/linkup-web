@@ -1,4 +1,4 @@
-import { Body, Title } from "@/components/Text";
+import { Body, Title } from "@/components/common/Text";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 

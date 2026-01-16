@@ -1,5 +1,5 @@
 import type { Ranking } from "@/types/ranking";
-import { Body, Title } from "../Text";
+import { Body, Title } from "../common/Text";
 import * as S from "./style";
 
 function BottomRankItem({ item }: { item: Ranking }) {

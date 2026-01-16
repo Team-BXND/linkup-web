@@ -1,6 +1,6 @@
 import * as S from "./style";
 import type { Ranking } from "@/types/ranking";
-import { Body, Title } from "../Text";
+import { Body, Title } from "../common/Text";
 import RankIcon from "../RankIcon";
 
 function TopRankItem({ item }: { item: Ranking }) {

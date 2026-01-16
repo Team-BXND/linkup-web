@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { Tabs } from "@/constants/navigation.constants";
-import { Caption } from "@/components/Text";
+import { Caption } from "@/components/common/Text";
 
 function Topbar() {
   const location = useLocation();

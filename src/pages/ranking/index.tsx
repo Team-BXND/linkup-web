@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { Title } from "@/components/Text";
+import { Title } from "@/components/common/Text";
 import { rankingData } from "@/constants/ranking.constants";
 import TopRankItem from "@/components/TopRankItem/index.tsx";
 import BottomRankItem from "@/components/BottomRankItem/index.tsx";

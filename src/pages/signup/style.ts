@@ -1,6 +1,6 @@
-import { Button } from "@/components/Button";
+import { Button } from "@/components/common/Button";
 import { Input } from "@/components/Input";
-import { Caption } from "@/components/Text";
+import { Caption } from "@/components/common/Text";
 import styled from "styled-components";
 
 export const FormContainer = styled.form`

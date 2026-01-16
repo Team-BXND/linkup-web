@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import * as S from "./style";
-import AuthHeader from "@/components/AuthHeader";
+import AuthHeader from "@/components/common/AuthHeader";
 
 function Auth() {
   const location = useLocation();

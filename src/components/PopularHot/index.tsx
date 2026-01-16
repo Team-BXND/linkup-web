@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { Title } from "../Text";
+import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
 import { publicAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
