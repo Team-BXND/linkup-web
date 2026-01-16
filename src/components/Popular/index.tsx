@@ -1,7 +1,7 @@
-import * as S from './style';
-import { Title } from '../Text';
-import QuestionItem from '../QuestionItem';
-import { popularHot } from '@/constants/popularHot.constants';
+import * as S from "./style";
+import { Title } from "../Text";
+import QuestionItem from "../QuestionItem";
+import { popularHot } from "@/constants/popularHot.constants";
 
 function Popular() {
   const sliceItem = popularHot.data.slice(0, 3);

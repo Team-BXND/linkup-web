@@ -1,6 +1,6 @@
-import type { PopularHotItem } from '@/types/popularHot';
-import * as S from './style';
-import { Body, Caption, Title } from '../Text';
+import type { PopularHotItem } from "@/types/popularHot";
+import * as S from "./style";
+import { Body, Caption, Title } from "../Text";
 
 function QuestionItem({
   item,

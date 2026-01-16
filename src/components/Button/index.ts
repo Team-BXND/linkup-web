@@ -1,9 +1,9 @@
-import ButtonToken from "@/constants/button.constants"
-import styled from "styled-components"
+import ButtonToken from "@/constants/button.constants";
+import styled from "styled-components";
 
 interface ButtonProps {
-  size: "md" | "lg",
-  color: "default" | "negative"
+  size: "md" | "lg";
+  color: "default" | "negative";
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -15,15 +15,15 @@ export const Button = styled.button<ButtonProps>`
   font-size: 1.25rem;
   font-weight: 500;
   padding: ${(props) => {
-    return ButtonToken(props.theme).padding[props.size]
+    return ButtonToken(props.theme).padding[props.size];
   }};
   background-color: ${(props) => {
-    return ButtonToken(props.theme).color[props.color].background
+    return ButtonToken(props.theme).color[props.color].background;
   }};
   border: ${(props) => {
-    return ButtonToken(props.theme).color[props.color].stroke
+    return ButtonToken(props.theme).color[props.color].stroke;
   }};
   color: ${(props) => {
-    return ButtonToken(props.theme).color[props.color].text
+    return ButtonToken(props.theme).color[props.color].text;
   }};
-`
+`;

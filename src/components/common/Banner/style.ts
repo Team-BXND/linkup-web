@@ -5,10 +5,10 @@ import styled from "styled-components";
 export const BannerContainer = styled.div`
   display: flex;
   gap: 1rem;
-`
+`;
 
 interface IBanner {
-  background: string
+  background: string;
 }
 
 export const Banner = styled(Link)<IBanner>`
@@ -38,7 +38,7 @@ export const Banner = styled(Link)<IBanner>`
     padding: 1rem;
     height: 6.5rem;
   }
-`
+`;
 
 export const Imoji = styled.img`
   position: absolute;
@@ -53,7 +53,7 @@ export const Imoji = styled.img`
   @media (max-width: 1024px) {
     display: none;
   }
-`
+`;
 
 export const BannerTitle = styled(Title)`
   @media (max-width: 1440px) {
@@ -67,7 +67,7 @@ export const BannerTitle = styled(Title)`
   @media (max-width: 786px) {
     font-size: 1rem;
   }
-`
+`;
 
 export const BannerRedirect = styled(Body)`
   @media (max-width: 1440px) {
@@ -81,4 +81,4 @@ export const BannerRedirect = styled(Body)`
   @media (max-width: 786px) {
     font-size: 0.5rem;
   }
-`
+`;
