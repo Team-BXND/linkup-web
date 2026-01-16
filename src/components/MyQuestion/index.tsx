@@ -1,25 +1,18 @@
-import * as S from './style';
-import { Title, Caption } from '../Text';
-import type { ProfileMyQuestion } from '@/types/profile';
-import MyQuestionItem from '../MyQuestionItem';
+import * as S from "./style";
+import type { ProfileMyQuestion } from "@/types/profile";
+import MyQuestionItem from "../MyQuestionItem";
+import ProfileContainer from "../ProfileContainer";
 
-function MyQuestion({items}: {items: ProfileMyQuestion[]}) {
+function MyQuestion({ items }: { items: ProfileMyQuestion[] }) {
   return (
-    <S.MyQuestion>
-      <S.TitleCover>
-        <Title size="md" weight="bold">내 질문</Title>
-          <S.More>
-            <Caption size="sm" weight='medium'>더보기 &rarr;</Caption>
-          </S.More>
-        </S.TitleCover>
-
-        <S.DetailCover>
-          {items.map((item) => (
-            <MyQuestionItem key={item.id} item={item} />
-          ))}
-        </S.DetailCover>
-    </S.MyQuestion>
-  )
+    <ProfileContainer title="질문" height="798px">
+      <S.DetailCover>
+        {items.map((item) => (
+          <MyQuestionItem key={item.id} item={item} />
+        ))}
+      </S.DetailCover>
+    </ProfileContainer>
+  );
 }
 
 export default MyQuestion;

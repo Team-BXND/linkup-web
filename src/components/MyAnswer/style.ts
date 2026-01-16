@@ -1,39 +1,12 @@
 import styled from "styled-components";
 
-export const MyAnswer=styled.div`
-    width:100vw;
-    max-width:628px;
-    height:387px;
+export const DetailCover = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
 
-    padding:32px;
-    gap:24px;
-
-    display:flex;
-    flex-direction:column;
-    box-shadow: 0px 2px 4px -1px #0c0c0d1a, 0px 2px 4px -1px #0c0c0d0d;
-`
-
-export const TitleCover=styled.div`
-    width:100%;
-    max-width:628px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-`
-
-export const More=styled.div`
-    color:${({ theme })=>theme.color.main.mainColor};
-`
-
-
-export const DetailCover=styled.div`
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-`
-
-export const ScrollArea=styled.div`
-    flex:1;
-    overflow-y:auto;
-`
+export const ScrollArea = styled.div`
+  flex: 1;
+  overflow-y: auto;
+`;

@@ -1,0 +1,28 @@
+import styled from "styled-components";
+
+export const ProfileContainer = styled.div<{ height: string }>`
+  width: 100%;
+  max-width: 628px;
+  height: 100%;
+  max-height: ${({ height }) => height};
+  
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 24px;
+  box-shadow: 0px 2px 4px -1px #0c0c0d1a, 0px 2px 4px -1px #0c0c0d0d;
+  border-radius: 16px;
+`;
+
+export const TitleCover = styled.div`
+  width: 100%;
+  max-width: 628px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
+export const InDetail = styled.div`
+  color: ${({ theme }) => theme.color.main.mainColor};
+`;
