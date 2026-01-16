@@ -1,8 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
-  max-width: 1416px;
+  width: 100%;
 
   border-radius: 16px;
   box-shadow: 0px 2px 4px -1px #0c0c0d1a, 0px 2px 4px -1px #0c0c0d0d;
@@ -15,7 +14,6 @@ export const Container = styled.div`
 
 export const QuestionsList = styled.div`
   width: 100%;
-  max-width: 1352px;
 
   display: flex;
   flex-direction: column;

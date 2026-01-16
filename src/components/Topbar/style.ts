@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo_Row from "@/assets/Logo/LogoRow.svg?react"
+import Logo_Row from "@/assets/Logo/LogoRow.svg?react";
 import { Link } from "react-router-dom";
 
 interface INavTab {
@@ -15,32 +15,34 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
+  background-color: ${(props) => props.theme.color.background.secondary};
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 32px
+    gap: 32px;
   }
-`
+`;
 
 export const Logo = styled(Logo_Row)`
   width: auto;
   height: 40px;
   cursor: pointer;
-`
+`;
 
 export const NavContainer = styled.div`
   display: flex;
   gap: -10px;
   padding: 4px;
   border-radius: 1000px;
-  background-color: #0251FF4D;
-`
+  background-color: #0251ff4d;
+`;
 
 export const NavTab = styled(Link)<INavTab>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.active ? `#3C79FF66` : `#00000000`};
+  background-color: ${(props) => (props.active ? `#3C79FF66` : `#00000000`)};
   padding: 8px 30px;
   border-radius: 1000px;
   color: #fff;
@@ -49,4 +51,4 @@ export const NavTab = styled(Link)<INavTab>`
     width: 100%;
     padding: 4px 0px;
   }
-`
+`;

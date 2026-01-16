@@ -1,7 +1,7 @@
-import { ThemeProvider } from "styled-components"
-import { lightTheme } from "@/styles/theme"
-import GlobalStyle from "@/styles/GlobalStyle"
-import Router from "./router"
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "@/styles/theme";
+import GlobalStyle from "@/styles/GlobalStyle";
+import Router from "./router";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <GlobalStyle />
       <Router />
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

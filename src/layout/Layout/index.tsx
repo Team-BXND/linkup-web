@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import * as S from "./style"
+import * as S from "./style";
 import Topbar from "@/components/Topbar";
 
 function Layout() {
@@ -8,7 +8,7 @@ function Layout() {
       <Topbar />
       <Outlet />
     </S.Container>
-  )
+  );
 }
 
 export default Layout;

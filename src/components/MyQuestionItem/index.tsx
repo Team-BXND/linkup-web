@@ -1,6 +1,6 @@
 import * as S from "./style";
 import type { ProfileMyQuestion } from "@/types/profile";
-import { Body } from "../Text";
+import { Body } from "@/components/common/Text";
 import QuestionMeta from "../QuestionMeta";
 import Category from "../Category";
 
