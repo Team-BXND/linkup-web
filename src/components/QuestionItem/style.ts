@@ -5,7 +5,6 @@ export const Question = styled.div`
   box-sizing: border-box;
 
   width: 100%;
-  max-width: 1352px;
 
   border: 1px solid ${({ theme }) => theme.color.line.light};
   border-radius: 12px;
@@ -21,9 +20,8 @@ export const Question = styled.div`
 `;
 
 export const RankBadge = styled.div`
-  width: 48px;
-  height: 48px;
   min-width: 48px;
+  height: 48px;
 
   background: linear-gradient(225deg, #6b8cff 14.64%, #4a6eff 85.36%);
   border-radius: 12px;
@@ -31,13 +29,11 @@ export const RankBadge = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px;
   color: ${({ theme }) => theme.color.background.primary};
 `;
 
 export const QuestionContent = styled.div`
-  width: 100vw;
-  max-width: 1236px;
+  width: 100%;
   height: auto;
 
   display: flex;
@@ -49,16 +45,12 @@ export const QuestionContent = styled.div`
 
 export const ContentTitle = styled.div`
   width: 100%;
-  max-width: 1236px;
-  min-height: 29px;
 
   color: ${({ theme }) => theme.color.text.primary};
 `;
 
 export const ContentPreview = styled.div`
-  width: 100vw;
-  max-width: 1236px;
-  min-height: 21px;
+  width: 100%;
 
   & > span {
     color: ${({ theme }) => theme.color.text.secondary};
@@ -66,9 +58,7 @@ export const ContentPreview = styled.div`
 `;
 
 export const ContentMetaInfo = styled.div`
-  width: 100vw;
-  max-width: 1236px;
-  min-height: 17px;
+  width: 100%;
 
   display: flex;
   flex-direction: row;

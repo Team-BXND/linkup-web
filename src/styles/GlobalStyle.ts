@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     line-height: 1;
+    color: inherit;
   }
   * {
     box-sizing: border-box;
