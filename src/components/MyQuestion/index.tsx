@@ -1,13 +1,40 @@
 import * as S from "./style";
-import type { ProfileMyQuestion } from "@/types/profile";
+import type { ProfileMyQuestionResponse } from "@/types/profile";
 import MyQuestionItem from "../MyQuestionItem";
 import ProfileContainer from "../ProfileContainer";
+import { publicAxios } from "@/libs/customAxios";
+import { useEffect, useState } from "react";
 
-function MyQuestion({ items }: { items: ProfileMyQuestion[] }) {
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+function MyQuestion() {
+  const [questionsData, setQuestionsData] = useState<ProfileMyQuestionResponse>({
+    data:[],
+    meta:{
+      total:0,
+      page:1,
+      pageSize:0,
+      totalPages:0,
+      hasNext:false,
+      hasPrevious:false,
+    }
+  });
+
+  useEffect(() => {
+    publicAxios
+      .get(`${SERVER_URL}/profile/myque`, {
+        params: {
+          page: 1,
+        },
+      })
+      .then((response) => {
+        setQuestionsData(response.data);
+      });
+  }, []);
   return (
     <ProfileContainer title="질문" height="798px">
       <S.DetailCover>
-        {items.map((item) => (
+        {questionsData.data.map((item) => (
           <MyQuestionItem key={item.id} item={item} />
         ))}
       </S.DetailCover>
