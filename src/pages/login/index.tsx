@@ -6,8 +6,7 @@ import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
 } from "@/constants/token.constants";
-import { publicAxios } from "@/libs/customAxios";
-const SERVER_URL = import.meta.env.SERVER_URL;
+import { linkupAxios } from "@/libs/customAxios";
 
 type FormValues = {
   email: string;
@@ -24,8 +23,8 @@ function Login() {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    publicAxios
-      .post(`${SERVER_URL}/auth/signin`, {
+    linkupAxios
+      .post(`/auth/signin`, {
         email: data.email,
         password: data.password,
       })
