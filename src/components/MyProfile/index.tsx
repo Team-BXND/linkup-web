@@ -6,12 +6,10 @@ import type { ProfileMyInfo } from "@/types/profile";
 import { privateAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
   useEffect(() => {
-    privateAxios.get(`${SERVER_URL}/profile`).then((response) => {
+    privateAxios.get(`/profile`).then((response) => {
       setProfileData(response.data);
     });
   }, []);

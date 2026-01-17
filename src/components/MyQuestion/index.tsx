@@ -5,8 +5,6 @@ import ProfileContainer from "../ProfileContainer";
 import { privateAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
 function MyQuestion() {
   const [questionsData, setQuestionsData] = useState<ProfileMyQuestionResponse>({
     data:[],
@@ -22,7 +20,7 @@ function MyQuestion() {
 
   useEffect(() => {
     privateAxios
-      .get(`${SERVER_URL}/profile/myque`, {
+      .get(`/profile/myque`, {
         params: {
           page: 1,
         },
