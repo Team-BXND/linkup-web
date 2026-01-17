@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const MyAnswerItem = styled.div`
-  max-width: 628px;
-
   padding: 12px;
   gap: 12px;
 

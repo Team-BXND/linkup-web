@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  box-sizing: border-box;
+
   width: 100%;
-  max-width: 628px;
 
   display: flex;
   flex-direction: column;
@@ -13,6 +14,8 @@ export const Container = styled.div`
 `;
 
 export const DetailCover = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 8px;

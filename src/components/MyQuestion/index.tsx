@@ -2,7 +2,7 @@ import * as S from "./style";
 import type { ProfileMyQuestionResponse } from "@/types/profile";
 import MyQuestionItem from "../MyQuestionItem";
 import ProfileContainer from "../ProfileContainer";
-import { publicAxios } from "@/libs/customAxios";
+import { privateAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -21,7 +21,7 @@ function MyQuestion() {
   });
 
   useEffect(() => {
-    publicAxios
+    privateAxios
       .get(`${SERVER_URL}/profile/myque`, {
         params: {
           page: 1,

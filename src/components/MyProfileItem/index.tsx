@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { Body } from "../Text";
+import { Body } from "../common/Text";
 
 function MyProfileItem({
   subtitle,

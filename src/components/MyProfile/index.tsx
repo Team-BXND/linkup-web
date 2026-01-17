@@ -1,9 +1,9 @@
 import * as S from "./style";
-import { Title } from "../Text";
-import { Button } from "../Button";
+import { Title } from "../common/Text";
+import { Button } from "../common/Button";
 import ProfileItem from "../MyProfileItem";
 import type { ProfileMyInfo } from "@/types/profile";
-import { publicAxios } from "@/libs/customAxios";
+import { privateAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -11,7 +11,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
   useEffect(() => {
-    publicAxios.get(`${SERVER_URL}/profile`).then((response) => {
+    privateAxios.get(`${SERVER_URL}/profile`).then((response) => {
       setProfileData(response.data);
     });
   }, []);
@@ -23,10 +23,18 @@ function MyProfile() {
       </Title>
 
       <S.DetailCover>
-        {profileData && <ProfileItem subtitle="닉네임" content={profileData.username} />}
-        {profileData && <ProfileItem subtitle="이메일" content={profileData.email} />}
-        {profileData && <ProfileItem subtitle="답변자 순위" content={profileData.rank + "위"} />}
-        {profileData && <ProfileItem subtitle="포인트" content={profileData.point + "P"} />}
+        {profileData && (
+          <ProfileItem subtitle="닉네임" content={profileData.username} />
+        )}
+        {profileData && (
+          <ProfileItem subtitle="이메일" content={profileData.email} />
+        )}
+        {profileData && (
+          <ProfileItem subtitle="답변자 순위" content={profileData.rank + "위"} />
+        )}
+        {profileData && (
+          <ProfileItem subtitle="포인트" content={profileData.point + "P"} />
+        )}
 
         <S.ButtonCover>
           <Button size="md" color="default">

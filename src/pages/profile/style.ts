@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
+
   display: flex;
   gap: 32px;
 `;
 
 export const LeftColumn = styled.div`
-  width: 100vw;
+  box-sizing: border-box;
+
+  width: 100%;
   max-width: 692px;
 
   flex: 1;
@@ -16,7 +20,9 @@ export const LeftColumn = styled.div`
 `;
 
 export const RightColumn = styled.div`
-  width: 100vw;
+  box-sizing: border-box;
+
+  width: 100%;
   max-width: 692px;
 
   flex: 2;

@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const ProfileContainer = styled.div<{ height: string }>`
+  box-sizing: border-box;
+
   width: 100%;
-  max-width: 628px;
   height: 100%;
   max-height: ${({ height }) => height};
-  
+
   display: flex;
   flex-direction: column;
   padding: 32px;
@@ -16,7 +17,6 @@ export const ProfileContainer = styled.div<{ height: string }>`
 
 export const TitleCover = styled.div`
   width: 100%;
-  max-width: 628px;
 
   display: flex;
   align-items: flex-end;

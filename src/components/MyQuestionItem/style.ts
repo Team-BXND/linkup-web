@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const MyQuestionItem = styled.div`
-  width: 100%;
-  max-width: 596px;
-
   display: flex;
   align-items: flex-end;
   padding: 12px;

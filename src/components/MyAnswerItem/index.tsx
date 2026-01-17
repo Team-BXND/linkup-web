@@ -1,7 +1,7 @@
 import * as S from "./style";
 import type { ProfileMyAnswer } from "@/types/profile";
 import Category from "../Category";
-import { Body, Caption } from "../Text";
+import { Body, Caption } from "../common/Text";
 
 function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
   return (

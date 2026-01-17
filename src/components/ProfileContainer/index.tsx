@@ -1,5 +1,5 @@
 import * as S from "./style";
-import { Title, Caption } from "../Text";
+import { Title, Caption } from "../common/Text";
 
 function ProfileContainer({
   title,
