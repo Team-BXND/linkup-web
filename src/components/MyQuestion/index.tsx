@@ -31,7 +31,7 @@ function MyQuestion() {
         setQuestionsData(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }, []);
   return (

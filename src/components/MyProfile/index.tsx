@@ -15,7 +15,7 @@ function MyProfile() {
         setProfileData(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }, []);
 
