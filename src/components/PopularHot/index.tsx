@@ -5,8 +5,6 @@ import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
 import type { PopularHotResponse } from "@/types/popularHot";
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
 function PopularHot() {
   const [popularHotData, setPopularHotData] = useState<PopularHotResponse>({
     data: [],
@@ -22,7 +20,7 @@ function PopularHot() {
 
   useEffect(() => {
     linkupAxios
-      .get(`${SERVER_URL}/popular/hot`, {
+      .get(`/popular/hot`, {
         params: {
           page: 5,
         },

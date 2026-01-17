@@ -7,7 +7,6 @@ import {
   REFRESH_TOKEN_KEY,
 } from "@/constants/token.constants";
 import { linkupAxios } from "@/libs/customAxios";
-const SERVER_URL = import.meta.env.SERVER_URL;
 
 type FormValues = {
   email: string;
@@ -25,7 +24,7 @@ function Login() {
 
   const onSubmit = (data: FormValues) => {
     linkupAxios
-      .post(`${SERVER_URL}/auth/signin`, {
+      .post(`/auth/signin`, {
         email: data.email,
         password: data.password,
       })
