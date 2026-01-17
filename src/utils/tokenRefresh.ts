@@ -4,16 +4,16 @@ import {
   REFRESH_TOKEN_KEY,
   REFRESH_TOKEN_LIFETIME,
 } from "@/constants/token.constants";
-import { publicAxios } from "@/libs/customAxios";
 import { cookie } from "@/utils/cookie";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const useRefresh = () => {
+const tokenRefresh = () => {
   const refreshToken = cookie.get(REFRESH_TOKEN_KEY);
   const navigate = useNavigate();
 
   if (refreshToken) {
-    publicAxios
+    axios
       .post("/auth/refresh", {
         refreshToken: refreshToken,
       })
@@ -23,6 +23,8 @@ export const useRefresh = () => {
 
         cookie.set(ACCESS_TOKEN_KEY, newAccessToken, ACCESS_TOKEN_LIFETIME);
         cookie.set(REFRESH_TOKEN_KEY, newRefreshToken, REFRESH_TOKEN_LIFETIME);
+
+        return newAccessToken;
       })
       .catch(() => {
         cookie.remove(ACCESS_TOKEN_KEY);
@@ -31,3 +33,5 @@ export const useRefresh = () => {
       });
   }
 };
+
+export default tokenRefresh;

@@ -2,7 +2,7 @@ import * as S from "./style";
 import type { ProfileMyQuestionResponse } from "@/types/profile";
 import MyQuestionItem from "../MyQuestionItem";
 import ProfileContainer from "../ProfileContainer";
-import { privateAxios } from "@/libs/customAxios";
+import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyQuestion() {
@@ -19,7 +19,7 @@ function MyQuestion() {
   });
 
   useEffect(() => {
-    privateAxios
+    linkupAxios
       .get(`/profile/myque`, {
         params: {
           page: 1,

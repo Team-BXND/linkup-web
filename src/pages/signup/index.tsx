@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { publicAxios } from "@/libs/customAxios";
-const SERVER_URL = import.meta.env.SERVER_URL;
+import { linkupAxios } from "@/libs/customAxios";
 
 type FormValues = {
   email: string;
@@ -21,8 +20,8 @@ function Signup() {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    publicAxios
-      .post(`${SERVER_URL}/auth/signup`, {
+    linkupAxios
+      .post(`/auth/signup`, {
         email: data.email,
         username: data.email,
         password: data.password,

@@ -2,7 +2,7 @@ import * as S from "./style";
 import type { ProfileMyAnswerResponse } from "@/types/profile";
 import MyAnswerItem from "../MyAnswerItem";
 import ProfileContainer from "../ProfileContainer";
-import { privateAxios } from "@/libs/customAxios";
+import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyAnswer() {
@@ -18,7 +18,7 @@ function MyAnswer() {
     },
   });
   useEffect(() => {
-    privateAxios
+    linkupAxios
       .get(`/profile/myans`, {
         params: {
           page: 1,

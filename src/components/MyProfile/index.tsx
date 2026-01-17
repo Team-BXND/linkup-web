@@ -3,13 +3,13 @@ import { Title } from "../common/Text";
 import { Button } from "../common/Button";
 import ProfileItem from "../MyProfileItem";
 import type { ProfileMyInfo } from "@/types/profile";
-import { privateAxios } from "@/libs/customAxios";
+import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
   useEffect(() => {
-    privateAxios.get(`/profile`).then((response) => {
+    linkupAxios.get(`/profile`).then((response) => {
       setProfileData(response.data);
     });
   }, []);
