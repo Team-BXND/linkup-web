@@ -26,6 +26,9 @@ function MyAnswer() {
       })
       .then((response) => {
         setAnswersData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 

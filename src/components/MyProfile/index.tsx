@@ -9,9 +9,14 @@ import { useEffect, useState } from "react";
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
   useEffect(() => {
-    linkupAxios.get(`/profile`).then((response) => {
-      setProfileData(response.data);
-    });
+    linkupAxios
+      .get(`/profile`)
+      .then((response) => {
+        setProfileData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -28,7 +33,10 @@ function MyProfile() {
           <ProfileItem subtitle="이메일" content={profileData.email} />
         )}
         {profileData && (
-          <ProfileItem subtitle="답변자 순위" content={profileData.rank + "위"} />
+          <ProfileItem
+            subtitle="답변자 순위"
+            content={profileData.rank + "위"}
+          />
         )}
         {profileData && (
           <ProfileItem subtitle="포인트" content={profileData.point + "P"} />

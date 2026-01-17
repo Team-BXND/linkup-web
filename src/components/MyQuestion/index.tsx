@@ -6,17 +6,19 @@ import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyQuestion() {
-  const [questionsData, setQuestionsData] = useState<ProfileMyQuestionResponse>({
-    data:[],
-    meta:{
-      total:0,
-      page:1,
-      pageSize:0,
-      totalPages:0,
-      hasNext:false,
-      hasPrevious:false,
+  const [questionsData, setQuestionsData] = useState<ProfileMyQuestionResponse>(
+    {
+      data: [],
+      meta: {
+        total: 0,
+        page: 1,
+        pageSize: 0,
+        totalPages: 0,
+        hasNext: false,
+        hasPrevious: false,
+      },
     }
-  });
+  );
 
   useEffect(() => {
     linkupAxios
@@ -27,6 +29,9 @@ function MyQuestion() {
       })
       .then((response) => {
         setQuestionsData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
   return (
