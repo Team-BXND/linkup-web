@@ -25,7 +25,7 @@ function Popular() {
 
   useEffect(() => {
     linkupAxios
-      .get<PopularHotResponse>(`/popular/hot`, {
+      .get<PopularHotResponse>("/popular", {
         params: {
           page: page,
         },
