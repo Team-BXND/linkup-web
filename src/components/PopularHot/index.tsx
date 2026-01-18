@@ -3,8 +3,11 @@ import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
-import type { PopularHotResponse } from "@/types/popularHot";
-import type { PopularHotItem, PopularHotMeta } from "@/types/popularHot";
+import type {
+  PopularHotItem,
+  PopularHotMeta,
+  PopularHotResponse,
+} from "@/types/popularHot";
 import Pagination from "../Pagination";
 import { popularHot } from "@/constants/popularHot.constants";
 
@@ -43,7 +46,6 @@ function PopularHot() {
           🔥 지금 뜨거운 Q&A
         </Title>
       </S.TextWrapper>
-
       <S.QuestionsList>
         {items.map((item, key) => (
           <QuestionItem item={item} index={key} showRank={true}></QuestionItem>
