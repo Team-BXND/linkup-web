@@ -10,7 +10,7 @@ function TopRankItem({ item }: { item: Ranking }) {
       <S.RankItemDetail>
         <S.Rank rank={item.rank}>
           <Body size="md" weight="semibold">
-            {item.rank}st
+            {item.rank}위
           </Body>
         </S.Rank>
 

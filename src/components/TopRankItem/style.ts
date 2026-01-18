@@ -12,7 +12,6 @@ export const RankItemDetail = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  min-width: 180px;
 `;
 
 export const Rank = styled.div<{ rank: number }>`

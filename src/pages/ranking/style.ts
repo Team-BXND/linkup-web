@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
 `;
 
 export const TopRankSection = styled.div`
-  width: 100vw;
-  max-width: 1416px;
+  width: 100%;
+
   gap: 24px;
   padding: 32px;
   display: flex;
@@ -19,7 +21,7 @@ export const TopRankSection = styled.div`
 
 export const TopRankContainer = styled.div`
   width: 100%;
-  max-width: 1352px;
+
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -27,8 +29,8 @@ export const TopRankContainer = styled.div`
 `;
 
 export const BottomRankSection = styled.div`
-  width: 100vw;
-  max-width: 1416px;
+  width: 100%;
+
   gap: 24px;
   padding: 32px;
   display: flex;
