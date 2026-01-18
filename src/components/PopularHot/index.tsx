@@ -3,46 +3,58 @@ import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
-import type { PopularHotResponse } from "@/types/popularHot";
+import type {
+  PopularHotItem,
+  PopularHotMeta,
+  PopularHotResponse,
+} from "@/types/popularHot";
+import Pagination from "../Pagination";
 
 function PopularHot() {
-  const [popularHotData, setPopularHotData] = useState<PopularHotResponse>({
-    data: [],
-    meta: {
-      total: 0,
-      page: 1,
-      pageSize: 0,
-      totalPages: 0,
-      hasNext: false,
-      hasPrevious: false,
-    },
+  const [items, setItems] = useState<PopularHotItem[]>([]);
+  const [meta, setMeta] = useState<PopularHotMeta>({
+    total: 1,
+    page: 1,
+    pageSize: 10,
+    totalPages: 1,
+    hasNext: false,
+    hasPrevious: false,
   });
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     linkupAxios
-      .get(`/popular/hot`, {
+      .get<PopularHotResponse>(`/popular/hot`, {
         params: {
-          page: 5,
+          page: page,
         },
       })
       .then((response) => {
-        setPopularHotData(response.data);
+        setItems(response.data.data ?? []);
+        setMeta(response.data.meta ?? meta);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [page]);
 
   return (
     <S.Container>
-      <Title size="md" weight="bold">
-        🔥 지금 뜨거운 Q&A
-      </Title>
+      <S.TextWrapper>
+        <Title size="md" weight="bold">
+          🔥 지금 뜨거운 Q&A
+        </Title>
+      </S.TextWrapper>
       <S.QuestionsList>
-        {popularHotData.data.map((item, key) => (
+        {items.map((item, key) => (
           <QuestionItem item={item} index={key} showRank={true}></QuestionItem>
         ))}
       </S.QuestionsList>
+      <Pagination
+        currentPage={page}
+        totalPages={meta.totalPages}
+        onChangePage={setPage}
+      />
     </S.Container>
   );
 }

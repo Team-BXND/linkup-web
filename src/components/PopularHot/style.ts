@@ -8,8 +8,13 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 32px;
   gap: 24px;
+`;
+
+export const TextWrapper = styled.div`
+  width: 100%;
 `;
 
 export const QuestionsList = styled.div`
