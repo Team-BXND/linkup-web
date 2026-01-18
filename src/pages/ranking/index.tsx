@@ -1,10 +1,25 @@
 import * as S from "./style";
 import { Title } from "@/components/common/Text";
-import { rankingData } from "@/constants/ranking.constants";
+import { linkupAxios } from "@/libs/customAxios";
+import { useEffect, useState } from "react";
 import TopRankItem from "@/components/TopRankItem/index.tsx";
 import BottomRankItem from "@/components/BottomRankItem/index.tsx";
+import type { RankingResponse } from "@/types/ranking";
 
 function Ranking() {
+  const [rankingData, setRankingData] = useState<RankingResponse>({ data: [] });
+
+  useEffect(() => {
+    linkupAxios
+      .get("/ranking")
+      .then((response) => {
+        setRankingData(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   const podiumOrder = [2, 1, 3];
 
   const topThree = rankingData.data
