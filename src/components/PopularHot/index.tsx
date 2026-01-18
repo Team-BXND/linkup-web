@@ -9,7 +9,6 @@ import type {
   PopularHotResponse,
 } from "@/types/popularHot";
 import Pagination from "../Pagination";
-import { popularHot } from "@/constants/popularHot.constants";
 
 function PopularHot() {
   const [items, setItems] = useState<PopularHotItem[]>([]);

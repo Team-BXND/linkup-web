@@ -1,7 +1,6 @@
 import * as S from "./style";
 import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
-import { popularHot } from "@/constants/popularHot.constants";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
 import Pagination from "../Pagination";
