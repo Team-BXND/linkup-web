@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Answer from "@/assets/Popular/MessageCircle.svg?react";
 
 export const Question = styled.div`
   box-sizing: border-box;
@@ -79,4 +78,12 @@ export const AnswerWrapper = styled.div`
   }
 `;
 
-export const AnswerIcon = styled(Answer)``;
+export const Icon = styled.img`
+  width: auto;
+  height: 100%;
+`;
+
+export const MetaItem = styled.div`
+  display: flex;
+  gap: 0.2rem;
+`;
