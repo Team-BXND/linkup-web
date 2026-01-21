@@ -1,19 +1,41 @@
-import * as S from "./style";
-import { Title } from "../common/Text";
-import QuestionItem from "../QuestionItem";
-import { popularHot } from "@/constants/popularHot.constants";
+import QuestionItem from "@/components/QuestionItem";
+import { linkupAxios } from "@/libs/customAxios";
+import { useEffect, useState } from "react";
+import Pagination from "../Pagination";
+import type { PostData, PostMeta, PostResponse } from "@/types/postResponse";
+import TileContainer from "../common/TileContainer";
 
 function Popular() {
-  const sliceItem = popularHot.data.slice(0, 3);
+  const [data, setData] = useState<PostData[]>();
+  const [meta, setMeta] = useState<PostMeta>();
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    linkupAxios
+      .get<PostResponse>("/popular", {
+        params: {
+          page: page,
+        },
+      })
+      .then((response) => {
+        setData(response.data.data);
+        setMeta(response.data.meta);
+      })
+      .catch(() => {
+        alert("유용했던 글 리스트를 불러오는데 실패했습니다.");
+      });
+  }, []);
+
   return (
-    <S.Container>
-      <Title size="md" weight="bold">
-        🔥 가장 유용했던 글
-      </Title>
-      {sliceItem.map((item, key) => (
-        <QuestionItem item={item} index={key} showRank={false}></QuestionItem>
-      ))}
-    </S.Container>
+    <TileContainer title="🔥 가장 유용했던 글">
+      {data &&
+        data.map((item, key) => (
+          <QuestionItem item={item} index={key} showRank={false}></QuestionItem>
+        ))}
+      {meta && (
+        <Pagination page={page} setPage={setPage} totalPage={meta.totalPages} />
+      )}
+    </TileContainer>
   );
 }
 

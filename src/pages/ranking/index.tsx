@@ -3,6 +3,7 @@ import { Title } from "@/components/common/Text";
 import { rankingData } from "@/constants/ranking.constants";
 import TopRankItem from "@/components/TopRankItem/index.tsx";
 import BottomRankItem from "@/components/BottomRankItem/index.tsx";
+import TileContainer from "@/components/common/TileContainer";
 
 function Ranking() {
   const podiumOrder = [2, 1, 3];
@@ -13,22 +14,19 @@ function Ranking() {
 
   return (
     <S.Container>
-      <S.TopRankSection>
-        <Title size="md" weight="bold">
-          🏆 답변자 랭킹
-        </Title>
+      <TileContainer title="🏆 답변자 랭킹">
         <S.TopRankContainer>
           {topThree.map((item) => (
             <TopRankItem key={item.rank} item={item} />
           ))}
         </S.TopRankContainer>
-      </S.TopRankSection>
+      </TileContainer>
 
-      <S.BottomRankSection>
+      <TileContainer>
         {rankingData.data.slice(3).map((item) => (
           <BottomRankItem key={item.rank} item={item} />
         ))}
-      </S.BottomRankSection>
+      </TileContainer>
     </S.Container>
   );
 }

@@ -1,14 +1,10 @@
-import { Title } from "@/components/common/Text";
 import TileContainer from "@/components/common/TileContainer";
 import * as S from "./style";
 import BannerList from "@/constants/banner.constants";
 
 function Banner() {
   return (
-    <TileContainer>
-      <Title size="md" weight="bold">
-        💬 대소고에서 궁금한 점이 있다면?
-      </Title>
+    <TileContainer title="💬 대소고에서 궁금한 점이 있다면?">
       <S.BannerContainer>
         {BannerList.map((elem) => {
           return (

@@ -1,12 +1,12 @@
 import * as S from "./style";
-import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
-import type { PopularHotResponse } from "@/types/popularHot";
+import TileContainer from "../common/TileContainer";
+import type { PostResponse } from "@/types/postResponse";
 
 function PopularHot() {
-  const [popularHotData, setPopularHotData] = useState<PopularHotResponse>({
+  const [popularHotData, setPopularHotData] = useState<PostResponse>({
     data: [],
     meta: {
       total: 0,
@@ -34,16 +34,13 @@ function PopularHot() {
   }, []);
 
   return (
-    <S.Container>
-      <Title size="md" weight="bold">
-        🔥 지금 뜨거운 Q&A
-      </Title>
+    <TileContainer title="🔥 지금 뜨거운 Q&A">
       <S.QuestionsList>
         {popularHotData.data.map((item, key) => (
           <QuestionItem item={item} index={key} showRank={true}></QuestionItem>
         ))}
       </S.QuestionsList>
-    </S.Container>
+    </TileContainer>
   );
 }
 
