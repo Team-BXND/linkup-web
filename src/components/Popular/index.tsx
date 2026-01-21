@@ -1,13 +1,21 @@
-import QuestionItem from "@/components/QuestionItem";
+import * as S from "./style";
+import { Title } from "../common/Text";
+import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Pagination from "../Pagination";
 import type { PostData, PostMeta, PostResponse } from "@/types/postResponse";
-import TileContainer from "../common/TileContainer";
 
 function Popular() {
-  const [data, setData] = useState<PostData[]>();
-  const [meta, setMeta] = useState<PostMeta>();
+  const [items, setItems] = useState<PostData[]>([]);
+  const [meta, setMeta] = useState<PostMeta>({
+    total: 1,
+    page: 1,
+    pageSize: 10,
+    totalPages: 1,
+    hasNext: false,
+    hasPrevious: false,
+  });
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -18,24 +26,28 @@ function Popular() {
         },
       })
       .then((response) => {
-        setData(response.data.data);
-        setMeta(response.data.meta);
+        setItems(response.data.data ?? []);
+        setMeta(response.data.meta ?? meta);
       })
-      .catch(() => {
-        alert("유용했던 글 리스트를 불러오는데 실패했습니다.");
+      .catch((error) => {
+        console.log(error);
       });
-  }, []);
-
+  }, [page]);
   return (
-    <TileContainer title="🔥 가장 유용했던 글">
-      {data &&
-        data.map((item, key) => (
+    <S.Container>
+      <S.TextWrapper>
+        <Title size="md" weight="bold">
+          🔥 가장 유용했던 글
+        </Title>
+      </S.TextWrapper>
+
+      <S.QuestionsList>
+        {items.map((item, key) => (
           <QuestionItem item={item} index={key} showRank={false}></QuestionItem>
         ))}
-      {meta && (
-        <Pagination page={page} setPage={setPage} totalPage={meta.totalPages} />
-      )}
-    </TileContainer>
+      </S.QuestionsList>
+      <Pagination page={page} totalPage={meta.totalPages} setPage={setPage} />
+    </S.Container>
   );
 }
 

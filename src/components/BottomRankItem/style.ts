@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const RankItemContainer = styled.div`
-  width: 100%;
-  max-width: 1352px;
   display: flex;
   flex-direction: row;
   justify-content: left;

@@ -10,9 +10,11 @@ function BottomRankItem({ item }: { item: Ranking }) {
           {item.rank}등
         </Body>
       </S.Rank>
+
       <Title size="xsm" weight="bold">
         {item.username}
       </Title>
+
       <Body size="md" weight="medium">
         {item.point}p
       </Body>
