@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
-export const Category = styled.div`
-  padding: 4px 12px;
+export const Container = styled.div`
+  display: flex;
+  padding: 0.25rem;
+  gap: 0.25rem;
+`;
 
-  background-color: ${({ theme }) => theme.color.main.mainColor + "1A"};
-  border-radius: inherit;
-
+export const Element = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.color.main.mainColor};
+  padding: 0.5rem 1rem;
+  border-radius: 1000rem;
+  background-color: ${(props) =>
+    props.active ? props.theme.color.main.subColor : "#A5A5A5"};
+  color: #fff;
+  cursor: pointer;
 `;

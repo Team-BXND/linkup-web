@@ -1,14 +1,26 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "./style";
-import { Caption } from "@/components/common/Text";
-import type { ProfileCategory } from "@/types/profile";
+import { QnaCategory } from "@/constants/qnaCategory.constants";
 
-function Category({ content }: { content: ProfileCategory }) {
+function Category() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
-    <S.Category>
-      <Caption size="md" weight="medium">
-        {content}
-      </Caption>
-    </S.Category>
+    <S.Container>
+      {QnaCategory.map((elem) => {
+        const isActived = location.pathname.includes(elem.path);
+        return (
+          <S.Element
+            active={isActived}
+            key={elem.path}
+            onClick={() => (!isActived ? navigate(`/qna/${elem.path}`) : null)}
+          >
+            {elem.text}
+          </S.Element>
+        );
+      })}
+    </S.Container>
   );
 }
 

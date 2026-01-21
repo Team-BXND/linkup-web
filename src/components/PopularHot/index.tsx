@@ -1,30 +1,19 @@
 import * as S from "./style";
-import { Title } from "../common/Text";
 import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
-import type {
-  PopularHotItem,
-  PopularHotMeta,
-  PopularHotResponse,
-} from "@/types/popularHot";
+import TileContainer from "../common/TileContainer";
+import type { PostData, PostMeta, PostResponse } from "@/types/postResponse";
 import Pagination from "../Pagination";
 
 function PopularHot() {
-  const [items, setItems] = useState<PopularHotItem[]>([]);
-  const [meta, setMeta] = useState<PopularHotMeta>({
-    total: 1,
-    page: 1,
-    pageSize: 10,
-    totalPages: 1,
-    hasNext: false,
-    hasPrevious: false,
-  });
+  const [items, setItems] = useState<PostData[]>([]);
+  const [meta, setMeta] = useState<PostMeta>();
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     linkupAxios
-      .get<PopularHotResponse>(`/popular/hot`, {
+      .get<PostResponse>(`/popular/hot`, {
         params: {
           page: page,
         },
@@ -39,23 +28,16 @@ function PopularHot() {
   }, [page]);
 
   return (
-    <S.Container>
-      <S.TextWrapper>
-        <Title size="md" weight="bold">
-          🔥 지금 뜨거운 Q&A
-        </Title>
-      </S.TextWrapper>
+    <TileContainer title="🔥 지금 뜨거운 Q&A">
       <S.QuestionsList>
         {items.map((item, key) => (
           <QuestionItem item={item} index={key} showRank={true}></QuestionItem>
         ))}
       </S.QuestionsList>
-      <Pagination
-        currentPage={page}
-        totalPages={meta.totalPages}
-        onChangePage={setPage}
-      />
-    </S.Container>
+      {meta ? (
+        <Pagination page={page} setPage={setPage} totalPage={meta.totalPages} />
+      ) : null}
+    </TileContainer>
   );
 }
 

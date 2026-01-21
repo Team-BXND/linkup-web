@@ -4,15 +4,11 @@ import QuestionItem from "../QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
 import Pagination from "../Pagination";
-import type {
-  PopularHotItem,
-  PopularHotMeta,
-  PopularHotResponse,
-} from "@/types/popularHot";
+import type { PostData, PostMeta, PostResponse } from "@/types/postResponse";
 
 function Popular() {
-  const [items, setItems] = useState<PopularHotItem[]>([]);
-  const [meta, setMeta] = useState<PopularHotMeta>({
+  const [items, setItems] = useState<PostData[]>([]);
+  const [meta, setMeta] = useState<PostMeta>({
     total: 1,
     page: 1,
     pageSize: 10,
@@ -24,7 +20,7 @@ function Popular() {
 
   useEffect(() => {
     linkupAxios
-      .get<PopularHotResponse>("/popular", {
+      .get<PostResponse>("/popular", {
         params: {
           page: page,
         },
@@ -50,11 +46,7 @@ function Popular() {
           <QuestionItem item={item} index={key} showRank={false}></QuestionItem>
         ))}
       </S.QuestionsList>
-      <Pagination
-        currentPage={page}
-        totalPages={meta.totalPages}
-        onChangePage={setPage}
-      />
+      <Pagination page={page} totalPage={meta.totalPages} setPage={setPage} />
     </S.Container>
   );
 }

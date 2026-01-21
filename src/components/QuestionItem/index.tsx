@@ -1,13 +1,16 @@
-import type { PopularHotItem } from "@/types/popularHot";
+import type { PostData } from "@/types/postResponse";
 import * as S from "./style";
 import { Body, Caption, Title } from "../common/Text";
+import Like from "@/assets/Post/Like.svg";
+import Comment from "@/assets/Post/Comment.svg";
+import Category from "@/assets/Post/Category.svg";
 
 function QuestionItem({
   item,
   index,
   showRank,
 }: {
-  item: PopularHotItem;
+  item: PostData;
   index: number;
   showRank: boolean;
 }) {
@@ -33,15 +36,25 @@ function QuestionItem({
         </S.ContentPreview>
 
         <S.ContentMetaInfo>
-          <S.AnswerIcon />
-          <Caption size="md" weight="medium">
-            {`유용해요 ${item.like}`}
-          </Caption>
-          <S.AnswerIcon />
-          <Caption
-            size="md"
-            weight="medium"
-          >{`답변수 ${item.commentCount}`}</Caption>
+          <S.MetaItem>
+            <S.Icon src={Category} />
+            <Caption size="md" weight="medium">
+              {`${item.category}`}
+            </Caption>
+          </S.MetaItem>
+          <S.MetaItem>
+            <S.Icon src={Like} />
+            <Caption size="md" weight="medium">
+              {`유용해요 ${item.like}`}
+            </Caption>
+          </S.MetaItem>
+          <S.MetaItem>
+            <S.Icon src={Comment} />
+            <Caption
+              size="md"
+              weight="medium"
+            >{`답변수 ${item.commentCount}`}</Caption>
+          </S.MetaItem>
         </S.ContentMetaInfo>
       </S.QuestionContent>
     </S.Question>

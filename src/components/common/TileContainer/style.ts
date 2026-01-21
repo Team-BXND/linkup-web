@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
-const TileContainer = styled.div`
+export const TileContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   flex-direction: column;
   gap: 1.5rem;
@@ -11,4 +13,7 @@ const TileContainer = styled.div`
   box-shadow: ${(props) => props.theme.shadow.medium};
 `;
 
-export default TileContainer;
+export const TitleContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
