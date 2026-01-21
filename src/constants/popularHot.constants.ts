@@ -1,6 +1,6 @@
-import type { PopularHotResponse } from "@/types/popularHot";
+import type { PostResponse } from "@/types/postResponse";
 
-export const popularHot: PopularHotResponse = {
+export const popularHot: PostResponse = {
   data: [
     {
       id: 1,

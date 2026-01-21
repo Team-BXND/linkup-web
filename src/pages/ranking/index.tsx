@@ -1,5 +1,4 @@
 import * as S from "./style";
-import { Title } from "@/components/common/Text";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import TopRankItem from "@/components/TopRankItem/index.tsx";

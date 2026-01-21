@@ -1,13 +1,13 @@
 import * as S from "./style";
 import type { ProfileMyAnswer } from "@/types/profile";
-import Category from "../Category";
 import { Body, Caption } from "../common/Text";
+import ProfileCategory from "../ProfileCategory";
 
 function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
   return (
     <S.MyAnswerItem>
       <S.QuestionCover>
-        <Category content={item.category} />
+        <ProfileCategory content={item.category} />
         <S.QuestionTitle>
           <Caption size="lg" weight="medium">
             {item.title}
