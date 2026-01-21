@@ -1,4 +1,4 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { Caption } from "../common/Text";
 import * as S from "./style";
 
@@ -14,34 +14,20 @@ interface Meta {
   abb: boolean;
 }
 
+/**
+ * 페이지네이션 컴포넌트입니다.
+ * 페이지 이동에 맞추어 전달된 useState 값이 변화합니다.
+ *
+ * @param page : useState의 변수, 현재 페이지를 나타냄
+ * @param setPage : useState의 set함수
+ * @param totalPage : 총 페이지 수
+ *
+ * @example
+ * const [page, setPage] = useState(1); //type은 number
+ * <Pagination page={page} setPage={setPage} totalPage={10}
+ */
+
 function Pagination(props: PaginationProps) {
-  const [meta, setMeta] = useState<Meta>();
-
-  const setPrevious = () => {
-    if (props.page !== 1) {
-      props.setPage((prev) => prev - 1);
-    }
-  };
-
-  const setNext = () => {
-    if (props.page < props.totalPage) {
-      props.setPage((prev) => prev + 1);
-    }
-  };
-
-  const setPage = (page: number) => {
-    if (page === props.page) {
-      return;
-    }
-    if (1 <= page && page <= props.totalPage) {
-      props.setPage(page);
-    }
-  };
-
-  useEffect(() => {
-    setMeta(isAbb());
-  });
-
   const isAbb = () => {
     const showCount = 4;
     let start;
@@ -76,6 +62,29 @@ function Pagination(props: PaginationProps) {
     }
 
     return { start, end, abb };
+  };
+
+  let meta: Meta = isAbb();
+
+  const setPrevious = () => {
+    if (props.page !== 1) {
+      props.setPage((prev) => prev - 1);
+    }
+  };
+
+  const setNext = () => {
+    if (props.page < props.totalPage) {
+      props.setPage((prev) => prev + 1);
+    }
+  };
+
+  const setPage = (page: number) => {
+    if (page === props.page) {
+      return;
+    }
+    if (1 <= page && page <= props.totalPage) {
+      props.setPage(page);
+    }
   };
 
   return (
