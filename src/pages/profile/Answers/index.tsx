@@ -5,7 +5,6 @@ import type {
   ProfileMyAnswerResponse,
   ProfileMeta,
 } from "@/types/profile";
-
 import MyAnswerItem from "@/components/MyAnswerItem";
 import Pagination from "@/components/Pagination";
 import { Title } from "@/components/common/Text";
