@@ -1,31 +1,25 @@
 import * as S from "./style";
-import type { ProfileMyAnswerResponse } from "@/types/profile";
+import type {
+  ProfileMyAnswerResponse,
+  ProfileMyAnswer,
+} from "@/types/profile";
 import MyAnswerItem from "../MyAnswerItem";
 import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyAnswer() {
-  const [answersData, setAnswersData] = useState<ProfileMyAnswerResponse>({
-    data: [],
-    meta: {
-      total: 0,
-      page: 1,
-      pageSize: 0,
-      totalPages: 0,
-      hasNext: false,
-      hasPrevious: false,
-    },
-  });
+  const [answersData, setAnswersData] = useState<ProfileMyAnswer[]>([]);
+
   useEffect(() => {
     linkupAxios
-      .get(`/profile/myans`, {
+      .get<ProfileMyAnswerResponse>(`/profile/myans`, {
         params: {
           page: 1,
         },
       })
       .then((response) => {
-        setAnswersData(response.data);
+        setAnswersData(response.data.data);
       })
       .catch((error) => {
         alert(error);
@@ -33,10 +27,14 @@ function MyAnswer() {
   }, []);
 
   return (
-    <ProfileContainer title="답변" height="355px">
+    <ProfileContainer
+      title="답변"
+      height="355px"
+      destination="/profile/answers"
+    >
       <S.ScrollArea>
         <S.DetailCover>
-          {answersData.data.map((item) => (
+          {answersData.map((item) => (
             <MyAnswerItem key={item.id} item={item} />
           ))}
         </S.DetailCover>

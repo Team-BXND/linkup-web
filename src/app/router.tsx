@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
+import Answers from "@/pages/profile/Answers";
 import Ranking from "@/pages/ranking";
 import QnA from "@/pages/qna";
 import Layout from "@/layout/Layout";
@@ -20,6 +21,7 @@ const Router = () => {
             <Route path="/qna/:category" element={<QnA />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/answers" element={<Answers />} />
           </Route>
         </Route>
         <Route element={<Auth />}>
