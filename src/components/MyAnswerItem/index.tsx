@@ -2,10 +2,13 @@ import * as S from "./style";
 import type { ProfileMyAnswer } from "@/types/profile";
 import { Body, Caption } from "../common/Text";
 import ProfileCategory from "../ProfileCategory";
+import { useNavigate } from "react-router-dom";
 
 function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
+  const navigate = useNavigate();
+
   return (
-    <S.MyAnswerItem>
+    <S.MyAnswerItem onClick={() => {navigate(`/qna/${item.id}`)}}>
       <S.QuestionCover>
         <ProfileCategory content={item.category} />
         <S.QuestionTitle>

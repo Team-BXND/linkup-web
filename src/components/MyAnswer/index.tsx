@@ -29,7 +29,6 @@ function MyAnswer() {
   return (
     <ProfileContainer
       title="답변"
-      height="355px"
       destination="/profile/answers"
     >
       <S.ScrollArea>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MyAnswerItem = styled.div`
   width: 100%;
-  
+
   padding: 12px;
   gap: 12px;
 

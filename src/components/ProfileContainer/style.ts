@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-export const ProfileContainer = styled.div<{ height: string }>`
-  box-sizing: border-box;
-
+export const ProfileContainer = styled.div`
   width: 100%;
   height: 100%;
-  max-height: ${({ height }) => height};
 
   display: flex;
   flex-direction: column;

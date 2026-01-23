@@ -5,18 +5,16 @@ import { useNavigate } from "react-router-dom";
 function ProfileContainer({
   title,
   children,
-  height,
   destination,
 }: {
   title: string;
   children: React.ReactNode;
-  height: string;
   destination: string;
 }) {
   const navigate = useNavigate();
 
   return (
-    <S.ProfileContainer height={height}>
+    <S.ProfileContainer>
       <S.TitleCover>
         <Title size="md" weight="bold">
           내 {title}
