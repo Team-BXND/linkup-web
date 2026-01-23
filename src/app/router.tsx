@@ -1,8 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
-import Answers from "@/pages/profile/answers/index.tsx";
-import Questions from "@/pages/profile/questions/index.tsx";
+import Answers from "@/pages/profile/answers/index";
+import Questions from "@/pages/profile/questions/index";
 import Ranking from "@/pages/ranking";
 import QnA from "@/pages/qna";
 import Layout from "@/layout/Layout";
