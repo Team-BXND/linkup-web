@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
-import Answers from "@/pages/profile/Answers";
+import Answers from "@/pages/profile/answers";
 import Ranking from "@/pages/ranking";
 import QnA from "@/pages/qna";
 import Layout from "@/layout/Layout";

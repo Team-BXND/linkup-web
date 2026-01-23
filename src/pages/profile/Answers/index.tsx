@@ -5,9 +5,9 @@ import type {
   ProfileMyAnswerResponse,
   ProfileMeta,
 } from "@/types/profile";
-import TileContainer from "@/components/common/TileContainer";
 import MyAnswerItem from "@/components/MyAnswerItem";
 import Pagination from "@/components/Pagination";
+import { Title } from "@/components/common/Text";
 import { useEffect, useState } from "react";
 
 function Answers() {
@@ -39,20 +39,27 @@ function Answers() {
   }, [page]);
 
   return (
-    <TileContainer title="내 답변">
+    <S.Container>
+      <S.TextCover>
+        <Title size="md" weight="bold">
+          내 답변
+        </Title>
+      </S.TextCover>
+
       <S.ScrollArea>
         <S.DetailCover>
           {answersData.map((item) => (
             <MyAnswerItem key={item.id} item={item} />
           ))}
-          <Pagination
-            page={page}
-            totalPage={meta.totalPages}
-            setPage={setPage}
-          ></Pagination>
         </S.DetailCover>
       </S.ScrollArea>
-    </TileContainer>
+
+      <Pagination
+        page={page}
+        totalPage={meta.totalPages}
+        setPage={setPage}
+      ></Pagination>
+    </S.Container>
   );
 }
 
