@@ -5,6 +5,7 @@ import type {
   ProfileMyQuestionResponse,
   ProfileMeta,
 } from "@/types/profile";
+
 import MyQuestionItem from "@/components/MyQuestionItem";
 import Pagination from "@/components/Pagination";
 import { Title } from "@/components/common/Text";
