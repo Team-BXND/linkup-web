@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 100%;
 
   display: flex;
-  gap: 32px;
+  gap: 2rem;
 `;
 
 export const LeftColumn = styled.div`
@@ -15,7 +15,7 @@ export const LeftColumn = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1.5rem;
 `;
 
 export const RightColumn = styled.div`

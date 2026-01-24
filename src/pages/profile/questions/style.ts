@@ -8,10 +8,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 24px;
-  padding: 32px;
+  gap: 1.5rem;
+  padding: 2rem;
 
-  border-radius: 16px;
+  border-radius: 1rem;
   background-color: ${(props) => props.theme.color.background.primary};
   box-shadow: ${(props) => props.theme.shadow.medium};
 `;
@@ -36,5 +36,5 @@ export const DetailCover = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 `;

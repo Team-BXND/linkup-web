@@ -3,27 +3,27 @@ import styled from "styled-components";
 export const MyAnswerItem = styled.div`
   width: 100%;
 
-  padding: 12px;
-  gap: 12px;
+  padding: 0.75rem;
+  gap: 0.75rem;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
-  border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.color.line.light};
+  border-radius: 0.75rem;
+  border: 0.0675rem solid ${({ theme }) => theme.color.line.light};
   &:hover {
     border-color: ${({ theme }) => theme.color.main.mainColor};
   }
 `;
 
 export const QuestionCover = styled.div`
-  padding: 6px 8px;
-  gap: 8px;
+  padding: 0.375rem 0.5rem;
+  gap: 0.5rem;
   display: flex;
   align-items: center;
-  border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.color.line.light};
+  border-radius: 0.75rem;
+  border: 0.0675rem solid ${({ theme }) => theme.color.line.light};
 `;
 
 export const QuestionTitle = styled.div`
