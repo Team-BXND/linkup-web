@@ -4,7 +4,7 @@ export const RankItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: left;
-  gap: 8px;
+  gap: 0.5rem;
   align-items: center;
 `;
 

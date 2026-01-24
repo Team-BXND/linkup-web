@@ -4,14 +4,14 @@ export const RankItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 0.25rem;
 `;
 
 export const RankItemDetail = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 `;
 
 export const Rank = styled.div<{ rank: number }>`

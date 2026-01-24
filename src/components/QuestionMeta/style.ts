@@ -3,19 +3,19 @@ import styled from "styled-components";
 
 export const QuestionMeta=styled.div`
     display:flex;
-    gap:16px;
-    margin-left:24px;
+    gap:1rem;
+    margin-left:1.5rem;
 `
 
 export const MetaItem=styled.div`
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:0.375rem;
 `
 
 export const Icon=styled.img`
-    width:16px;
-    height:16px;
+    width:1rem;
+    height:1rem;
 `
 
 export const Text=styled.div`

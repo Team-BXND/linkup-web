@@ -5,7 +5,7 @@ interface RankProps {
 }
 
 export const RankIcon = styled.img<RankProps>`
-  width: ${({ rank }) => (rank === 1 ? "100px" : "80px")};
-  height: ${({ rank }) => (rank === 1 ? "100px" : "80px")};
+  width: ${({ rank }) => (rank === 1 ? "6.25rem" : "5rem")};
+  height: ${({ rank }) => (rank === 1 ? "6.25rem" : "5rem")};
   object-fit: cover;
 `;

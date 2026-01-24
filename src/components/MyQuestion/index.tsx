@@ -1,24 +1,12 @@
 import * as S from "./style";
-import type { ProfileMyQuestionResponse } from "@/types/profile";
+import type { ProfileMyQuestion } from "@/types/profile";
 import MyQuestionItem from "../MyQuestionItem";
 import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
 function MyQuestion() {
-  const [questionsData, setQuestionsData] = useState<ProfileMyQuestionResponse>(
-    {
-      data: [],
-      meta: {
-        total: 0,
-        page: 1,
-        pageSize: 0,
-        totalPages: 0,
-        hasNext: false,
-        hasPrevious: false,
-      },
-    }
-  );
+  const [questionsData, setQuestionsData] = useState<ProfileMyQuestion[]>([]);
 
   useEffect(() => {
     linkupAxios
@@ -35,12 +23,14 @@ function MyQuestion() {
       });
   }, []);
   return (
-    <ProfileContainer title="질문" height="798px">
-      <S.DetailCover>
-        {questionsData.data.map((item) => (
-          <MyQuestionItem key={item.id} item={item} />
-        ))}
-      </S.DetailCover>
+    <ProfileContainer title="질문" destination="profile/questions">
+      <S.ScrollArea>
+        <S.DetailCover>
+          {questionsData.map((item) => (
+            <MyQuestionItem key={item.id} item={item} />
+          ))}
+        </S.DetailCover>
+      </S.ScrollArea>
     </ProfileContainer>
   );
 }
