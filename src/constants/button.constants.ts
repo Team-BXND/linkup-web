@@ -13,8 +13,22 @@ const ButtonToken = (theme: Theme) => ({
     },
     negative: {
       background: theme.color.background.primary,
-      stroke: `1px solid ${theme.color.main.subColor}`,
+      stroke: `2px solid ${theme.color.main.subColor}`,
       text: theme.color.main.subColor,
+    },
+  },
+  width: {
+    md: "3.25rem",
+    lg: "4rem",
+  },
+  typo: {
+    md: {
+      size: theme.typography.fontSize.caption.lg,
+      weight: theme.typography.fontWeight.medium,
+    },
+    lg: {
+      size: theme.typography.fontSize.body.md,
+      weight: theme.typography.fontWeight.medium,
     },
   },
 });

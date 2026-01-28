@@ -8,6 +8,7 @@ import Auth from "@/layout/Auth";
 import Signup from "@/pages/signup";
 import Login from "@/pages/login";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Detail from "@/pages/detail";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
             <Route path="/" element={<Home />} />
             <Route path="/qna" element={<Navigate replace to="all" />} />
             <Route path="/qna/:category" element={<QnA />} />
+            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
