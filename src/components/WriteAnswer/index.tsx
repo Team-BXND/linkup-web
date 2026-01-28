@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import TextEditor from "../common/TextEditor";
 import * as S from "./style";
-import { Button } from "../common/Button";
 
 function WriteAnswer() {
   const [content, setContent] = useState("");
