@@ -7,6 +7,8 @@ import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as S from "./style";
+import Showdown from "showdown";
+import DOMPurify from "dompurify";
 
 interface Comment {
   commentId: number;
@@ -32,13 +34,22 @@ interface Detail {
 function Detail() {
   const { id } = useParams();
   const [detail, setDetail] = useState<Detail | null>(null);
+  const converter = new Showdown.Converter();
 
   useEffect(() => {
     if (id) {
       linkupAxios
         .get<Detail>(`/posts/${id}`)
         .then((response) => {
-          setDetail(response.data);
+          const convertedData = {
+            ...response.data,
+            content: DOMPurify.sanitize(converter.makeHtml(response.data.content)),
+            comment: response.data.comment.map((comment) => ({
+              ...comment,
+              content: DOMPurify.sanitize(converter.makeHtml(comment.content)),
+            })),
+          };
+          setDetail(convertedData);
         })
         .catch(() => {
           alert(`글을 불러오는데 실패하였습니다.`);

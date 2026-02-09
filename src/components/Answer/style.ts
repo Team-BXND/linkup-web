@@ -35,7 +35,6 @@ export const Contents = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  white-space: pre-wrap;
 `;
 
 export const ButtonWrapper = styled.div`

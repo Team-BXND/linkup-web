@@ -63,9 +63,12 @@ function Answer(props: AnswerProps) {
         {/**TODO: 채택 상태에 따른 뷰 변경*/}
       </S.Container>
       <S.Contents>
-        <Body size="md" weight="medium">
-          {props.content}
-        </Body>
+        <Body
+          as="div"
+          size="md"
+          weight="medium"
+          dangerouslySetInnerHTML={{ __html: props.content }}
+        />
       </S.Contents>
       <S.MetaContainer>
         <Caption size="lg" weight="medium">

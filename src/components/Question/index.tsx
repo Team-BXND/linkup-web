@@ -96,9 +96,12 @@ function Question({
         )}
       </S.Container>
       <S.Contents>
-        <Body size="md" weight="medium">
-          {content}
-        </Body>
+        <Body
+          as="div"
+          size="md"
+          weight="medium"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </S.Contents>
     </TileContainer>
   );

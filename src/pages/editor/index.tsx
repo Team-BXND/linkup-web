@@ -5,6 +5,7 @@ import TextEditor from "@/components/common/TextEditor";
 import { useForm, Controller } from "react-hook-form";
 import TurndownService from "turndown";
 import Showdown from "showdown";
+import DOMPurify from "dompurify";
 import { linkupAxios } from "@/libs/customAxios";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -37,7 +38,7 @@ function Editor() {
         .get(`/posts/${id}`)
         .then((res) => {
           const { title, author, category, content } = res.data;
-          const htmlContent = converter.makeHtml(content);
+          const htmlContent = DOMPurify.sanitize(converter.makeHtml(content));
           setValue("title", title);
           setValue("author", author);
           setValue("category", category);
