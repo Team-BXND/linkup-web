@@ -1,16 +1,18 @@
 import InputToken from "@/constants/input.constants";
 import styled from "styled-components";
+import React from "react";
 
 interface InputProps {
   status: "default" | "info" | "success" | "warn" | "error" | "disabled";
-  size: "md" | "lg";
+  $size: "md" | "lg";
+  children?: React.ReactNode;
 }
 
 export const Input = styled.input<InputProps>`
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0.875rem;
-  font-size: ${(props) => (props.size === "lg" ? "1.25rem" : "0.625rem")};
+  font-size: ${(props) => (props.$size === "lg" ? "1.5rem" : "1rem")};
   font-weight: 500;
   color: ${(props) => {
     return props.theme.color.text.primary;
