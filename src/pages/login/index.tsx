@@ -21,6 +21,7 @@ function Login() {
     setError,
   } = useForm<FormValues>();
   const navigate = useNavigate();
+  const { login } = useLogin();
 
   const onSubmit = (data: FormValues) => {
     linkupAxios
@@ -29,9 +30,9 @@ function Login() {
         password: data.password,
       })
       .then((response) => {
-        const accessToken = response.data[ACCESS_TOKEN_KEY];
-        const refreshToken = response.data[REFRESH_TOKEN_KEY];
-        useLogin(accessToken, refreshToken);
+        const accessToken = response.data.data[ACCESS_TOKEN_KEY];
+        const refreshToken = response.data.data[REFRESH_TOKEN_KEY];
+        login(accessToken, refreshToken);
       })
       .catch((error) => {
         if (error.status === 401) {
@@ -47,7 +48,7 @@ function Login() {
       <S.InputContainer>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           type="email"
           placeholder="이메일을 입력하세요."
           {...register("email", { required: "이메일을 입력해주세요." })}
@@ -57,7 +58,7 @@ function Login() {
         </S.ErrorMsg>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           type="password"
           placeholder="비밀번호를 입력하세요."
           {...register("password", { required: "비밀번호를 입력해주세요." })}
