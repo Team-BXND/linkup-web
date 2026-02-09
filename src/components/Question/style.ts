@@ -37,3 +37,11 @@ export const Contents = styled.div`
   flex-wrap: wrap;
   white-space: pre-wrap;
 `;
+
+export const Toolbar = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: right;
+  gap: 0.625rem;
+`;

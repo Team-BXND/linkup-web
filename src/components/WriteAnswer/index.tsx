@@ -10,7 +10,13 @@ function WriteAnswer() {
 
   return (
     <S.Container>
-      <TextEditor value={content} onChange={setContent} style={S.editorStyle} />
+      <TextEditor
+        value={content}
+        onChange={setContent}
+        style={S.editorStyle}
+        placeholder="답변을 입력하세요"
+        buttonText="답변달기"
+      />
     </S.Container>
   );
 }
