@@ -17,6 +17,8 @@ interface ReactQuillEditorProps {
   value?: string;
   onChange: Dispatch<React.SetStateAction<string>>;
   style?: RuleSet;
+  placeholder?: string;
+  buttonText: string;
 }
 
 /** 툴바의 아이콘 설정 */
@@ -27,7 +29,13 @@ icons["strike"] = renderToStaticMarkup(<StrikeIcon />);
 icons["link"] = renderToStaticMarkup(<LinkIcon />);
 icons["image"] = renderToStaticMarkup(<ImageIcon />);
 
-function TextEditor({ value, onChange, style }: ReactQuillEditorProps) {
+function TextEditor({
+  value,
+  onChange,
+  style,
+  placeholder,
+  buttonText,
+}: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
   const modules = useMemo(
     () => ({
@@ -90,12 +98,12 @@ function TextEditor({ value, onChange, style }: ReactQuillEditorProps) {
         formats={formats}
         value={value}
         onChange={onChange}
-        placeholder="답변을 입력하세요"
+        placeholder={placeholder}
       />
       <S.ToolbarContainer>
         <Toolbar />
         <Button size="md" color="default">
-          답변달기
+          {buttonText}
         </Button>
       </S.ToolbarContainer>
     </S.QuillWrapper>

@@ -9,6 +9,7 @@ import Signup from "@/pages/signup";
 import Login from "@/pages/login";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Detail from "@/pages/detail";
+import Editor from "@/pages/editor";
 
 const Router = () => {
   return (
@@ -20,6 +21,8 @@ const Router = () => {
             <Route path="/qna" element={<Navigate replace to="all" />} />
             <Route path="/qna/:category" element={<QnA />} />
             <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/editor" element={<Editor />} />
+            <Route path="/editor/:id" element={<Editor />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
