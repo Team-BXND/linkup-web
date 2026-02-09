@@ -44,56 +44,6 @@ function Detail() {
           alert(`글을 불러오는데 실패하였습니다.`);
         });
     }
-
-    /**TODO: 더미데이터 삭젲 */
-    setDetail({
-      title: "테스트",
-      author: "테스트",
-      category: "all",
-      content: "테스트",
-      like: 10,
-      createAt: "테스트",
-      isAccepted: false,
-      isLike: false,
-      isAuthor: true,
-      comment: [
-        {
-          commentId: 10,
-          author: "string",
-          content: "string",
-          isAccepted: false,
-          createdAt: "string",
-        },
-        {
-          commentId: 10,
-          author: "string",
-          content: "string",
-          isAccepted: false,
-          createdAt: "string",
-        },
-        {
-          commentId: 10,
-          author: "string",
-          content: "string",
-          isAccepted: false,
-          createdAt: "string",
-        },
-        {
-          commentId: 10,
-          author: "string",
-          content: "string",
-          isAccepted: false,
-          createdAt: "string",
-        },
-        {
-          commentId: 10,
-          author: "string",
-          content: "string",
-          isAccepted: false,
-          createdAt: "string",
-        },
-      ],
-    });
   }, [id]);
 
   return (
