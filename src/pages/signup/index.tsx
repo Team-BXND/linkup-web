@@ -23,7 +23,7 @@ function Signup() {
     linkupAxios
       .post(`/auth/signup`, {
         email: data.email,
-        username: data.email,
+        username: data.nickname,
         password: data.password,
       })
       .then(() => {
@@ -44,7 +44,7 @@ function Signup() {
       <S.InputContainer>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           type="email"
           placeholder="이메일을 입력하세요."
           {...register("email", {
@@ -60,7 +60,7 @@ function Signup() {
         </S.ErrorMsg>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           placeholder="닉네임을 입력하세요."
           {...register("nickname", { required: "닉네임을 입력해주세요." })}
         />
@@ -69,7 +69,7 @@ function Signup() {
         </S.ErrorMsg>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           type="password"
           placeholder="비밀번호를 입력하세요."
           {...register("password", {
@@ -86,7 +86,7 @@ function Signup() {
         </S.ErrorMsg>
         <S.AuthInput
           status="default"
-          size="lg"
+          $size="lg"
           type="password"
           placeholder="비밀번호를 다시 입력하세요."
           {...register("passwordConfirm", {

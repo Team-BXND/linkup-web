@@ -26,4 +26,10 @@ export const Button = styled.button<ButtonProps>`
   color: ${(props) => {
     return ButtonToken(props.theme).color[props.color].text;
   }};
+  font-size: ${(props) => {
+    return ButtonToken(props.theme).typo[props.size].size;
+  }};
+  font-weight: ${(props) => {
+    return ButtonToken(props.theme).typo[props.size].weight;
+  }};
 `;
