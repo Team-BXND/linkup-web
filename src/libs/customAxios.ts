@@ -72,6 +72,7 @@ linkupAxios.interceptors.response.use(
 
       const newAccessToken = await tokenRefresh();
       if (newAccessToken) {
+        originalRequest.headers = originalRequest.headers ?? {};
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return linkupAxios(originalRequest);
       }

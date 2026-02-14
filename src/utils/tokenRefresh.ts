@@ -13,21 +13,15 @@ const API_BASE_URL = import.meta.env.DEV
 
 const tokenRefresh = async (): Promise<string | null> => {
   const refreshToken = cookie.get(REFRESH_TOKEN_KEY);
-
-  if (!refreshToken) return null;
+  const payload = refreshToken ? { refreshToken } : {};
 
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/auth/refresh`,
-      {
-        refreshToken: refreshToken,
+    const response = await axios.post(`${API_BASE_URL}/auth/refresh`, payload, {
+      withCredentials: true,
+      headers: {
+        "ngrok-skip-browser-warning": "true",
       },
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
-      }
-    );
+    });
 
     const responseData = response.data?.data ?? response.data;
     const newAccessToken = responseData?.[ACCESS_TOKEN_KEY];
