@@ -8,6 +8,7 @@ import DOMPurify from "dompurify";
 import { linkupAxios } from "@/libs/customAxios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { extractData } from "@/utils/apiNormalizer";
 
 interface EditFormValues {
   title: string;
@@ -16,9 +17,17 @@ interface EditFormValues {
   content: string;
 }
 
+interface EditPostResponse {
+  title: string;
+  author: string;
+  category: "code" | "school" | "project";
+  content: string;
+}
+
+const converter = new Showdown.Converter();
+
 function Editor() {
   const { id } = useParams();
-  const converter = new Showdown.Converter();
   const navigate = useNavigate();
   const { register, handleSubmit, control, setValue } = useForm<EditFormValues>(
     {
@@ -36,11 +45,15 @@ function Editor() {
       linkupAxios
         .get(`/posts/${id}`)
         .then((res) => {
-          const { title, author, category, content } = res.data;
-          const htmlContent = DOMPurify.sanitize(converter.makeHtml(content));
-          setValue("title", title);
-          setValue("author", author);
-          setValue("category", category);
+          const payload = extractData<EditPostResponse>(res.data);
+          if (!payload) return;
+
+          const htmlContent = DOMPurify.sanitize(
+            converter.makeHtml(payload.content),
+          );
+          setValue("title", payload.title);
+          setValue("author", payload.author);
+          setValue("category", payload.category);
           setValue("content", htmlContent);
         })
         .catch((err) => {
@@ -59,7 +72,7 @@ function Editor() {
 
     if (id) {
       linkupAxios
-        .put(`/posts/${id}`, payload)
+        .patch(`/posts/${id}`, payload)
         .then(() => {
           alert("게시글을 수정하였습니다.");
           navigate("/qna");
@@ -75,7 +88,7 @@ function Editor() {
           alert("게시글을 등록하였습니다.");
           navigate("/qna");
         })
-        .catch((err) => {
+        .catch(() => {
           alert("게시글을 등록하지 못하였습니다.");
           navigate("/qna");
         });
