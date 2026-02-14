@@ -3,7 +3,7 @@ import Category from "../Category";
 import { Body, Title } from "../common/Text";
 import TileContainer from "../common/TileContainer";
 import Pagination from "../Pagination";
-import QuestionItem from "../QuestionItem";
+import QuestionItem from "../common/QuestionItem";
 import * as S from "./style";
 import type { Dispatch } from "react";
 

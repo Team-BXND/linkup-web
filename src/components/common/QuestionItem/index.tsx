@@ -1,6 +1,6 @@
 import type { PostData } from "@/types/postResponse";
 import * as S from "./style";
-import { Body, Caption, Title } from "../common/Text";
+import { Body, Caption, Title } from "../Text";
 import Like from "@/assets/Post/Like.svg";
 import Comment from "@/assets/Post/Comment.svg";
 import Category from "@/assets/Post/Category.svg";
