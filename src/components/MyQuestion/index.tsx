@@ -24,7 +24,7 @@ function MyQuestion() {
       });
   }, []);
   return (
-    <ProfileContainer title="질문" destination="profile/questions">
+    <ProfileContainer title="질문" destination="/profile/questions">
       <S.ScrollArea>
         <S.DetailCover>
           {questionsData.map((item) => (
