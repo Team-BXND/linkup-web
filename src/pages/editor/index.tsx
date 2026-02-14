@@ -70,7 +70,7 @@ function Editor() {
         });
     } else {
       linkupAxios
-        .post("/post", payload)
+        .post("/posts", payload)
         .then((res) => {
           console.log("등록 성공:", res.data);
         })
@@ -80,9 +80,11 @@ function Editor() {
     }
   };
 
+  const handleEditorSubmit = handleSubmit(onSubmit);
+
   return (
     <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <S.Form onSubmit={handleEditorSubmit}>
         <S.Row>
           <S.QuestionIcon size="lg" weight="bold">
             Q
@@ -125,6 +127,7 @@ function Editor() {
               onChange={field.onChange}
               placeholder="질문글을 입력하세요."
               buttonText={id ? "수정하기" : "질문하기"}
+              onSubmit={handleEditorSubmit}
               style={S.EditorStyle}
             />
           )}

@@ -19,6 +19,7 @@ interface ReactQuillEditorProps {
   style?: RuleSet;
   placeholder?: string;
   buttonText: string;
+  onSubmit: () => void;
 }
 
 /** 툴바의 아이콘 설정 */
@@ -35,6 +36,7 @@ function TextEditor({
   style,
   placeholder,
   buttonText,
+  onSubmit,
 }: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
   const modules = useMemo(
@@ -102,7 +104,7 @@ function TextEditor({
       />
       <S.ToolbarContainer>
         <Toolbar />
-        <Button size="md" color="default">
+        <Button type="button" size="md" color="default" onClick={onSubmit}>
           {buttonText}
         </Button>
       </S.ToolbarContainer>

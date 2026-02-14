@@ -4,6 +4,8 @@ import * as S from "./style";
 
 function WriteAnswer() {
   const [content, setContent] = useState("");
+  const onSubmit = () => {};
+
   useEffect(() => {
     console.log(content);
   }, [content]);
@@ -16,6 +18,7 @@ function WriteAnswer() {
         style={S.editorStyle}
         placeholder="답변을 입력하세요"
         buttonText="답변달기"
+        onSubmit={onSubmit}
       />
     </S.Container>
   );
