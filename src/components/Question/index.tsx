@@ -45,6 +45,23 @@ function Question({
     }
   };
 
+  const handleDelete = () => {
+    if (
+      id &&
+      confirm("삭제된 게시글은 복구할 수 없습니다. 삭제하시겠습니까?")
+    ) {
+      linkupAxios
+        .delete(`/posts/${id}`)
+        .then(() => {
+          alert("삭제가 완료되었습니다.");
+          navigate("/");
+        })
+        .catch(() => {
+          alert("삭제에 실패했습니다.");
+        });
+    }
+  };
+
   return (
     <TileContainer>
       <S.Container>
@@ -81,7 +98,7 @@ function Question({
             >
               수정
             </Button>
-            <Button size="md" color="default">
+            <Button size="md" color="default" onClick={handleDelete}>
               삭제
             </Button>
           </S.Toolbar>
