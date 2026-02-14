@@ -6,9 +6,12 @@ import type { ProfileMyInfo } from "@/types/profile";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import { extractData } from "@/utils/apiNormalizer";
+import { useLogout } from "@/hooks/Auth/useLogout";
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
+  const { logout } = useLogout();
+
   useEffect(() => {
     linkupAxios
       .get(`/profile`)
@@ -53,7 +56,7 @@ function MyProfile() {
         )}
 
         <S.ButtonCover>
-          <Button size="md" color="default">
+          <Button size="md" color="default" onClick={logout}>
             로그아웃
           </Button>
         </S.ButtonCover>
