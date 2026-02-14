@@ -5,6 +5,7 @@ import {
 import { cookie } from "@/utils/cookie";
 import tokenRefresh from "@/utils/tokenRefresh";
 import axios from "axios";
+import type { InternalAxiosRequestConfig } from "axios";
 
 const API_BASE_URL = import.meta.env.DEV
   ? "/api"
@@ -18,6 +19,15 @@ export const linkupAxios = axios.create({
     "ngrok-skip-browser-warning": "true",
   },
 });
+
+const redirectToLogin = () => {
+  cookie.remove(ACCESS_TOKEN_KEY);
+  cookie.remove(REFRESH_TOKEN_KEY);
+
+  if (window.location.pathname !== "/login") {
+    window.location.href = "/login";
+  }
+};
 
 linkupAxios.interceptors.request.use(
   async (config) => {
@@ -40,6 +50,35 @@ linkupAxios.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+linkupAxios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const status = error.response?.status;
+    const originalRequest = error.config as
+      | (InternalAxiosRequestConfig & { _retry?: boolean })
+      | undefined;
+
+    if (!originalRequest) {
+      return Promise.reject(error);
+    }
+
+    const isAuthRequest = originalRequest.url?.startsWith("/auth/");
+    if (status === 401 && !isAuthRequest && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const newAccessToken = await tokenRefresh();
+      if (newAccessToken) {
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return linkupAxios(originalRequest);
+      }
+
+      redirectToLogin();
+    }
+
     return Promise.reject(error);
   }
 );
