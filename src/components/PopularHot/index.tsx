@@ -9,7 +9,7 @@ import Pagination from "../Pagination";
 function PopularHot() {
   const [items, setItems] = useState<PostData[]>([]);
   const [meta, setMeta] = useState<PostMeta>();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
@@ -20,7 +20,7 @@ function PopularHot() {
       })
       .then((response) => {
         setItems(response.data.data ?? []);
-        setMeta(response.data.meta ?? meta);
+        setMeta((prev) => response.data.meta ?? prev);
       })
       .catch((error) => {
         console.log(error);

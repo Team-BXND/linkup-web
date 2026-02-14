@@ -10,13 +10,13 @@ function Popular() {
   const [items, setItems] = useState<PostData[]>([]);
   const [meta, setMeta] = useState<PostMeta>({
     total: 1,
-    page: 1,
+    page: 0,
     pageSize: 10,
-    totalPages: 1,
+    totalPages: 0,
     hasNext: false,
     hasPrevious: false,
   });
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
@@ -27,7 +27,7 @@ function Popular() {
       })
       .then((response) => {
         setItems(response.data.data ?? []);
-        setMeta(response.data.meta ?? meta);
+        setMeta((prev) => response.data.meta ?? prev);
       })
       .catch((error) => {
         console.log(error);

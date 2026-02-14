@@ -1,6 +1,6 @@
 import Banner from "@/components/common/Banner";
 import Popular from "@/components/Popular";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { linkupAxios } from "@/libs/customAxios";
 import { Outlet, useParams } from "react-router-dom";
 import {
@@ -14,18 +14,24 @@ function QnA() {
   const [data, setData] = useState<PostData[]>();
   const [meta, setMeta] = useState<PostMeta>();
   const { category } = useParams<{ category: string }>();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
-  linkupAxios
-    .get<PostResponse>("/posts", {
-      params: {
-        category: category,
-      },
-    })
-    .then((response) => {
-      setData(response.data.data);
-      setMeta(response.data.meta);
-    });
+  useEffect(() => {
+    linkupAxios
+      .get<PostResponse>("/posts", {
+        params: {
+          category: category,
+          page: page,
+        },
+      })
+      .then((response) => {
+        setData(response.data.data);
+        setMeta(response.data.meta);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [category, page]);
 
   return (
     <>
