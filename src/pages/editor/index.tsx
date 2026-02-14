@@ -3,30 +3,29 @@ import { Input } from "@/components/common/Input";
 import { QnaCategory } from "@/constants/qnaCategory.constants";
 import TextEditor from "@/components/common/TextEditor";
 import { useForm, Controller } from "react-hook-form";
-import TurndownService from "turndown";
 import Showdown from "showdown";
 import DOMPurify from "dompurify";
 import { linkupAxios } from "@/libs/customAxios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 interface EditFormValues {
   title: string;
   author: string;
-  category: "all" | "code" | "school" | "project";
+  category: "code" | "school" | "project";
   content: string;
 }
 
 function Editor() {
   const { id } = useParams();
-  const turndownService = new TurndownService();
   const converter = new Showdown.Converter();
+  const navigate = useNavigate();
   const { register, handleSubmit, control, setValue } = useForm<EditFormValues>(
     {
       defaultValues: {
         title: "",
         author: "",
-        category: "all",
+        category: "code",
         content: "",
       },
     },
@@ -50,8 +49,7 @@ function Editor() {
     }
   }, [id, setValue]);
 
-  const onSubmit = (data: EditFormValues) => {
-    const markdownContent = turndownService.turndown(data.content);
+  const onSubmit = (data: EditFormValues, markdownContent: string) => {
     const payload = {
       category: data.category,
       title: data.title,
@@ -62,29 +60,35 @@ function Editor() {
     if (id) {
       linkupAxios
         .put(`/posts/${id}`, payload)
-        .then((res) => {
-          console.log("수정 성공:", res.data);
+        .then(() => {
+          alert("게시글을 수정하였습니다.");
+          navigate("/qna");
         })
-        .catch((err) => {
-          console.error("수정 실패:", err);
+        .catch(() => {
+          alert("게시글을 수정하지 못하였습니다..");
+          navigate("/qna");
         });
     } else {
       linkupAxios
         .post("/posts", payload)
-        .then((res) => {
-          console.log("등록 성공:", res.data);
+        .then(() => {
+          alert("게시글을 등록하였습니다.");
+          navigate("/qna");
         })
         .catch((err) => {
-          console.error("등록 실패:", err);
+          alert("게시글을 등록하지 못하였습니다.");
+          navigate("/qna");
         });
     }
   };
 
-  const handleEditorSubmit = handleSubmit(onSubmit);
+  const handleEditorSubmit = (markdownContent: string) => {
+    handleSubmit((data) => onSubmit(data, markdownContent))();
+  };
 
   return (
     <S.Container>
-      <S.Form onSubmit={handleEditorSubmit}>
+      <S.Form onSubmit={(e) => e.preventDefault()}>
         <S.Row>
           <S.QuestionIcon size="lg" weight="bold">
             Q
@@ -110,11 +114,15 @@ function Editor() {
             as="select"
             {...register("category", { required: true })}
           >
-            {QnaCategory.map((elem) => (
-              <option key={elem.path} value={elem.path}>
-                {elem.text}
-              </option>
-            ))}
+            {QnaCategory.map((elem) => {
+              if (elem.path !== "all") {
+                return (
+                  <option key={elem.path} value={elem.path}>
+                    {elem.text}
+                  </option>
+                );
+              }
+            })}
           </Input>
         </S.Row>
         <Controller
