@@ -1,6 +1,7 @@
 import * as S from "./style";
 import { Title, Caption } from "../common/Text";
 import { useNavigate } from "react-router-dom";
+import TileContainer from "../common/TileContainer";
 
 function ProfileContainer({
   title,
@@ -14,7 +15,7 @@ function ProfileContainer({
   const navigate = useNavigate();
 
   return (
-    <S.ProfileContainer>
+    <TileContainer>
       <S.TitleCover>
         <Title size="md" weight="bold">
           내 {title}
@@ -31,7 +32,7 @@ function ProfileContainer({
         </S.InDetail>
       </S.TitleCover>
       {children}
-    </S.ProfileContainer>
+    </TileContainer>
   );
 }
 
