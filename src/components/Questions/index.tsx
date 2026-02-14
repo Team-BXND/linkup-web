@@ -23,7 +23,7 @@ function Questions({ data, meta, page, setPage }: QuestionsProps) {
         </Title>
         <Category />
       </S.TitleContainer>
-      {data ? (
+      {data && data.length !== 0 ? (
         data.map((elem, index) => {
           return <QuestionItem item={elem} index={index} showRank={false} />;
         })
