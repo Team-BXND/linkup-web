@@ -36,6 +36,8 @@ interface RawDetailComment {
   commentId: number;
   author: string;
   content: string;
+  createdAt: string;
+  isAccepted?: boolean;
 }
 
 interface RawDetail {
@@ -48,7 +50,8 @@ interface RawDetail {
   isAccepted: boolean;
   isLike: boolean;
   isAuthor?: boolean;
-  comments: RawDetailComment[];
+  comments?: RawDetailComment[];
+  comment?: RawDetailComment[];
 }
 
 const converter = new Showdown.Converter();
@@ -80,12 +83,12 @@ function Detail() {
             isAccepted: payload.isAccepted,
             isLike: payload.isLike,
             isAuthor: payload.isAuthor ?? false,
-            comment: (payload.comments ?? []).map((comment) => ({
+            comment: (payload.comment ?? payload.comments ?? []).map((comment) => ({
               commentId: comment.commentId,
               author: comment.author,
               content: toSafeHtml(comment.content),
-              isAccepted: false,
-              createdAt: "",
+              isAccepted: comment.isAccepted ?? false,
+              createdAt: comment.createdAt,
             })),
           };
           setDetail(convertedData);
