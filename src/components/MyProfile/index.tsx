@@ -24,7 +24,7 @@ function MyProfile() {
           username: String(rawData.username ?? rawData.userName ?? ""),
           email: String(rawData.email ?? ""),
           point: Number(rawData.point ?? rawData.points ?? 0),
-          rank: Number(rawData.rank ?? 0),
+          ranking: Number(rawData.ranking ?? 0),
         });
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ function MyProfile() {
         {profileData && (
           <ProfileItem
             subtitle="답변자 순위"
-            content={profileData.rank + "위"}
+            content={profileData.ranking + "위"}
           />
         )}
         {profileData && (
