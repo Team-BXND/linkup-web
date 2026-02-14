@@ -12,6 +12,7 @@ export const Question = styled.div`
   align-items: center;
   padding: 24px;
   gap: 20px;
+  cursor: pointer;
 
   &:hover {
     outline: 3px solid ${({ theme }) => theme.color.main.mainColor};

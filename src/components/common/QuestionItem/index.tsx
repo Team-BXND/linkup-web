@@ -4,6 +4,7 @@ import { Body, Caption, Title } from "../Text";
 import Like from "@/assets/Post/Like.svg";
 import Comment from "@/assets/Post/Comment.svg";
 import Category from "@/assets/Post/Category.svg";
+import { useNavigate } from "react-router-dom";
 
 function QuestionItem({
   item,
@@ -14,8 +15,9 @@ function QuestionItem({
   index: number;
   showRank: boolean;
 }) {
+  const navigate = useNavigate();
   return (
-    <S.Question key={item.id}>
+    <S.Question key={item.id} onClick={() => navigate(`/detail/${item.id}`)}>
       {showRank && (
         <S.RankBadge>
           <Body size="md" weight="semibold">

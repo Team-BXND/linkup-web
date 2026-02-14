@@ -32,6 +32,25 @@ interface Detail {
   comment: Comment[];
 }
 
+interface RawDetailComment {
+  commentId: number;
+  author: string;
+  content: string;
+}
+
+interface RawDetail {
+  title: string;
+  author: string;
+  category: "all" | "code" | "school" | "project";
+  content: string;
+  like: number;
+  createAt: string;
+  isAccepted: boolean;
+  isLike: boolean;
+  isAuthor?: boolean;
+  comments: RawDetailComment[];
+}
+
 const converter = new Showdown.Converter();
 
 function Detail() {
@@ -42,23 +61,33 @@ function Detail() {
     if (id) {
       const toSafeHtml = (value: unknown) =>
         DOMPurify.sanitize(
-          converter.makeHtml(typeof value === "string" ? value : "")
+          converter.makeHtml(typeof value === "string" ? value : ""),
         );
 
       linkupAxios
-        .get<Detail>(`/posts/${id}`)
+        .get(`/posts/${id}`)
         .then((response) => {
-          const payload = extractData<Partial<Detail>>(response.data) ?? response.data;
-          const comments = Array.isArray(payload.comment) ? payload.comment : [];
+          const payload = extractData<RawDetail>(response.data);
+          if (!payload) return;
 
           const convertedData = {
-            ...payload,
+            title: payload.title,
+            author: payload.author,
+            category: payload.category,
             content: toSafeHtml(payload.content),
-            comment: comments.map((comment) => ({
-              ...comment,
+            like: payload.like,
+            createAt: payload.createAt,
+            isAccepted: payload.isAccepted,
+            isLike: payload.isLike,
+            isAuthor: payload.isAuthor ?? false,
+            comment: (payload.comments ?? []).map((comment) => ({
+              commentId: comment.commentId,
+              author: comment.author,
               content: toSafeHtml(comment.content),
+              isAccepted: false,
+              createdAt: "",
             })),
-          } as Detail;
+          };
           setDetail(convertedData);
         })
         .catch((error) => {
@@ -83,7 +112,7 @@ function Detail() {
             isAuthor={detail.isAuthor}
             id={id}
           />
-          <WriteAnswer />
+          <WriteAnswer id={id} />
           <TileContainer>
             <S.AnswerCountContainer>
               <Title size="xsm" weight="semibold">
