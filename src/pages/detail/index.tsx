@@ -118,7 +118,7 @@ function Detail() {
             id={id}
             isAccepted={detail.isAccepted}
           />
-          <WriteAnswer id={id} />
+          {!detail.isAuthor ? <WriteAnswer id={id} /> : null}
           <TileContainer>
             <S.AnswerCountContainer>
               <Title size="xsm" weight="semibold">
