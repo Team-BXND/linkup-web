@@ -35,8 +35,12 @@ function Login() {
         login(accessToken, refreshToken);
       })
       .catch((error) => {
-        if (error.status === 401) {
-          setError("root", { message: error.data.message });
+        if (error.response?.status === 401) {
+          const message =
+            error.response?.data?.data?.message ??
+            error.response?.data?.message ??
+            "이메일 또는 비밀번호가 올바르지 않습니다.";
+          setError("root", { message });
         } else {
           alert("문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요.");
         }
