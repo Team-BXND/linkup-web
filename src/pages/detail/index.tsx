@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import * as S from "./style";
 import Showdown from "showdown";
 import DOMPurify from "dompurify";
+import { extractData } from "@/utils/apiNormalizer";
 
 interface Comment {
   commentId: number;
@@ -31,27 +32,37 @@ interface Detail {
   comment: Comment[];
 }
 
+const converter = new Showdown.Converter();
+
 function Detail() {
   const { id } = useParams();
   const [detail, setDetail] = useState<Detail | null>(null);
-  const converter = new Showdown.Converter();
 
   useEffect(() => {
     if (id) {
+      const toSafeHtml = (value: unknown) =>
+        DOMPurify.sanitize(
+          converter.makeHtml(typeof value === "string" ? value : "")
+        );
+
       linkupAxios
         .get<Detail>(`/posts/${id}`)
         .then((response) => {
+          const payload = extractData<Partial<Detail>>(response.data) ?? response.data;
+          const comments = Array.isArray(payload.comment) ? payload.comment : [];
+
           const convertedData = {
-            ...response.data,
-            content: DOMPurify.sanitize(converter.makeHtml(response.data.content)),
-            comment: response.data.comment.map((comment) => ({
+            ...payload,
+            content: toSafeHtml(payload.content),
+            comment: comments.map((comment) => ({
               ...comment,
-              content: DOMPurify.sanitize(converter.makeHtml(comment.content)),
+              content: toSafeHtml(comment.content),
             })),
-          };
+          } as Detail;
           setDetail(convertedData);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           alert(`글을 불러오는데 실패하였습니다.`);
         });
     }

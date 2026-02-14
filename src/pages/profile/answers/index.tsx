@@ -10,18 +10,12 @@ import MyAnswerItem from "@/components/MyAnswerItem";
 import Pagination from "@/components/Pagination";
 import { Title } from "@/components/common/Text";
 import { useEffect, useState } from "react";
+import { extractPaged, normalizeMeta } from "@/utils/apiNormalizer";
 
 function Answers() {
   const [answersData, setAnswersData] = useState<ProfileMyAnswer[]>([]);
-  const [meta, setMeta] = useState<ProfileMeta>({
-    total: 1,
-    page: 1,
-    pageSize: 10,
-    totalPages: 1,
-    hasNext: false,
-    hasPrevious: false,
-  });
-  const [page, setPage] = useState(1);
+  const [meta, setMeta] = useState<ProfileMeta>(normalizeMeta(undefined));
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
@@ -31,8 +25,9 @@ function Answers() {
         },
       })
       .then((response) => {
-        setAnswersData(response.data.data);
-        setMeta(response.data.meta);
+        const parsed = extractPaged<ProfileMyAnswer>(response.data);
+        setAnswersData(parsed.data);
+        setMeta(parsed.meta);
       })
       .catch((error) => {
         alert(error);

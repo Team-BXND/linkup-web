@@ -7,6 +7,7 @@ import MyAnswerItem from "../MyAnswerItem";
 import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
+import { extractPaged } from "@/utils/apiNormalizer";
 
 function MyAnswer() {
   const [answersData, setAnswersData] = useState<ProfileMyAnswer[]>([]);
@@ -15,11 +16,11 @@ function MyAnswer() {
     linkupAxios
       .get<ProfileMyAnswerResponse>(`/profile/myans`, {
         params: {
-          page: 1,
+          page: 0,
         },
       })
       .then((response) => {
-        setAnswersData(response.data.data);
+        setAnswersData(extractPaged<ProfileMyAnswer>(response.data).data);
       })
       .catch((error) => {
         alert(error);
