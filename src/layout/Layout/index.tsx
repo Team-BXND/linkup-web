@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import * as S from "./style";
-import Topbar from "@/components/Topbar";
+import Topbar from "@/components/common/Topbar";
 
 function Layout() {
   return (
