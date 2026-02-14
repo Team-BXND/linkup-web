@@ -83,13 +83,15 @@ function Detail() {
             isAccepted: payload.isAccepted,
             isLike: payload.isLike,
             isAuthor: payload.isAuthor ?? false,
-            comment: (payload.comment ?? payload.comments ?? []).map((comment) => ({
-              commentId: comment.commentId,
-              author: comment.author,
-              content: toSafeHtml(comment.content),
-              isAccepted: comment.isAccepted ?? false,
-              createdAt: comment.createdAt,
-            })),
+            comment: (payload.comment ?? payload.comments ?? []).map(
+              (comment) => ({
+                commentId: comment.commentId,
+                author: comment.author,
+                content: toSafeHtml(comment.content),
+                isAccepted: comment.isAccepted ?? false,
+                createdAt: comment.createdAt,
+              }),
+            ),
           };
           setDetail(convertedData);
         })
@@ -114,6 +116,7 @@ function Detail() {
             isLike={detail.isLike}
             isAuthor={detail.isAuthor}
             id={id}
+            isAccepted={detail.isAccepted}
           />
           <WriteAnswer id={id} />
           <TileContainer>

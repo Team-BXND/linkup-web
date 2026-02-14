@@ -17,6 +17,7 @@ interface QuestionProps {
   isLike: boolean;
   isAuthor: boolean;
   id?: string;
+  isAccepted: boolean;
 }
 
 function Question({
@@ -29,6 +30,7 @@ function Question({
   isLike,
   isAuthor,
   id,
+  isAccepted,
 }: QuestionProps) {
   const navigate = useNavigate();
 
@@ -90,18 +92,20 @@ function Question({
           </S.MetaContainer>
         </S.TitleArea>
         {isAuthor ? (
-          <S.Toolbar>
-            <Button
-              size="md"
-              color="default"
-              onClick={() => navigate(`/editor/${id}`)}
-            >
-              수정
-            </Button>
-            <Button size="md" color="default" onClick={handleDelete}>
-              삭제
-            </Button>
-          </S.Toolbar>
+          !isAccepted ? (
+            <S.Toolbar>
+              <Button
+                size="md"
+                color="default"
+                onClick={() => navigate(`/editor/${id}`)}
+              >
+                수정
+              </Button>
+              <Button size="md" color="default" onClick={handleDelete}>
+                삭제
+              </Button>
+            </S.Toolbar>
+          ) : null
         ) : (
           <RoundButton
             size="md"
