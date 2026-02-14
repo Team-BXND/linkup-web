@@ -5,8 +5,12 @@ import ProfileItem from "../MyProfileItem";
 import type { ProfileMyInfo } from "@/types/profile";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
-import { extractData } from "@/utils/apiNormalizer";
 import { useLogout } from "@/hooks/Auth/useLogout";
+
+interface ProfileResponse {
+  status: number;
+  data: ProfileMyInfo;
+}
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
@@ -14,18 +18,9 @@ function MyProfile() {
 
   useEffect(() => {
     linkupAxios
-      .get(`/profile`)
+      .get<ProfileResponse>(`/profile`)
       .then((response) => {
-        const rawData = extractData<Record<string, unknown>>(response.data);
-        console.log(rawData);
-        if (!rawData) return;
-
-        setProfileData({
-          username: String(rawData.username ?? rawData.userName ?? ""),
-          email: String(rawData.email ?? ""),
-          point: Number(rawData.point ?? rawData.points ?? 0),
-          ranking: Number(rawData.ranking ?? 0),
-        });
+        setProfileData(response.data.data);
       })
       .catch((error) => {
         alert(error);

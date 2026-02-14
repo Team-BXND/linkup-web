@@ -8,7 +8,6 @@ import DOMPurify from "dompurify";
 import { linkupAxios } from "@/libs/customAxios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { extractData } from "@/utils/apiNormalizer";
 
 interface EditFormValues {
   title: string;
@@ -18,10 +17,13 @@ interface EditFormValues {
 }
 
 interface EditPostResponse {
+  status: number;
+  data: {
   title: string;
   author: string;
   category: "code" | "school" | "project";
   content: string;
+  };
 }
 
 const converter = new Showdown.Converter();
@@ -43,10 +45,9 @@ function Editor() {
   useEffect(() => {
     if (id) {
       linkupAxios
-        .get(`/posts/${id}`)
+        .get<EditPostResponse>(`/posts/${id}`)
         .then((res) => {
-          const payload = extractData<EditPostResponse>(res.data);
-          if (!payload) return;
+          const payload = res.data.data;
 
           const htmlContent = DOMPurify.sanitize(
             converter.makeHtml(payload.content),

@@ -3,28 +3,22 @@ import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import TopRankItem from "@/components/TopRankItem/index.tsx";
 import BottomRankItem from "@/components/BottomRankItem/index.tsx";
-import type { Ranking as RankingItem, RankingResponse } from "@/types/ranking";
+import type { RankingResponse } from "@/types/ranking";
 import TileContainer from "@/components/common/TileContainer";
-import { extractData } from "@/utils/apiNormalizer";
+
+interface RankingApiResponse {
+  status: number;
+  data: RankingResponse["data"];
+}
 
 function Ranking() {
   const [rankingData, setRankingData] = useState<RankingResponse>({ data: [] });
 
   useEffect(() => {
     linkupAxios
-      .get("/ranking")
+      .get<RankingApiResponse>("/ranking")
       .then((response) => {
-        const rawData = extractData<unknown[]>(response.data) ?? [];
-        const normalized = rawData
-          .filter((item): item is Record<string, unknown> => !!item && typeof item === "object")
-          .map(
-            (item, index): RankingItem => ({
-              rank: Number(item.rank ?? index + 1),
-              username: String(item.username ?? item.userName ?? item.nickname ?? ""),
-              point: Number(item.point ?? item.points ?? 0),
-            })
-          );
-        setRankingData({ data: normalized });
+        setRankingData({ data: response.data.data ?? [] });
       })
       .catch((error) => {
         alert(error);

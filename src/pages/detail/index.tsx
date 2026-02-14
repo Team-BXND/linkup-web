@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import * as S from "./style";
 import Showdown from "showdown";
 import DOMPurify from "dompurify";
-import { extractData } from "@/utils/apiNormalizer";
 
 interface Comment {
   commentId: number;
@@ -54,6 +53,11 @@ interface RawDetail {
   comment?: RawDetailComment[];
 }
 
+interface RawDetailResponse {
+  status: number;
+  data: RawDetail;
+}
+
 const converter = new Showdown.Converter();
 
 function Detail() {
@@ -68,10 +72,9 @@ function Detail() {
         );
 
       linkupAxios
-        .get(`/posts/${id}`)
+        .get<RawDetailResponse>(`/posts/${id}`)
         .then((response) => {
-          const payload = extractData<RawDetail>(response.data);
-          if (!payload) return;
+          const payload = response.data.data;
 
           const convertedData = {
             title: payload.title,

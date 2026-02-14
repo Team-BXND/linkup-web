@@ -4,20 +4,24 @@ import MyQuestionItem from "../MyQuestionItem";
 import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
-import { extractPaged } from "@/utils/apiNormalizer";
+
+interface ProfileMyQuestionListResponse {
+  status: number;
+  data: ProfileMyQuestion[];
+}
 
 function MyQuestion() {
   const [questionsData, setQuestionsData] = useState<ProfileMyQuestion[]>([]);
 
   useEffect(() => {
     linkupAxios
-      .get(`/profile/myque`, {
+      .get<ProfileMyQuestionListResponse>(`/profile/myque`, {
         params: {
           page: 0,
         },
       })
       .then((response) => {
-        setQuestionsData(extractPaged<ProfileMyQuestion>(response.data).data);
+        setQuestionsData(response.data.data ?? []);
       })
       .catch((error) => {
         alert(error);
