@@ -2,7 +2,6 @@ import * as S from "./style";
 import { linkupAxios } from "@/libs/customAxios";
 import type {
   ProfileMyQuestion,
-  ProfileMyQuestionResponse,
   ProfileMeta,
 } from "@/types/profile";
 
@@ -11,27 +10,33 @@ import Pagination from "@/components/Pagination";
 import { Title } from "@/components/common/Text";
 import { useEffect, useState } from "react";
 
+interface ProfileMyQuestionPageResponse {
+  status: number;
+  data: ProfileMyQuestion[];
+  meta: ProfileMeta;
+}
+
 function Questions() {
   const [questionData, setQuestionData] = useState<ProfileMyQuestion[]>([]);
   const [meta, setMeta] = useState<ProfileMeta>({
-    total: 1,
-    page: 1,
+    total: 0,
+    page: 0,
     pageSize: 10,
-    totalPages: 1,
+    totalPages: 0,
     hasNext: false,
     hasPrevious: false,
   });
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
-      .get<ProfileMyQuestionResponse>(`/profile/myque`, {
+      .get<ProfileMyQuestionPageResponse>(`/profile/myque`, {
         params: {
           page: page,
         },
       })
       .then((response) => {
-        setQuestionData(response.data.data);
+        setQuestionData(response.data.data ?? []);
         setMeta(response.data.meta);
       })
       .catch((error) => {
@@ -50,7 +55,7 @@ function Questions() {
       <S.ScrollArea>
         <S.DetailCover>
           {questionData.map((item) => (
-            <MyQuestionItem key={item.id} item={item}/>
+            <MyQuestionItem key={item.id} item={item} />
           ))}
         </S.DetailCover>
       </S.ScrollArea>

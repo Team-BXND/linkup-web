@@ -1,5 +1,5 @@
 import * as S from "./style";
-import QuestionItem from "../QuestionItem";
+import QuestionItem from "../common/QuestionItem";
 import { linkupAxios } from "@/libs/customAxios";
 import { useState, useEffect } from "react";
 import TileContainer from "../common/TileContainer";
@@ -9,7 +9,7 @@ import Pagination from "../Pagination";
 function PopularHot() {
   const [items, setItems] = useState<PostData[]>([]);
   const [meta, setMeta] = useState<PostMeta>();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
@@ -20,7 +20,7 @@ function PopularHot() {
       })
       .then((response) => {
         setItems(response.data.data ?? []);
-        setMeta(response.data.meta ?? meta);
+        setMeta((prev) => response.data.meta ?? prev);
       })
       .catch((error) => {
         console.log(error);

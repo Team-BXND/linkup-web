@@ -1,25 +1,27 @@
 import * as S from "./style";
-import type {
-  ProfileMyAnswerResponse,
-  ProfileMyAnswer,
-} from "@/types/profile";
+import type { ProfileMyAnswer } from "@/types/profile";
 import MyAnswerItem from "../MyAnswerItem";
 import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
+
+interface ProfileMyAnswerListResponse {
+  status: number;
+  data: ProfileMyAnswer[];
+}
 
 function MyAnswer() {
   const [answersData, setAnswersData] = useState<ProfileMyAnswer[]>([]);
 
   useEffect(() => {
     linkupAxios
-      .get<ProfileMyAnswerResponse>(`/profile/myans`, {
+      .get<ProfileMyAnswerListResponse>(`/profile/myans`, {
         params: {
-          page: 1,
+          page: 0,
         },
       })
       .then((response) => {
-        setAnswersData(response.data.data);
+        setAnswersData(response.data.data ?? []);
       })
       .catch((error) => {
         alert(error);

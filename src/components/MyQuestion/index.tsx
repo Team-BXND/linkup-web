@@ -5,25 +5,30 @@ import ProfileContainer from "../ProfileContainer";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 
+interface ProfileMyQuestionListResponse {
+  status: number;
+  data: ProfileMyQuestion[];
+}
+
 function MyQuestion() {
   const [questionsData, setQuestionsData] = useState<ProfileMyQuestion[]>([]);
 
   useEffect(() => {
     linkupAxios
-      .get(`/profile/myque`, {
+      .get<ProfileMyQuestionListResponse>(`/profile/myque`, {
         params: {
-          page: 1,
+          page: 0,
         },
       })
       .then((response) => {
-        setQuestionsData(response.data);
+        setQuestionsData(response.data.data ?? []);
       })
       .catch((error) => {
         alert(error);
       });
   }, []);
   return (
-    <ProfileContainer title="질문" destination="profile/questions">
+    <ProfileContainer title="질문" destination="/profile/questions">
       <S.ScrollArea>
         <S.DetailCover>
           {questionsData.map((item) => (

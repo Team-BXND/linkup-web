@@ -17,6 +17,7 @@ interface QuestionProps {
   isLike: boolean;
   isAuthor: boolean;
   id?: string;
+  isAccepted: boolean;
 }
 
 function Question({
@@ -29,6 +30,7 @@ function Question({
   isLike,
   isAuthor,
   id,
+  isAccepted,
 }: QuestionProps) {
   const navigate = useNavigate();
 
@@ -41,6 +43,23 @@ function Question({
         })
         .catch(() => {
           alert("유용해요를 표시하지 못했습니다. 잠시 후 다시 시도해 주세요");
+        });
+    }
+  };
+
+  const handleDelete = () => {
+    if (
+      id &&
+      confirm("삭제된 게시글은 복구할 수 없습니다. 삭제하시겠습니까?")
+    ) {
+      linkupAxios
+        .delete(`/posts/${id}`)
+        .then(() => {
+          alert("삭제가 완료되었습니다.");
+          navigate("/");
+        })
+        .catch(() => {
+          alert("삭제에 실패했습니다.");
         });
     }
   };
@@ -73,18 +92,20 @@ function Question({
           </S.MetaContainer>
         </S.TitleArea>
         {isAuthor ? (
-          <S.Toolbar>
-            <Button
-              size="md"
-              color="default"
-              onClick={() => navigate(`/editor/${id}`)}
-            >
-              수정
-            </Button>
-            <Button size="md" color="default">
-              삭제
-            </Button>
-          </S.Toolbar>
+          !isAccepted ? (
+            <S.Toolbar>
+              <Button
+                size="md"
+                color="default"
+                onClick={() => navigate(`/editor/${id}`)}
+              >
+                수정
+              </Button>
+              <Button size="md" color="default" onClick={handleDelete}>
+                삭제
+              </Button>
+            </S.Toolbar>
+          ) : null
         ) : (
           <RoundButton
             size="md"

@@ -31,10 +31,15 @@ function Signup() {
         navigate("/login");
       })
       .catch((error) => {
-        if (error.status !== 400 && error.status !== 409) {
+        const status = error.response?.status;
+        if (status !== 400 && status !== 409) {
           alert("문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요.");
         } else {
-          alert(error.response.data.message);
+          const message =
+            error.response?.data?.data?.message ??
+            error.response?.data?.message ??
+            "요청 처리 중 오류가 발생했습니다.";
+          alert(message);
         }
       });
   };

@@ -6,14 +6,19 @@ import BottomRankItem from "@/components/BottomRankItem/index.tsx";
 import type { RankingResponse } from "@/types/ranking";
 import TileContainer from "@/components/common/TileContainer";
 
+interface RankingApiResponse {
+  status: number;
+  data: RankingResponse["data"];
+}
+
 function Ranking() {
   const [rankingData, setRankingData] = useState<RankingResponse>({ data: [] });
 
   useEffect(() => {
     linkupAxios
-      .get("/ranking")
+      .get<RankingApiResponse>("/ranking")
       .then((response) => {
-        setRankingData(response.data);
+        setRankingData({ data: response.data.data ?? [] });
       })
       .catch((error) => {
         alert(error);

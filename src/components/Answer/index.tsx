@@ -43,7 +43,7 @@ function Answer(props: AnswerProps) {
               {`${props.author}님의 답변`}
             </Title>
           </S.TitleContainer>
-          {!props.isAcceptedQnA ? (
+          {!props.isAcceptedQnA && props.isAuthor ? (
             <S.ButtonWrapper>
               <Button
                 size="lg"

@@ -31,27 +31,75 @@ interface Detail {
   comment: Comment[];
 }
 
+interface RawDetailComment {
+  commentId: number;
+  author: string;
+  content: string;
+  createdAt: string;
+  isAccepted?: boolean;
+}
+
+interface RawDetail {
+  title: string;
+  author: string;
+  category: "all" | "code" | "school" | "project";
+  content: string;
+  like: number;
+  createAt: string;
+  isAccepted: boolean;
+  isLike: boolean;
+  isAuthor?: boolean;
+  comments?: RawDetailComment[];
+  comment?: RawDetailComment[];
+}
+
+interface RawDetailResponse {
+  status: number;
+  data: RawDetail;
+}
+
+const converter = new Showdown.Converter();
+
 function Detail() {
   const { id } = useParams();
   const [detail, setDetail] = useState<Detail | null>(null);
-  const converter = new Showdown.Converter();
 
   useEffect(() => {
     if (id) {
+      const toSafeHtml = (value: unknown) =>
+        DOMPurify.sanitize(
+          converter.makeHtml(typeof value === "string" ? value : ""),
+        );
+
       linkupAxios
-        .get<Detail>(`/posts/${id}`)
+        .get<RawDetailResponse>(`/posts/${id}`)
         .then((response) => {
+          const payload = response.data.data;
+
           const convertedData = {
-            ...response.data,
-            content: DOMPurify.sanitize(converter.makeHtml(response.data.content)),
-            comment: response.data.comment.map((comment) => ({
-              ...comment,
-              content: DOMPurify.sanitize(converter.makeHtml(comment.content)),
-            })),
+            title: payload.title,
+            author: payload.author,
+            category: payload.category,
+            content: toSafeHtml(payload.content),
+            like: payload.like,
+            createAt: payload.createAt,
+            isAccepted: payload.isAccepted,
+            isLike: payload.isLike,
+            isAuthor: payload.isAuthor ?? false,
+            comment: (payload.comment ?? payload.comments ?? []).map(
+              (comment) => ({
+                commentId: comment.commentId,
+                author: comment.author,
+                content: toSafeHtml(comment.content),
+                isAccepted: comment.isAccepted ?? false,
+                createdAt: comment.createdAt,
+              }),
+            ),
           };
           setDetail(convertedData);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           alert(`글을 불러오는데 실패하였습니다.`);
         });
     }
@@ -71,8 +119,9 @@ function Detail() {
             isLike={detail.isLike}
             isAuthor={detail.isAuthor}
             id={id}
+            isAccepted={detail.isAccepted}
           />
-          <WriteAnswer />
+          {!detail.isAuthor ? <WriteAnswer id={id} /> : null}
           <TileContainer>
             <S.AnswerCountContainer>
               <Title size="xsm" weight="semibold">

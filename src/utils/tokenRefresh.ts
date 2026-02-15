@@ -6,31 +6,43 @@ import {
 } from "@/constants/token.constants";
 import { cookie } from "@/utils/cookie";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const tokenRefresh = () => {
+const API_BASE_URL = import.meta.env.DEV
+  ? "/api"
+  : import.meta.env.VITE_SERVER_URL;
+
+const tokenRefresh = async (): Promise<string | null> => {
   const refreshToken = cookie.get(REFRESH_TOKEN_KEY);
-  const navigate = useNavigate();
+  const payload = refreshToken ? { refreshToken } : {};
 
-  if (refreshToken) {
-    axios
-      .post("/auth/refresh", {
-        refreshToken: refreshToken,
-      })
-      .then((response) => {
-        const newAccessToken = response.data.accessToken;
-        const newRefreshToken = response.data.refreshToken;
+  try {
+    const response = await axios.post(`${API_BASE_URL}/auth/refresh`, payload, {
+      withCredentials: true,
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+      },
+    });
 
-        cookie.set(ACCESS_TOKEN_KEY, newAccessToken, ACCESS_TOKEN_LIFETIME);
-        cookie.set(REFRESH_TOKEN_KEY, newRefreshToken, REFRESH_TOKEN_LIFETIME);
+    const responseData = response.data?.data ?? response.data;
+    const newAccessToken = responseData?.[ACCESS_TOKEN_KEY];
+    const newRefreshToken = responseData?.[REFRESH_TOKEN_KEY];
 
-        return newAccessToken;
-      })
-      .catch(() => {
-        cookie.remove(ACCESS_TOKEN_KEY);
-        cookie.remove(REFRESH_TOKEN_KEY);
-        navigate("/");
-      });
+    if (!newAccessToken || !newRefreshToken) {
+      throw new Error("Token refresh response is invalid.");
+    }
+
+    cookie.set(ACCESS_TOKEN_KEY, newAccessToken, ACCESS_TOKEN_LIFETIME);
+    cookie.set(REFRESH_TOKEN_KEY, newRefreshToken, REFRESH_TOKEN_LIFETIME);
+
+    return newAccessToken;
+  } catch {
+    cookie.remove(ACCESS_TOKEN_KEY);
+    cookie.remove(REFRESH_TOKEN_KEY);
+
+    if (window.location.pathname !== "/login") {
+      window.location.href = "/login";
+    }
+    return null;
   }
 };
 

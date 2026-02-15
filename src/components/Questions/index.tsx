@@ -3,7 +3,7 @@ import Category from "../Category";
 import { Body, Title } from "../common/Text";
 import TileContainer from "../common/TileContainer";
 import Pagination from "../Pagination";
-import QuestionItem from "../QuestionItem";
+import QuestionItem from "../common/QuestionItem";
 import * as S from "./style";
 import type { Dispatch } from "react";
 
@@ -23,7 +23,7 @@ function Questions({ data, meta, page, setPage }: QuestionsProps) {
         </Title>
         <Category />
       </S.TitleContainer>
-      {data ? (
+      {data && data.length !== 0 ? (
         data.map((elem, index) => {
           return <QuestionItem item={elem} index={index} showRank={false} />;
         })

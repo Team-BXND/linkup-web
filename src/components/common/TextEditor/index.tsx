@@ -12,6 +12,7 @@ import ImageIcon from "@/assets/Editor/Image.svg?react";
 import Toolbar from "./Toolbar";
 import { useMemo, useRef, type Dispatch } from "react";
 import { Button } from "../Button";
+import TurndownService from "turndown";
 
 interface ReactQuillEditorProps {
   value?: string;
@@ -19,6 +20,7 @@ interface ReactQuillEditorProps {
   style?: RuleSet;
   placeholder?: string;
   buttonText: string;
+  onSubmit: (markdown: string) => void;
 }
 
 /** 툴바의 아이콘 설정 */
@@ -35,8 +37,20 @@ function TextEditor({
   style,
   placeholder,
   buttonText,
+  onSubmit,
 }: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
+  const turndownService = useMemo(() => new TurndownService(), []);
+
+  const convertToMarkdown = () => {
+    return turndownService.turndown(value ?? "");
+  };
+
+  const handleSubmit = () => {
+    const markdown = convertToMarkdown();
+    onSubmit(markdown);
+  };
+
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -102,7 +116,7 @@ function TextEditor({
       />
       <S.ToolbarContainer>
         <Toolbar />
-        <Button size="md" color="default">
+        <Button type="button" size="md" color="default" onClick={handleSubmit}>
           {buttonText}
         </Button>
       </S.ToolbarContainer>

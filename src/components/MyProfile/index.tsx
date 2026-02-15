@@ -5,14 +5,22 @@ import ProfileItem from "../MyProfileItem";
 import type { ProfileMyInfo } from "@/types/profile";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
+import { useLogout } from "@/hooks/Auth/useLogout";
+
+interface ProfileResponse {
+  status: number;
+  data: ProfileMyInfo;
+}
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
+  const { logout } = useLogout();
+
   useEffect(() => {
     linkupAxios
-      .get(`/profile`)
+      .get<ProfileResponse>(`/profile`)
       .then((response) => {
-        setProfileData(response.data);
+        setProfileData(response.data.data);
       })
       .catch((error) => {
         alert(error);
@@ -35,7 +43,7 @@ function MyProfile() {
         {profileData && (
           <ProfileItem
             subtitle="답변자 순위"
-            content={profileData.rank + "위"}
+            content={profileData.ranking + "위"}
           />
         )}
         {profileData && (
@@ -43,7 +51,7 @@ function MyProfile() {
         )}
 
         <S.ButtonCover>
-          <Button size="md" color="default">
+          <Button size="md" color="default" onClick={logout}>
             로그아웃
           </Button>
         </S.ButtonCover>

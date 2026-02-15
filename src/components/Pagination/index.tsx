@@ -23,57 +23,35 @@ interface Meta {
  * @param totalPage : 총 페이지 수
  *
  * @example
- * const [page, setPage] = useState(1); //type은 number
+ * const [page, setPage] = useState(0); //type은 number
  * <Pagination page={page} setPage={setPage} totalPage={10}
  */
 
 function Pagination(props: PaginationProps) {
-  const isAbb = () => {
-    const showCount = 4;
-    let start;
-    let isFirst;
-    let end;
-    let abb;
+  const lastPage = Math.max(props.totalPage - 1, 0);
 
-    if (props.totalPage > 4) {
-      if (props.totalPage - props.page < 4) {
-        start = props.totalPage - 5;
-        end = props.totalPage;
-        abb = false;
-      } else {
-        if (props.page === 1) {
-          start = props.page - 1;
-          isFirst = true;
-        } else {
-          start = props.page - 2;
-          isFirst = false;
-        }
-        if (isFirst) {
-          end = props.page + showCount - 1;
-        } else {
-          end = props.page + showCount - 2;
-        }
-        abb = true;
-      }
-    } else {
-      start = 0;
-      end = props.totalPage;
-      abb = false;
+  const isAbb = (): Meta => {
+    const showCount = 5;
+    let start = Math.max(0, props.page - 1);
+    const end = Math.min(lastPage, start + showCount - 1);
+
+    if (end - start + 1 < showCount) {
+      start = Math.max(0, end - showCount + 1);
     }
 
-    return { start, end, abb };
+    return { start, end, abb: end < lastPage };
   };
 
-  let meta: Meta = isAbb();
+  const meta = isAbb();
 
   const setPrevious = () => {
-    if (props.page !== 1) {
+    if (props.page > 0) {
       props.setPage((prev) => prev - 1);
     }
   };
 
   const setNext = () => {
-    if (props.page < props.totalPage) {
+    if (props.page < lastPage) {
       props.setPage((prev) => prev + 1);
     }
   };
@@ -82,42 +60,46 @@ function Pagination(props: PaginationProps) {
     if (page === props.page) {
       return;
     }
-    if (1 <= page && page <= props.totalPage) {
+    if (0 <= page && page <= lastPage) {
       props.setPage(page);
     }
   };
 
+  if (props.totalPage <= 0) {
+    return null;
+  }
+
   return (
     <S.Container>
-      <S.ArrowContainer disabled={props.page === 1}>
+      <S.ArrowContainer disabled={props.page === 0}>
         <S.LeftArrow />
         <Caption size="lg" weight="medium" onClick={setPrevious}>
           Previous
         </Caption>
       </S.ArrowContainer>
       {meta &&
-        Array.from({ length: meta.end - meta.start }, (_, index) => {
-          index = meta.start + index + 1;
+        Array.from({ length: meta.end - meta.start + 1 }, (_, index) => {
+          index = meta.start + index;
           return (
             <S.Page
               key={index}
               active={props.page === index}
               onClick={() => setPage(index)}
             >
-              {index}
+              {index + 1}
             </S.Page>
           );
         })}
       {meta && meta.abb ? "..." : null}
       {meta && meta.abb ? (
         <S.Page
-          active={props.page === props.totalPage}
-          onClick={() => setPage(props.totalPage)}
+          active={props.page === lastPage}
+          onClick={() => setPage(lastPage)}
         >
-          {props.totalPage}
+          {lastPage + 1}
         </S.Page>
       ) : null}
-      <S.ArrowContainer disabled={props.page === props.totalPage}>
+      <S.ArrowContainer disabled={props.page === lastPage}>
         <Caption size="lg" weight="medium" onClick={setNext}>
           Next
         </Caption>

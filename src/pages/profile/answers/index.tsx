@@ -2,7 +2,6 @@ import * as S from "./style";
 import { linkupAxios } from "@/libs/customAxios";
 import type {
   ProfileMyAnswer,
-  ProfileMyAnswerResponse,
   ProfileMeta,
 } from "@/types/profile";
 
@@ -11,27 +10,33 @@ import Pagination from "@/components/Pagination";
 import { Title } from "@/components/common/Text";
 import { useEffect, useState } from "react";
 
+interface ProfileMyAnswerPageResponse {
+  status: number;
+  data: ProfileMyAnswer[];
+  meta: ProfileMeta;
+}
+
 function Answers() {
   const [answersData, setAnswersData] = useState<ProfileMyAnswer[]>([]);
   const [meta, setMeta] = useState<ProfileMeta>({
-    total: 1,
-    page: 1,
+    total: 0,
+    page: 0,
     pageSize: 10,
-    totalPages: 1,
+    totalPages: 0,
     hasNext: false,
     hasPrevious: false,
   });
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     linkupAxios
-      .get<ProfileMyAnswerResponse>(`/profile/myans`, {
+      .get<ProfileMyAnswerPageResponse>(`/profile/myans`, {
         params: {
           page: page,
         },
       })
       .then((response) => {
-        setAnswersData(response.data.data);
+        setAnswersData(response.data.data ?? []);
         setMeta(response.data.meta);
       })
       .catch((error) => {
