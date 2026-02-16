@@ -7,10 +7,13 @@ import ProfileCategory from "../ProfileCategory";
 function MyQuestionItem({ item }: { item: ProfileMyQuestion }) {
   return (
     <S.MyQuestionItem>
-      <ProfileCategory content={item.category} />
-      <Body size="md" weight="semibold">
-        {item.title}
-      </Body>
+      <S.QuestionContent>
+        <ProfileCategory content={item.category} />
+        <Body size="md" weight="semibold">
+          {item.title}
+        </Body>
+      </S.QuestionContent>
+      
       <QuestionMeta likeCount={item.like} answerCount={item.commentCount} />
     </S.MyQuestionItem>
   );
