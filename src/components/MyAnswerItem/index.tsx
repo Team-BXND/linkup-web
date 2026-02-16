@@ -2,11 +2,12 @@ import * as S from "./style";
 import type { ProfileMyAnswer } from "@/types/profile";
 import { Body, Caption } from "../common/Text";
 import ProfileCategory from "../ProfileCategory";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
+  const navigate = useNavigate();
   const onClick = () => {
-    redirect(`/detail/${item.id}`);
+    navigate(`/detail/${item.id}`);
   };
 
   return (

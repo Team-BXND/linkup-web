@@ -3,11 +3,13 @@ import type { ProfileMyQuestion } from "@/types/profile";
 import { Body } from "@/components/common/Text";
 import QuestionMeta from "../QuestionMeta";
 import ProfileCategory from "../ProfileCategory";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MyQuestionItem({ item }: { item: ProfileMyQuestion }) {
+  const navigate = useNavigate();
+
   const onClick = () => {
-    redirect(`/detail/${item.id}`);
+    navigate(`/detail/${item.id}`);
   };
   return (
     <S.MyQuestionItem onClick={onClick}>
