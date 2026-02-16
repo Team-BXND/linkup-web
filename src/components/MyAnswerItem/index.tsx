@@ -2,10 +2,15 @@ import * as S from "./style";
 import type { ProfileMyAnswer } from "@/types/profile";
 import { Body, Caption } from "../common/Text";
 import ProfileCategory from "../ProfileCategory";
+import { redirect } from "react-router-dom";
 
 function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
+  const onClick = () => {
+    redirect(`/detail/${item.id}`);
+  };
+
   return (
-    <S.MyAnswerItem>
+    <S.MyAnswerItem onClick={onClick}>
       <S.QuestionCover>
         <ProfileCategory content={item.category} />
         <S.QuestionTitle>
