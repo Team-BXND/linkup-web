@@ -10,4 +10,5 @@ export const TitleCover = styled.div`
 
 export const InDetail = styled.div`
   color: ${({ theme }) => theme.color.main.mainColor};
+  cursor: pointer;
 `;
