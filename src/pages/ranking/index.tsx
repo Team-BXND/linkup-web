@@ -41,11 +41,11 @@ function Ranking() {
         </S.TopRankContainer>
       </TileContainer>
 
-      <TileContainer>
+      <S.BottomContainer>
         {rankingData.data.slice(3).map((item) => (
           <BottomRankItem key={item.rank} item={item} />
         ))}
-      </TileContainer>
+      </S.BottomContainer>
     </S.Container>
   );
 }

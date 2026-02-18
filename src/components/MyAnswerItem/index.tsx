@@ -22,7 +22,7 @@ function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
       </S.QuestionCover>
 
       <Body size="md" weight="semibold">
-        {item.preview}
+        {item.answer}
       </Body>
     </S.MyAnswerItem>
   );

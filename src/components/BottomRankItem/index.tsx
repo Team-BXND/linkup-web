@@ -16,7 +16,7 @@ function BottomRankItem({ item }: { item: Ranking }) {
       </Title>
 
       <Body size="md" weight="medium">
-        {item.point}p
+        {item.point}P
       </Body>
     </S.RankItemContainer>
   );
