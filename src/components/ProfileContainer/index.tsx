@@ -23,7 +23,7 @@ function ProfileContainer({
 
         <S.InDetail>
           <Caption
-            size="sm"
+            size="lg"
             weight="medium"
             onClick={() => navigate(destination)}
           >

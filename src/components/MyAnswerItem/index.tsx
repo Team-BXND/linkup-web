@@ -20,9 +20,8 @@ function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
           </Caption>
         </S.QuestionTitle>
       </S.QuestionCover>
-
       <Body size="md" weight="semibold">
-        {item.answer}
+        &nbsp; &nbsp; 💬 &nbsp;{item.answer}
       </Body>
     </S.MyAnswerItem>
   );

@@ -13,5 +13,5 @@ export const DetailCover = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 `;

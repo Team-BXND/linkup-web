@@ -2,12 +2,12 @@ import type { Ranking } from "@/types/ranking";
 import { Body, Title } from "../common/Text";
 import * as S from "./style";
 
-function BottomRankItem({ item }: { item: Ranking }) {
+function BottomRankItem({ item,rankLabel }: { item: Ranking,rankLabel: number }) {
   return (
     <S.RankItemContainer>
       <S.Rank>
         <Body size="md" weight="semibold">
-          {item.rank}등
+          {rankLabel}등
         </Body>
       </S.Rank>
 
