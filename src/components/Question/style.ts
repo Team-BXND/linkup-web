@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Title } from "../common/Text";
+import { Body, Title } from "../common/Text";
 
 export const Container = styled.div`
   display: flex;
@@ -43,4 +43,8 @@ export const Toolbar = styled.div`
   display: flex;
   justify-content: right;
   gap: 0.625rem;
+`;
+
+export const ContentsArea = styled(Body)`
+  line-height: 2rem;
 `;

@@ -1,5 +1,5 @@
 import RoundButton from "../common/RoundButton";
-import { Body, Caption, Title } from "../common/Text";
+import { Caption, Title } from "../common/Text";
 import * as S from "./style";
 import TileContainer from "@/components/common/TileContainer";
 import ThumbsUp from "@/assets/Like/ThumbsUp.svg?react";
@@ -117,7 +117,7 @@ function Question({
         )}
       </S.Container>
       <S.Contents>
-        <Body
+        <S.ContentsArea
           as="div"
           size="md"
           weight="medium"
