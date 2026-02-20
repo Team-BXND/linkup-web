@@ -20,8 +20,10 @@ function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
           </Caption>
         </S.QuestionTitle>
       </S.QuestionCover>
+
       <Body size="md" weight="semibold">
-        &nbsp; &nbsp; 💬 &nbsp;{item.answer}
+        <S.PreviewIcon>💬</S.PreviewIcon>
+        {item.preview}
       </Body>
     </S.MyAnswerItem>
   );

@@ -2,7 +2,13 @@ import type { Ranking } from "@/types/ranking";
 import { Body, Title } from "../common/Text";
 import * as S from "./style";
 
-function BottomRankItem({ item,rankLabel }: { item: Ranking,rankLabel: number }) {
+function BottomRankItem({
+  item,
+  rankLabel,
+}: {
+  item: Ranking;
+  rankLabel: number;
+}) {
   return (
     <S.RankItemContainer>
       <S.Rank>

@@ -32,3 +32,8 @@ export const QuestionCover = styled.div`
 export const QuestionTitle = styled.div`
   color: ${({ theme }) => theme.color.text.secondary};
 `;
+
+export const PreviewIcon = styled.span`
+margin-left: 1rem;
+margin-right: 0.5rem;
+`;

@@ -46,7 +46,7 @@ interface BottomContainer {
 export const BottomContainer = styled.div<BottomContainer>`
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: flex-start;
   width: 100%;
   flex-direction: column;
   gap: 1.5rem;
