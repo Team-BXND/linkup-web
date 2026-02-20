@@ -72,7 +72,7 @@ const resolvePreviewUrl = (s3Key: string) => {
 
   return linkupAxios
     .get<PreviewUrlResponse>("/upload", {
-      params: { s3key: s3Key },
+      params: { s3Key, s3key: s3Key },
     })
     .then((response) => response.data.data ?? s3Key)
     .catch(() => s3Key);
