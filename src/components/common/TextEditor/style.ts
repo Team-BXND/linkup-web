@@ -94,6 +94,10 @@ export const QuillStyle = createGlobalStyle<{ style?: RuleSet }>`
     stroke: ${({ theme }) => theme.color.main.mainColor};
     stroke-width: 0.1rem;
   }
+
+  img {
+    max-width: 40rem !important;
+  }
 `;
 
 export const QuillWrapper = styled.div`

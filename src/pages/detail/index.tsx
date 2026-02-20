@@ -72,7 +72,7 @@ const resolvePreviewUrl = (s3Key: string) => {
 
   return linkupAxios
     .get<PreviewUrlResponse>("/upload", {
-      params: { s3Key, s3key: s3Key },
+      params: { s3key: s3Key },
     })
     .then((response) => response.data.data ?? s3Key)
     .catch(() => s3Key);
@@ -116,45 +116,54 @@ function Detail() {
   const [detail, setDetail] = useState<Detail | null>(null);
 
   useEffect(() => {
-    if (id) {
-      linkupAxios
-        .get<RawDetailResponse>(`/posts/${id}`)
-        .then((response) => {
-          const payload = response.data.data;
-          const comments = payload.comment ?? payload.comments ?? [];
+    if (!id) return;
 
-          return Promise.all([
-            renderMarkdownToHtml(payload.content),
-            Promise.all(
-              comments.map((comment) => renderMarkdownToHtml(comment.content)),
-            ),
-          ]).then(([contentHtml, commentHtmlList]) => {
-            const convertedData = {
-              title: payload.title,
-              author: payload.author,
-              category: payload.category,
-              content: contentHtml,
-              like: payload.like,
-              createAt: payload.createAt,
-              isAccepted: payload.isAccepted,
-              isLike: payload.isLike,
-              isAuthor: payload.isAuthor ?? false,
-              comment: comments.map((comment, index) => ({
-                commentId: comment.commentId,
-                author: comment.author,
-                content: commentHtmlList[index],
-                isAccepted: comment.isAccepted ?? false,
-                createdAt: comment.createdAt,
-              })),
-            };
-            setDetail(convertedData);
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-          alert(`글을 불러오는데 실패하였습니다.`);
+    let cancelled = false;
+
+    linkupAxios
+      .get<RawDetailResponse>(`/posts/${id}`)
+      .then((response) => {
+        const payload = response.data.data;
+        const comments = payload.comment ?? payload.comments ?? [];
+
+        return Promise.all([
+          renderMarkdownToHtml(payload.content),
+          Promise.all(
+            comments.map((comment) => renderMarkdownToHtml(comment.content)),
+          ),
+        ]).then(([contentHtml, commentHtmlList]) => {
+          if (cancelled) return;
+
+          const convertedData = {
+            title: payload.title,
+            author: payload.author,
+            category: payload.category,
+            content: contentHtml,
+            like: payload.like,
+            createAt: payload.createAt,
+            isAccepted: payload.isAccepted,
+            isLike: payload.isLike,
+            isAuthor: payload.isAuthor ?? false,
+            comment: comments.map((comment, index) => ({
+              commentId: comment.commentId,
+              author: comment.author,
+              content: commentHtmlList[index],
+              isAccepted: comment.isAccepted ?? false,
+              createdAt: comment.createdAt,
+            })),
+          };
+          setDetail(convertedData);
         });
-    }
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        console.error(error);
+        alert(`글을 불러오는데 실패하였습니다.`);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   return (
