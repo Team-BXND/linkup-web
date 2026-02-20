@@ -10,9 +10,11 @@ import StrikeIcon from "@/assets/Editor/Strike.svg?react";
 import LinkIcon from "@/assets/Editor/Link.svg?react";
 import ImageIcon from "@/assets/Editor/Image.svg?react";
 import Toolbar from "./Toolbar";
-import { useMemo, useRef, type Dispatch } from "react";
+import { useId, useMemo, useRef, type ChangeEvent, type Dispatch } from "react";
 import { Button } from "../Button";
 import TurndownService from "turndown";
+import { linkupAxios } from "@/libs/customAxios";
+import { AxiosError } from "axios";
 
 interface ReactQuillEditorProps {
   value?: string;
@@ -40,7 +42,27 @@ function TextEditor({
   onSubmit,
 }: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
-  const turndownService = useMemo(() => new TurndownService(), []);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const isPickingImageRef = useRef(false);
+  const imageInsertRangeRef = useRef<{ index: number; length: number } | null>(
+    null,
+  );
+  const turndownService = useMemo(() => {
+    const service = new TurndownService();
+    service.addRule("image-with-s3-key", {
+      filter: "img",
+      replacement: (_, node) => {
+        const img = node as HTMLImageElement;
+        const alt = img.getAttribute("alt") ?? "";
+        const s3Key = img.getAttribute("data-s3-key");
+        const src = img.getAttribute("src") ?? "";
+        const markdownSrc = s3Key ?? src;
+        return markdownSrc ? `![${alt}](${markdownSrc})` : "";
+      },
+    });
+    return service;
+  }, []);
+  const toolbarId = useId().replace(/:/g, "");
 
   const convertToMarkdown = () => {
     return turndownService.turndown(value ?? "");
@@ -51,10 +73,77 @@ function TextEditor({
     onSubmit(markdown);
   };
 
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const quill = contentRef.current?.getEditor();
+
+    if (!file || !quill) {
+      isPickingImageRef.current = false;
+      imageInsertRangeRef.current = null;
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
+    const range = imageInsertRangeRef.current ??
+      quill.getSelection(true) ?? {
+        index: quill.getLength(),
+        length: 0,
+      };
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    linkupAxios
+      .post("/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        const data = response.data;
+        const s3key = data.data ?? "";
+
+        if (!s3key) {
+          throw new Error("Image upload failed");
+        }
+
+        return linkupAxios
+          .get("/upload", {
+            params: { s3Key: s3key },
+          })
+          .then((response) => {
+            const previewUrl = response.data.data ?? "";
+
+            if (!previewUrl) {
+              throw new Error("Image get failed");
+            }
+
+            const escapedSrc = previewUrl.replace(/"/g, "&quot;");
+            const escapedS3Key = s3key.replace(/"/g, "&quot;");
+            quill.clipboard.dangerouslyPasteHTML(
+              range.index,
+              `<img src="${escapedSrc}" data-s3-key="${escapedS3Key}" />`,
+              "user",
+            );
+            quill.setSelection(range.index + 1);
+          });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof AxiosError && error.response?.status === 413) {
+          alert("10M 이하의 파일만 업로드 가능합니다.");
+        } else {
+          alert("이미지 업로드 실패. 잠시 후 다시 시도해 주세요.");
+        }
+      })
+      .finally(() => {
+        isPickingImageRef.current = false;
+        imageInsertRangeRef.current = null;
+        if (fileInputRef.current) fileInputRef.current.value = "";
+      });
+  };
+
   const modules = useMemo(
     () => ({
       toolbar: {
-        container: "#toolbar",
+        container: `#${toolbarId}`,
         handlers: {
           bold: function (this: { quill: Quill }) {
             this.quill.format("bold", !this.quill.getFormat().bold);
@@ -69,41 +158,34 @@ function TextEditor({
             this.quill.format("strike", !this.quill.getFormat().strike);
           },
           image: () => {
-            const input = document.createElement("input");
-            input.setAttribute("type", "file");
-            input.setAttribute("accept", "image/*");
-            input.click();
-            input.onchange = async () => {
-              const file = input.files?.[0];
-              const quill = contentRef.current?.getEditor();
-              const range = quill?.getSelection();
-
-              if (!file || !quill || !range) return;
-
-              try {
-                /** TODO: 업로드 로직 */
-                const imageUrl =
-                  "https://cdn.crowdpic.net/detail-thumb/thumb_d_2F583E5543F7E19139C6FCFFBF9607A6.jpg";
-
-                quill.insertEmbed(range.index, "image", imageUrl);
-                quill.setSelection(range.index + 1);
-              } catch (e) {
-                console.error(e);
-              } finally {
-                input.remove();
-              }
-            };
+            if (isPickingImageRef.current) return;
+            isPickingImageRef.current = true;
+            const quill = contentRef.current?.getEditor();
+            if (quill) {
+              imageInsertRangeRef.current = quill.getSelection(true) ?? {
+                index: quill.getLength(),
+                length: 0,
+              };
+            }
+            fileInputRef.current?.click();
           },
         },
       },
     }),
-    [],
+    [toolbarId],
   );
 
   const formats = ["bold", "italic", "underline", "strike", "link", "image"];
 
   return (
     <S.QuillWrapper>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleImageUpload}
+      />
       <S.QuillStyle style={style} />
       <ReactQuill
         ref={contentRef}
@@ -115,7 +197,7 @@ function TextEditor({
         placeholder={placeholder}
       />
       <S.ToolbarContainer>
-        <Toolbar />
+        <Toolbar id={toolbarId} />
         <Button type="button" size="md" color="default" onClick={handleSubmit}>
           {buttonText}
         </Button>
