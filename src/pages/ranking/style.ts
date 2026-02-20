@@ -39,11 +39,11 @@ export const BottomRankSection = styled.div`
   box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a, 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
 `;
 
-interface BottomContainer {
+interface BottomContainerProps {
   enable?: boolean;
 }
 
-export const BottomContainer = styled.div<BottomContainer>`
+export const BottomContainer = styled.div<BottomContainerProps>`
   display: flex;
   justify-content: center;
   align-items: flex-start;
