@@ -1,5 +1,7 @@
 export interface Ranking {
-  ranking: number;
+  rank: number;
+  displayRank: number;
+  rankLabel: string;
   username: string;
   point: number;
 }
