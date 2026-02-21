@@ -13,6 +13,10 @@ export const QuillStyle = createGlobalStyle<{ style?: RuleSet }>`
     font-size: ${(props) => props.theme.typography.fontSize.body.md};
   }
 
+  .ql-editor img {
+    max-width: 40rem !important;
+  }
+
   .ql-editor p {
     font-size: ${(props) => props.theme.typography.fontSize.body.md};
     font-weight: ${(props) => props.theme.typography.fontWeight.medium};

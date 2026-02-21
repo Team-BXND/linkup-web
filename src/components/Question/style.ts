@@ -36,6 +36,9 @@ export const Contents = styled.div`
   display: flex;
   flex-wrap: wrap;
   line-height: auto;
+  img {
+    max-width: 40rem;
+  }
 `;
 
 export const Toolbar = styled.div`
