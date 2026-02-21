@@ -92,6 +92,7 @@ function TextEditor({
 
     const formData = new FormData();
     formData.append("file", file);
+    isPickingImageRef.current = true;
 
     linkupAxios
       .post("/upload", formData, {
@@ -116,13 +117,12 @@ function TextEditor({
               throw new Error("Image get failed");
             }
 
-            const escapedSrc = previewUrl.replace(/"/g, "&quot;");
-            const escapedS3Key = s3key.replace(/"/g, "&quot;");
-            quill.clipboard.dangerouslyPasteHTML(
-              range.index,
-              `<img src="${escapedSrc}" data-s3-key="${escapedS3Key}" />`,
-              "user",
-            );
+            quill.insertEmbed(range.index, "image", previewUrl, "user");
+            const [leaf] = quill.getLeaf(range.index);
+            const maybeDomNode = (leaf as { domNode?: Node } | null)?.domNode;
+            if (maybeDomNode instanceof HTMLImageElement) {
+              maybeDomNode.setAttribute("data-s3-key", s3key);
+            }
             quill.setSelection(range.index + 1);
           });
       })
@@ -158,8 +158,6 @@ function TextEditor({
             this.quill.format("strike", !this.quill.getFormat().strike);
           },
           image: () => {
-            if (isPickingImageRef.current) return;
-            isPickingImageRef.current = true;
             const quill = contentRef.current?.getEditor();
             if (quill) {
               imageInsertRangeRef.current = quill.getSelection(true) ?? {
