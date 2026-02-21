@@ -67,13 +67,17 @@ function Login() {
           placeholder="비밀번호를 입력하세요."
           {...register("password", { required: "비밀번호를 입력해주세요." })}
         />
-        <S.ErrorMsg size="md" weight="semibold">
-          {errors.password?.message}
-        </S.ErrorMsg>
-        <S.ErrorMsg size="md" weight="semibold">
-          {errors.root?.message}
-        </S.ErrorMsg>
+        <S.ChangePasswordWrapper>
+          <S.ErrorMsg size="md" weight="semibold">
+            {errors.password?.message || errors.root?.message}
+          </S.ErrorMsg>
+          <S.ChangePassword size="lg" weight="medium">
+            비밀번호를 잊으셨나요?
+            <S.GoToChangePassword onClick={() => {navigate("/pwChange")}}> 비밀번호 찾기</S.GoToChangePassword>
+          </S.ChangePassword>
+        </S.ChangePasswordWrapper>
       </S.InputContainer>
+
       <S.ButtonContainer>
         <S.AuthButton type="submit" size="lg" color="default">
           로그인 하기
