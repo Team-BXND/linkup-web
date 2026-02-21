@@ -25,8 +25,39 @@ interface ReactQuillEditorProps {
   onSubmit: (markdown: string) => void;
 }
 
+interface ImageEmbedValue {
+  url: string;
+  s3Key?: string;
+}
+
 /** 툴바의 아이콘 설정 */
 const icons = Quill.import("ui/icons") as Record<string, string>;
+const BaseImage = Quill.import("formats/image");
+
+class S3ImageBlot extends BaseImage {
+  static create(value: string | ImageEmbedValue) {
+    const imageValue = typeof value === "string" ? { url: value } : value;
+    const node = super.create(imageValue.url) as HTMLImageElement;
+
+    if (imageValue.s3Key) {
+      node.setAttribute("data-s3-key", imageValue.s3Key);
+    }
+
+    return node;
+  }
+
+  static value(node: HTMLImageElement): ImageEmbedValue {
+    return {
+      url: node.getAttribute("src") ?? "",
+      s3Key: node.getAttribute("data-s3-key") ?? "",
+    };
+  }
+}
+
+S3ImageBlot.blotName = "image";
+S3ImageBlot.tagName = "IMG";
+Quill.register(S3ImageBlot, true);
+
 icons["bold"] = renderToStaticMarkup(<BoldIcon />);
 icons["italic"] = renderToStaticMarkup(<ItalicIcon />);
 icons["strike"] = renderToStaticMarkup(<StrikeIcon />);
@@ -56,7 +87,7 @@ function TextEditor({
         const alt = img.getAttribute("alt") ?? "";
         const s3Key = img.getAttribute("data-s3-key");
         const src = img.getAttribute("src") ?? "";
-        const markdownSrc = s3Key ?? src;
+        const markdownSrc = s3Key?.trim() ? s3Key : src;
         return markdownSrc ? `![${alt}](${markdownSrc})` : "";
       },
     });
@@ -116,11 +147,10 @@ function TextEditor({
               throw new Error("Image get failed");
             }
 
-            const escapedSrc = previewUrl.replace(/"/g, "&quot;");
-            const escapedS3Key = s3key.replace(/"/g, "&quot;");
-            quill.clipboard.dangerouslyPasteHTML(
+            quill.insertEmbed(
               range.index,
-              `<img src="${escapedSrc}" data-s3-key="${escapedS3Key}" />`,
+              "image",
+              { url: previewUrl, s3Key: s3key },
               "user",
             );
             quill.setSelection(range.index + 1);
