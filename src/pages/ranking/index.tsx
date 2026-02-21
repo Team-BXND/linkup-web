@@ -34,7 +34,7 @@ function Ranking() {
         <S.TopRankContainer>
           {topThree.map((item) => (
             <TopRankItem
-              key={`${item.ranking}-${item.username}`}
+              key={`${item.displayRank}-${item.username}`}
               item={item}
               rankLabel={item.displayRank}
             />
@@ -45,7 +45,7 @@ function Ranking() {
       <S.BottomContainer>
         {bottom.map((item) => (
           <BottomRankItem
-            key={`${item.ranking}-${item.username}`}
+            key={`${item.displayRank}-${item.username}`}
             item={item}
             rankLabel={item.displayRank}
           />

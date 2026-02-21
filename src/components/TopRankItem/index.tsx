@@ -16,7 +16,7 @@ function TopRankItem({
       <S.RankItemDetail>
         <S.Rank rank={rankLabel}>
           <Body size="md" weight="semibold">
-            {rankLabel}st
+            {rankLabel}위
           </Body>
         </S.Rank>
 
