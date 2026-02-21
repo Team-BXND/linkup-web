@@ -1,5 +1,5 @@
-import type { RankingResponse } from "@/types/ranking.ts";
-import { buildRanking } from "./buildRanking.ts";
+import type { RankingResponse } from "@/types/ranking";
+import { buildRanking } from "./buildRanking";
 
 /**
  * 랭킹 화면에서 사용할 데이터를 가공하는 ViewModel 훅

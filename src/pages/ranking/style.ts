@@ -16,7 +16,8 @@ export const TopRankSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a, 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
+  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a,
+    0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
 `;
 
 export const TopRankContainer = styled.div`
@@ -36,7 +37,8 @@ export const BottomRankSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a, 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
+  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a,
+    0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
 `;
 
 interface BottomContainerProps {
@@ -55,5 +57,7 @@ export const BottomContainer = styled.div<BottomContainerProps>`
   background-color: ${(props) => props.theme.color.background.primary};
   box-shadow: ${(props) => props.theme.shadow.medium};
   border: ${(props) =>
-    props.enable ? `0.187rem solid ${props.theme.color.main.mainColor}` : 0};
+    props.enable
+      ? `0.187rem solid ${props.theme.color.main.mainColor}`
+      : "none"};
 `;
