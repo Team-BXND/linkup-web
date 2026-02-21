@@ -22,6 +22,7 @@ function MyAnswerItem({ item }: { item: ProfileMyAnswer }) {
       </S.QuestionCover>
 
       <Body size="md" weight="semibold">
+        <S.PreviewIcon aria-hidden="true">💬</S.PreviewIcon>
         {item.preview}
       </Body>
     </S.MyAnswerItem>

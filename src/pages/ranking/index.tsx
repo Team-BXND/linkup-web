@@ -3,8 +3,9 @@ import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import TopRankItem from "@/components/TopRankItem/index.tsx";
 import BottomRankItem from "@/components/BottomRankItem/index.tsx";
-import type { RankingResponse } from "@/types/ranking";
 import TileContainer from "@/components/common/TileContainer";
+import useRankingViewModel from "@/hooks/Ranking/useRankingViewModel";
+import type { RankingResponse } from "@/types/ranking";
 
 interface RankingApiResponse {
   status: number;
@@ -25,27 +26,31 @@ function Ranking() {
       });
   }, []);
 
-  const podiumOrder = [2, 1, 3];
-
-  const topThree = rankingData.data
-    .slice(0, 3)
-    .sort((a, b) => podiumOrder.indexOf(a.rank) - podiumOrder.indexOf(b.rank));
+  const { topThree, bottom } = useRankingViewModel(rankingData);
 
   return (
     <S.Container>
       <TileContainer title="🏆 답변자 랭킹">
         <S.TopRankContainer>
           {topThree.map((item) => (
-            <TopRankItem key={item.rank} item={item} />
+            <TopRankItem
+              key={`${item.displayRank}-${item.username}`}
+              item={item}
+              rankLabel={item.displayRank}
+            />
           ))}
         </S.TopRankContainer>
       </TileContainer>
 
-      <TileContainer>
-        {rankingData.data.slice(3).map((item) => (
-          <BottomRankItem key={item.rank} item={item} />
+      <S.BottomContainer>
+        {bottom.map((item) => (
+          <BottomRankItem
+            key={`${item.displayRank}-${item.username}`}
+            item={item}
+            rankLabel={item.displayRank}
+          />
         ))}
-      </TileContainer>
+      </S.BottomContainer>
     </S.Container>
   );
 }
