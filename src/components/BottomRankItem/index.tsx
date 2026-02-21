@@ -13,7 +13,7 @@ function BottomRankItem({
     <S.RankItemContainer>
       <S.Rank>
         <Body size="md" weight="semibold">
-          {rankLabel}등
+          {rankLabel}위
         </Body>
       </S.Rank>
 
