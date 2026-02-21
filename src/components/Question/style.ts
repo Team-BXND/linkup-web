@@ -35,7 +35,7 @@ export const Contents = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  line-height: 1.5;
+  line-height: auto;
 `;
 
 export const Toolbar = styled.div`
