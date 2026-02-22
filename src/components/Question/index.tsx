@@ -11,7 +11,7 @@ interface QuestionProps {
   title: string;
   author: string;
   category: string;
-  createAt: string;
+  createdAt: string;
   like: number;
   content: string;
   isLike: boolean;
@@ -24,7 +24,7 @@ function Question({
   title,
   author,
   category,
-  createAt,
+  createdAt,
   like,
   content,
   isLike,
@@ -84,7 +84,7 @@ function Question({
               {category}
             </Caption>
             <Caption size="lg" weight="medium">
-              작성일 : {createAt}
+              작성일 : {createdAt}
             </Caption>
             <Caption size="lg" weight="medium">
               유용해요 : {like}개
