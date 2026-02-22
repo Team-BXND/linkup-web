@@ -12,6 +12,7 @@ import Login from "@/pages/login";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Detail from "@/pages/detail";
 import Editor from "@/pages/editor";
+import ChangePassword from '@/pages/changePassword';
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
         <Route element={<Auth />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/pwchange" element={<ChangePassword/>} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -43,19 +43,3 @@ export const AuthInput = styled(Input)`
 export const ErrorMsg = styled(Caption)`
   color: ${(props) => props.theme.color.status.error};
 `;
-
-export const ChangePassword = styled(Caption)`
-  color: ${(props) => props.theme.color.text.secondary};
-`;
-
-export const ChangePasswordWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-`;
-
-export const GoToChangePassword = styled.span`
-  color: ${(props) => props.theme.color.main.subColor};
-  cursor: pointer;
-`;
