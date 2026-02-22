@@ -59,6 +59,57 @@ interface RawDetailResponse {
 }
 
 const converter = new Showdown.Converter();
+const IMAGE_MARKDOWN_REGEX = /!\[([^\]]*)\]\(([^)]+)\)/g;
+
+interface PreviewUrlResponse {
+  data?: string;
+}
+
+const resolvePreviewUrl = (s3Key: string) => {
+  if (!s3Key || s3Key.startsWith("http")) {
+    return Promise.resolve(s3Key);
+  }
+
+  return linkupAxios
+    .get<PreviewUrlResponse>("/upload", {
+      params: { s3Key, s3key: s3Key },
+    })
+    .then((response) => response.data.data ?? s3Key)
+    .catch(() => s3Key);
+};
+
+const renderMarkdownToHtml = (value: unknown) => {
+  const markdown = typeof value === "string" ? value : "";
+  const imageSources = Array.from(
+    new Set(
+      Array.from(markdown.matchAll(IMAGE_MARKDOWN_REGEX))
+        .map((match) => match[2]?.trim() ?? "")
+        .filter(Boolean),
+    ),
+  );
+
+  if (imageSources.length === 0) {
+    return Promise.resolve(DOMPurify.sanitize(converter.makeHtml(markdown)));
+  }
+
+  return Promise.all(
+    imageSources.map((source) =>
+      resolvePreviewUrl(source).then((url) => [source, url] as const),
+    ),
+  ).then((pairs) => {
+    const sourceToUrl = new Map<string, string>(pairs);
+    const resolvedMarkdown = markdown.replace(
+      IMAGE_MARKDOWN_REGEX,
+      (full, alt, src) => {
+        const resolvedUrl = sourceToUrl.get((src as string).trim());
+        if (!resolvedUrl) return full;
+        return `![${alt}](${resolvedUrl})`;
+      },
+    );
+
+    return DOMPurify.sanitize(converter.makeHtml(resolvedMarkdown));
+  });
+};
 
 function Detail() {
   const { id } = useParams();
@@ -66,37 +117,38 @@ function Detail() {
 
   useEffect(() => {
     if (id) {
-      const toSafeHtml = (value: unknown) =>
-        DOMPurify.sanitize(
-          converter.makeHtml(typeof value === "string" ? value : ""),
-        );
-
       linkupAxios
         .get<RawDetailResponse>(`/posts/${id}`)
         .then((response) => {
           const payload = response.data.data;
+          const comments = payload.comment ?? payload.comments ?? [];
 
-          const convertedData = {
-            title: payload.title,
-            author: payload.author,
-            category: payload.category,
-            content: toSafeHtml(payload.content),
-            like: payload.like,
-            createAt: payload.createAt,
-            isAccepted: payload.isAccepted,
-            isLike: payload.isLike,
-            isAuthor: payload.isAuthor ?? false,
-            comment: (payload.comment ?? payload.comments ?? []).map(
-              (comment) => ({
+          return Promise.all([
+            renderMarkdownToHtml(payload.content),
+            Promise.all(
+              comments.map((comment) => renderMarkdownToHtml(comment.content)),
+            ),
+          ]).then(([contentHtml, commentHtmlList]) => {
+            const convertedData = {
+              title: payload.title,
+              author: payload.author,
+              category: payload.category,
+              content: contentHtml,
+              like: payload.like,
+              createAt: payload.createAt,
+              isAccepted: payload.isAccepted,
+              isLike: payload.isLike,
+              isAuthor: payload.isAuthor ?? false,
+              comment: comments.map((comment, index) => ({
                 commentId: comment.commentId,
                 author: comment.author,
-                content: toSafeHtml(comment.content),
+                content: commentHtmlList[index],
                 isAccepted: comment.isAccepted ?? false,
                 createdAt: comment.createdAt,
-              }),
-            ),
-          };
-          setDetail(convertedData);
+              })),
+            };
+            setDetail(convertedData);
+          });
         })
         .catch((error) => {
           console.error(error);

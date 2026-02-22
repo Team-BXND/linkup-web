@@ -19,14 +19,15 @@ export const Form = styled.form`
     flex: 1;
     display: flex;
     flex-direction: column;
-    border: 1px solid #e6e6e6;
-    border-radius: 0.875rem;
+    gap: 1rem;
     overflow: hidden;
 
     .quill {
       flex: 1;
       display: flex;
       flex-direction: column-reverse;
+      border: 1px solid #e6e6e6;
+      border-radius: 0.875rem;
     }
 
     .ql-container {
