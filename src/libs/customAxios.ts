@@ -51,7 +51,7 @@ linkupAxios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 linkupAxios.interceptors.response.use(
@@ -67,7 +67,11 @@ linkupAxios.interceptors.response.use(
     }
 
     const isAuthRequest = originalRequest.url?.startsWith("/auth/");
-    if (status === 401 && !isAuthRequest && !originalRequest._retry) {
+    if (
+      (status === 401 || status === 403) &&
+      !isAuthRequest &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
       const newAccessToken = await tokenRefresh();
@@ -77,9 +81,10 @@ linkupAxios.interceptors.response.use(
         return linkupAxios(originalRequest);
       }
 
+      alert("로그인이 필요한 서비스입니다.");
       redirectToLogin();
     }
 
     return Promise.reject(error);
-  }
+  },
 );
