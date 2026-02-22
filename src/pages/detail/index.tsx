@@ -165,7 +165,7 @@ function Detail() {
             title={detail.title}
             author={detail.author}
             category={detail.category}
-            createAt={detail.createAt}
+            createdAt={detail.createAt}
             like={detail.like}
             content={detail.content}
             isLike={detail.isLike}
