@@ -44,6 +44,7 @@ function TextEditor({
 }: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const s3KeyRef = useRef<Map<string, string>>(new Map());
   const imageInsertRangeRef = useRef<{ index: number; length: number } | null>(
     null,
   );
@@ -54,9 +55,9 @@ function TextEditor({
       replacement: (_, node) => {
         const img = node as HTMLImageElement;
         const alt = img.getAttribute("alt") ?? "";
-        const s3Key = img.getAttribute("data-s3-key");
         const src = img.getAttribute("src") ?? "";
-        const markdownSrc = s3Key?.trim() ? s3Key : src;
+        const s3Key = s3KeyRef.current.get(src);
+        const markdownSrc = s3Key ?? src;
         return markdownSrc ? `![${alt}](${markdownSrc})` : "";
       },
     });
@@ -115,12 +116,9 @@ function TextEditor({
               throw new Error("Image get failed");
             }
 
+            quill.setSelection(range.index + 1);
+            s3KeyRef.current.set(previewUrl, s3key);
             quill.insertEmbed(range.index, "image", previewUrl, "user");
-            const [leaf] = quill.getLeaf(range.index);
-            const imageNode = (leaf as { domNode?: Node } | null)?.domNode;
-            if (imageNode instanceof HTMLImageElement) {
-              imageNode.setAttribute("data-s3-key", s3key);
-            }
             quill.setSelection(range.index + 1);
           });
       })
