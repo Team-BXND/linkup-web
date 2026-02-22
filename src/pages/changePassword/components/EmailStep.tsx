@@ -36,6 +36,10 @@ function EmailStep({ onNext }: EmailStepProps) {
             error.response?.data?.message ??
             "잘못된 이메일입니다.";
           setError("email", { message });
+        } else if (error.response?.status === 404) {
+          setError("email", {
+            message: "등록되지 않은 이메일입니다.",
+          });
         } else {
           alert("문제가 발생하였습니다.\n잠시 후 다시 시도해 주세요.");
         }
