@@ -25,38 +25,8 @@ interface ReactQuillEditorProps {
   onSubmit: (markdown: string) => void;
 }
 
-interface ImageEmbedValue {
-  url: string;
-  s3Key?: string;
-}
-
 /** 툴바의 아이콘 설정 */
 const icons = Quill.import("ui/icons") as Record<string, string>;
-const BaseImage = Quill.import("formats/image");
-
-class S3ImageBlot extends BaseImage {
-  static create(value: string | ImageEmbedValue) {
-    const imageValue = typeof value === "string" ? { url: value } : value;
-    const node = super.create(imageValue.url) as HTMLImageElement;
-
-    if (imageValue.s3Key) {
-      node.setAttribute("data-s3-key", imageValue.s3Key);
-    }
-
-    return node;
-  }
-
-  static value(node: HTMLImageElement): ImageEmbedValue {
-    return {
-      url: node.getAttribute("src") ?? "",
-      s3Key: node.getAttribute("data-s3-key") ?? "",
-    };
-  }
-}
-
-S3ImageBlot.blotName = "image";
-S3ImageBlot.tagName = "IMG";
-Quill.register(S3ImageBlot, true);
 
 icons["bold"] = renderToStaticMarkup(<BoldIcon />);
 icons["italic"] = renderToStaticMarkup(<ItalicIcon />);
@@ -74,7 +44,6 @@ function TextEditor({
 }: ReactQuillEditorProps) {
   const contentRef = useRef<InstanceType<typeof ReactQuill>>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const isPickingImageRef = useRef(false);
   const imageInsertRangeRef = useRef<{ index: number; length: number } | null>(
     null,
   );
@@ -109,7 +78,6 @@ function TextEditor({
     const quill = contentRef.current?.getEditor();
 
     if (!file || !quill) {
-      isPickingImageRef.current = false;
       imageInsertRangeRef.current = null;
       if (fileInputRef.current) fileInputRef.current.value = "";
       return;
@@ -147,12 +115,12 @@ function TextEditor({
               throw new Error("Image get failed");
             }
 
-            quill.insertEmbed(
-              range.index,
-              "image",
-              { url: previewUrl, s3Key: s3key },
-              "user",
-            );
+            quill.insertEmbed(range.index, "image", previewUrl, "user");
+            const [leaf] = quill.getLeaf(range.index);
+            const imageNode = (leaf as { domNode?: Node } | null)?.domNode;
+            if (imageNode instanceof HTMLImageElement) {
+              imageNode.setAttribute("data-s3-key", s3key);
+            }
             quill.setSelection(range.index + 1);
           });
       })
@@ -164,7 +132,6 @@ function TextEditor({
         }
       })
       .finally(() => {
-        isPickingImageRef.current = false;
         imageInsertRangeRef.current = null;
         if (fileInputRef.current) fileInputRef.current.value = "";
       });
@@ -188,8 +155,6 @@ function TextEditor({
             this.quill.format("strike", !this.quill.getFormat().strike);
           },
           image: () => {
-            if (isPickingImageRef.current) return;
-            isPickingImageRef.current = true;
             const quill = contentRef.current?.getEditor();
             if (quill) {
               imageInsertRangeRef.current = quill.getSelection(true) ?? {
