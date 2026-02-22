@@ -11,7 +11,7 @@ function Topbar() {
 
   return (
     <S.Container>
-      <S.Logo onClick={() => navigator("/home")} />
+      <S.Logo onClick={() => navigator("/")} />
       <S.NavContainer>
         {Tabs.map((elem) => {
           const accessToken = cookie.get(ACCESS_TOKEN_KEY);
