@@ -17,19 +17,19 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<ProtectedRoute />}>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/qna" element={<Navigate replace to="all" />} />
-            <Route path="/qna/:category" element={<QnA />} />
-            <Route path="/detail/:id" element={<Detail />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/qna" element={<Navigate replace to="all" />} />
+          <Route path="/qna/:category" element={<QnA />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route element={<ProtectedRoute />}>
             <Route path="/editor" element={<Editor />} />
             <Route path="/editor/:id" element={<Editor />} />
-            <Route path="/ranking" element={<Ranking />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/answers" element={<Answers />} />
             <Route path="/profile/questions" element={<Questions />} />
           </Route>
+          <Route path="/ranking" element={<Ranking />} />
         </Route>
         <Route element={<Auth />}>
           <Route path="/signup" element={<Signup />} />
