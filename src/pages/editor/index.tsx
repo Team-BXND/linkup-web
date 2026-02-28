@@ -19,14 +19,65 @@ interface EditFormValues {
 interface EditPostResponse {
   status: number;
   data: {
-  title: string;
-  author: string;
-  category: "code" | "school" | "project";
-  content: string;
+    title: string;
+    author: string;
+    category: "code" | "school" | "project";
+    content: string;
   };
 }
 
 const converter = new Showdown.Converter();
+const IMAGE_MARKDOWN_REGEX = /!\[([^\]]*)\]\(([^)]+)\)/g;
+
+interface PreviewUrlResponse {
+  data?: string;
+}
+
+const resolvePreviewUrl = (s3Key: string) => {
+  if (!s3Key || s3Key.startsWith("http")) {
+    return Promise.resolve(s3Key);
+  }
+
+  return linkupAxios
+    .get<PreviewUrlResponse>("/upload", {
+      params: { s3Key, s3key: s3Key },
+    })
+    .then((response) => response.data.data ?? s3Key)
+    .catch(() => s3Key);
+};
+
+const renderMarkdownToHtml = (value: unknown) => {
+  const markdown = typeof value === "string" ? value : "";
+  const imageSources = Array.from(
+    new Set(
+      Array.from(markdown.matchAll(IMAGE_MARKDOWN_REGEX))
+        .map((match) => match[2]?.trim() ?? "")
+        .filter(Boolean),
+    ),
+  );
+
+  if (imageSources.length === 0) {
+    return Promise.resolve(DOMPurify.sanitize(converter.makeHtml(markdown)));
+  }
+
+  return Promise.all(
+    imageSources.map((source) =>
+      resolvePreviewUrl(source).then((url) => [source, url] as const),
+    ),
+  ).then((pairs) => {
+    const sourceToUrl = new Map<string, string>(pairs);
+    const resolvedMarkdown = markdown.replace(
+      IMAGE_MARKDOWN_REGEX,
+      (full, alt, src) => {
+        const resolvedUrl = sourceToUrl.get((src as string).trim());
+        if (!resolvedUrl) return full;
+        return `![${alt}](${resolvedUrl})`;
+      },
+    );
+
+    return DOMPurify.sanitize(converter.makeHtml(resolvedMarkdown));
+  });
+};
 
 function Editor() {
   const { id } = useParams();
@@ -48,14 +99,12 @@ function Editor() {
         .get<EditPostResponse>(`/posts/${id}`)
         .then((res) => {
           const payload = res.data.data;
-
-          const htmlContent = DOMPurify.sanitize(
-            converter.makeHtml(payload.content),
-          );
-          setValue("title", payload.title);
-          setValue("author", payload.author);
-          setValue("category", payload.category);
-          setValue("content", htmlContent);
+          return renderMarkdownToHtml(payload.content).then((htmlContent) => {
+            setValue("title", payload.title);
+            setValue("author", payload.author);
+            setValue("category", payload.category);
+            setValue("content", htmlContent);
+          });
         })
         .catch((err) => {
           console.error("데이터를 불러오는데 실패했습니다.", err);
