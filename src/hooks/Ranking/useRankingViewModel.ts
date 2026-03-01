@@ -1,11 +1,10 @@
-import type { RankingResponse } from "@/types/ranking";
 import { buildRanking } from "./buildRanking";
 
 /**
  * 랭킹 관련 데이터를 가공하는 ViewModel 훅
  *
  * 서버에서 내려온 랭킹 데이터를 기반으로 전체 랭킹을 계산한 뒤,
- * 랭킹 화면과 프로필 화면에서 공통으로 사용할 데이터를 제공한다.
+ * 랭킹 화면과 프로필 화면에서 공통으로 사용할 데이터를 제공
  *
  * 처리 흐름
  * 1. buildRanking을 통해 포인트 정렬 및 공동 순위 계산
