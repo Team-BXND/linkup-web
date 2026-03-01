@@ -26,7 +26,7 @@ function Ranking() {
       });
   }, []);
 
-  const { topThree, bottom } = useRankingViewModel(rankingData);
+  const { topThree, bottom } = useRankingViewModel(rankingData.data);
 
   return (
     <S.Container>

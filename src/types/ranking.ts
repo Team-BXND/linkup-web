@@ -4,6 +4,11 @@ export interface Ranking {
   point: number;
 }
 
+type RankedItem = Ranking & {
+  rank: number;
+  displayRank: number;
+};
+
 export interface RankingResponse {
   data: Ranking[];
 }
