@@ -33,10 +33,10 @@ function MyProfile() {
       });
   }, []);
 
-  const { myRank } =
-    rankingData && profileData
-      ? useRankingViewModel(rankingData, profileData.username)
-      : { myRank: undefined };
+  const { myRank } = useRankingViewModel(
+    rankingData ?? [],
+    profileData?.username
+  );
 
   return (
     <S.Container>
@@ -52,7 +52,10 @@ function MyProfile() {
           <ProfileItem subtitle="이메일" content={profileData.email} />
         )}
         {profileData && (
-          <ProfileItem subtitle="답변자 순위" content={myRank?.rank + "위"} />
+          <ProfileItem
+            subtitle="답변자 순위"
+            content={(myRank?.rank ?? "-") + "위"}
+          />
         )}
         {profileData && (
           <ProfileItem subtitle="포인트" content={profileData.point + "P"} />
