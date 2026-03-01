@@ -3,9 +3,11 @@ import { Title } from "../common/Text";
 import { Button } from "../common/Button";
 import ProfileItem from "../MyProfileItem";
 import type { ProfileMyInfo } from "@/types/profile";
+import type { RankingResponse } from "@/types/ranking";
 import { linkupAxios } from "@/libs/customAxios";
 import { useEffect, useState } from "react";
 import { useLogout } from "@/hooks/Auth/useLogout";
+import useRankingViewModel from "@/hooks/Ranking/useRankingViewModel";
 
 interface ProfileResponse {
   status: number;
@@ -14,18 +16,27 @@ interface ProfileResponse {
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileMyInfo>();
+  const [rankingData, setRankingData] = useState<RankingResponse["data"]>();
   const { logout } = useLogout();
 
   useEffect(() => {
-    linkupAxios
-      .get<ProfileResponse>(`/profile`)
+    Promise.all([
+      linkupAxios.get<ProfileResponse>(`/profile`),
+      linkupAxios.get<RankingResponse>(`/ranking`),
+    ])
       .then((response) => {
-        setProfileData(response.data.data);
+        setProfileData(response[0].data.data);
+        setRankingData(response[1].data.data);
       })
       .catch((error) => {
         alert(error);
       });
   }, []);
+
+  const { myRank } = useRankingViewModel(
+    rankingData ?? [],
+    profileData?.username
+  );
 
   return (
     <S.Container>
@@ -43,7 +54,7 @@ function MyProfile() {
         {profileData && (
           <ProfileItem
             subtitle="답변자 순위"
-            content={profileData.ranking + "위"}
+            content={(myRank?.rank ?? "-") + "위"}
           />
         )}
         {profileData && (
