@@ -35,6 +35,21 @@ export const Contents = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  del,
+  s {
+    text-decoration: line-through;
+  }
 `;
 
 export const ButtonWrapper = styled.div`

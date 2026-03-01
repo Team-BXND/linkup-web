@@ -36,6 +36,22 @@ export const Contents = styled.div`
   display: flex;
   flex-wrap: wrap;
   line-height: normal;
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  del,
+  s {
+    text-decoration: line-through;
+  }
+
   img {
     max-width: 40rem;
   }
