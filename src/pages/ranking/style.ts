@@ -16,6 +16,7 @@ export const TopRankSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a,
     0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
 `;
