@@ -50,6 +50,15 @@ function TextEditor({
   );
   const turndownService = useMemo(() => {
     const service = new TurndownService();
+
+    service.addRule("strikethrough", {
+      filter: (node) => {
+        const tag = node.nodeName;
+        return tag === "DEL" || tag === "S" || tag === "STRIKE";
+      },
+      replacement: (content) => `~~${content}~~`,
+    });
+
     service.addRule("image-with-s3-key", {
       filter: "img",
       replacement: (_, node) => {

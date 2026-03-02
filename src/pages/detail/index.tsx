@@ -58,7 +58,9 @@ interface RawDetailResponse {
   data: RawDetail;
 }
 
-const converter = new Showdown.Converter();
+const converter = new Showdown.Converter({
+  strikethrough: true,
+});
 const IMAGE_MARKDOWN_REGEX = /!\[([^\]]*)\]\(([^)]+)\)/g;
 
 interface PreviewUrlResponse {
