@@ -21,12 +21,10 @@ export const TopRankSection = styled.div`
 `;
 
 export const TopRankContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 0.25fr 1fr;
+  align-items: end;
   width: 100%;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 7.5rem;
 `;
 
 export const BottomRankSection = styled.div`
