@@ -23,7 +23,11 @@ import type { RankingResponse } from "@/types/ranking";
  * const { topThree, bottom } = useRankingViewModel(rankingData);
  */
 function useRankingViewModel(rankingData: RankingResponse) {
-  const topThree = rankingData.data.slice(0, 3);
+  const topThreeBase = rankingData.data.slice(0, 3);
+  const podiumOrder = [1, 0, 2];
+  const topThree = podiumOrder
+    .map((index) => topThreeBase[index])
+    .filter(Boolean);
   const bottom = rankingData.data.slice(3);
 
   return { topThree, bottom };
