@@ -24,38 +24,21 @@ interface Detail {
   category: "all" | "code" | "school" | "project";
   content: string;
   like: number;
-  createAt: string;
+  createdAt: string;
   isAccepted: boolean;
   isLike: boolean;
   isAuthor: boolean;
   comment: Comment[];
 }
 
-interface RawDetailComment {
-  commentId: number;
-  author: string;
-  content: string;
-  createdAt: string;
-  isAccepted?: boolean;
-}
-
-interface RawDetail {
-  title: string;
-  author: string;
-  category: "all" | "code" | "school" | "project";
-  content: string;
-  like: number;
-  createAt: string;
-  isAccepted: boolean;
-  isLike: boolean;
-  isAuthor?: boolean;
-  comments?: RawDetailComment[];
-  comment?: RawDetailComment[];
-}
-
-interface RawDetailResponse {
+interface DetailResponse {
   status: number;
-  data: RawDetail;
+  data: Omit<Detail, "createdAt" | "isAuthor" | "comment"> & {
+    createdAt?: string;
+    createAt?: string;
+    isAuthor?: boolean;
+    comment?: Comment[];
+  };
 }
 
 const converter = new Showdown.Converter({
@@ -120,10 +103,10 @@ function Detail() {
   useEffect(() => {
     if (id) {
       linkupAxios
-        .get<RawDetailResponse>(`/posts/${id}`)
+        .get<DetailResponse>(`/posts/${id}`)
         .then((response) => {
           const payload = response.data.data;
-          const comments = payload.comment ?? payload.comments ?? [];
+          const comments = payload.comment ?? [];
 
           return Promise.all([
             renderMarkdownToHtml(payload.content),
@@ -137,7 +120,7 @@ function Detail() {
               category: payload.category,
               content: contentHtml,
               like: payload.like,
-              createAt: payload.createAt,
+              createdAt: payload.createdAt ?? payload.createAt ?? "",
               isAccepted: payload.isAccepted,
               isLike: payload.isLike,
               isAuthor: payload.isAuthor ?? false,
@@ -167,7 +150,7 @@ function Detail() {
             title={detail.title}
             author={detail.author}
             category={detail.category}
-            createdAt={detail.createAt}
+            createdAt={detail.createdAt}
             like={detail.like}
             content={detail.content}
             isLike={detail.isLike}
