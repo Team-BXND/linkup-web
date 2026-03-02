@@ -8,36 +8,17 @@ export const Container = styled.div`
   gap: 1.5rem;
 `;
 
-export const TopRankSection = styled.div`
-  width: 100%;
-
-  gap: 1.5rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a,
-    0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
-`;
-
 export const TopRankContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.25fr 1fr;
   align-items: end;
   width: 100%;
-`;
 
-export const BottomRankSection = styled.div`
-  width: 100%;
-
-  gap: 1.5rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0rem 0.125rem 0.25rem -0.0675rem #0c0c0d1a,
-    0rem 0.125rem 0.25rem -0.0675rem #0c0c0d0d;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap:2rem;
+  }
 `;
 
 interface BottomContainerProps {
